@@ -1,26 +1,19 @@
-import type { Metadata } from 'next';
-import React from 'react';
-import Background from '../components/Background'; // gunakan shim TSX di atas
+import type { Metadata } from "next";
+import "./globals.css";
 
 export const metadata: Metadata = {
-  title: 'Zentra',
-  description: 'IT Consulting',
+  title: "Zentra - Liquid Animation",
+  description: "Beautiful liquid animation effect",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="en">
-      <body
-        style={{
-          margin: 0,
-          minHeight: '100vh',
-          background: 'transparent',
-          overflowX: 'hidden',
-        }}
-      >
-        <Background />
-        <main style={{ position: 'relative', minHeight: '100vh' }}>{children}</main>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
