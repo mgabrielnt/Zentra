@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useLanguage } from '@/components/LanguageContext';
-import HomeSection from '@/section/HomeSection';
+import HomeSection from '@/section/home/page';
 
 
 export default function Home() {
