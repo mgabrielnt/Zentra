@@ -1,9 +1,14 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import Header from '@/components/Header';
+import { LanguageProvider } from '@/components/LanguageContext';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Zentra - Liquid Animation",
-  description: "Beautiful liquid animation effect",
+  title: 'Zentra',
+  description: 'Welcome to ThreemuskIteers',
 };
 
 export default function RootLayout({
@@ -12,8 +17,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" className="scroll-smooth">
+      <body className={inter.className}>
+        <LanguageProvider>
+          <Header />
+          <main>
+            {children}
+          </main>
+        </LanguageProvider>
+      </body>
     </html>
   );
 }
