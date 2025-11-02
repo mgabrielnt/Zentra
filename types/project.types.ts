@@ -5,9 +5,11 @@ export interface ProjectCard {
   description: string;
   image: string;
   category: string;
+  // Customization options
   logoText?: string;
   logoGradient?: string;
   madeByText?: string;
   categoryBadgeColor?: string;
   showMadeBy?: boolean;
+  gradient?: string; // 👈 TAMBAH INI
 }
