@@ -83,11 +83,11 @@ export default function ProjectPage() {
       : projects.filter((project) => project.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-black text-white pt-20">
+    <div className="min-h-screen bg-white">
       {/* Hero Section with LiquidEther Background */}
-      <section className="relative h-[50vh] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
         {/* Background animation */}
-        <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 bg-black">
           <LiquidEther
             colors={['#5227FF', '#FF9FFC', '#B19EEF']}
             mouseForce={100}
@@ -101,16 +101,16 @@ export default function ProjectPage() {
 
         {/* Hero Content */}
         <div className="relative z-20 text-center px-4">
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
+          <h1 className="text-6xl md:text-7xl font-bold tracking-tight text-white">
             See Our Project
           </h1>
         </div>
       </section>
 
-      {/* Filter Navigation */}
-      <section className="bg-white py-4 sticky top-20 z-30 border-b border-gray-200">
+      {/* Filter Navigation - Not sticky, scrolls with content */}
+      <section className="bg-white py-6 border-b border-gray-200">
         <div className="container mx-auto px-4">
-          <div className="flex flex-wrap justify-center gap-6 md:gap-8">
+          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
             {categories.map((category) => (
               <button
                 key={category}
@@ -145,39 +145,39 @@ export default function ProjectPage() {
 // Project Card Component
 function ProjectCard({ project }: { project: ProjectCard }) {
   return (
-    <div className="group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-      {/* Card Background Gradient */}
+    <div className="group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
+      {/* Card Background Gradient - matching the exact colors from the images */}
       <div className="absolute inset-0 bg-gradient-to-br from-cyan-300 via-blue-400 to-indigo-600 opacity-90" />
 
       {/* Content Container */}
       <div className="relative z-10 p-6 flex flex-col h-full">
-        {/* Logo/Badge */}
-        <div className="flex justify-between items-start mb-4">
-          <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md">
-            <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-lg">W</span>
+        {/* Logo/Badge and "Made by" text */}
+        <div className="flex justify-between items-start mb-6">
+          {/* Logo */}
+          <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-md">
+            <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center">
+              <span className="text-white font-bold text-xl">W</span>
             </div>
           </div>
-          <span className="text-white/70 text-xs">Made by STOPHIVA</span>
+          {/* Made by text */}
+          <span className="text-white/80 text-xs font-medium">Made by STOPHIVA</span>
         </div>
 
         {/* Image Placeholder */}
-        <div className="bg-gray-200 rounded-xl mb-4 h-48 flex items-center justify-center">
-          <div className="w-full h-full bg-gradient-to-br from-gray-300 to-gray-400 rounded-xl" />
+        <div className="bg-gray-300 rounded-2xl mb-6 h-48 flex items-center justify-center overflow-hidden">
+          <div className="w-full h-full bg-gradient-to-br from-gray-300 to-gray-400" />
         </div>
 
         {/* Text Content */}
-        <div className="flex-grow">
-          <h3 className="text-gray-800 font-semibold mb-1">{project.title}</h3>
-          <p className="text-gray-800 font-bold text-lg mb-2">
-            {project.price}
-          </p>
-          <p className="text-gray-600 text-sm">{project.description}</p>
+        <div className="flex-grow space-y-2">
+          <h3 className="text-gray-900 font-semibold text-base">{project.title}</h3>
+          <p className="text-gray-900 font-bold text-xl">{project.price}</p>
+          <p className="text-gray-700 text-sm">{project.description}</p>
         </div>
 
         {/* Footer Badge */}
-        <div className="mt-4 pt-4">
-          <span className="inline-block bg-blue-900 text-white px-4 py-2 rounded-full text-sm font-bold">
+        <div className="mt-6 pt-4">
+          <span className="inline-block bg-blue-900 text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-md">
             STOPHIVA
           </span>
         </div>
