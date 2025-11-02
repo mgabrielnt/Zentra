@@ -13,12 +13,12 @@ export default function Header() {
   const pathname = usePathname();
 
   const navItems = [
-    { label: { en: 'HOME', id: 'BERANDA' }, href: '/section/home', type: 'route' },
-    { label: { en: 'PROJECT', id: 'PROYEK' }, href: '/section/project', type: 'route' },
-    { label: { en: 'SERVICE', id: 'LAYANAN' }, href: '#service', type: 'anchor' },
-    { label: { en: 'ABOUT US', id: 'TENTANG KAMI' }, href: '#about', type: 'anchor' },
-    { label: { en: 'INSIGHT', id: 'WAWASAN' }, href: '#insight', type: 'anchor' },
-    { label: { en: 'COLLABORATION', id: 'KOLABORASI' }, href: '#collaboration', type: 'anchor' }
+    { label: { en: 'HOME', id: 'BERANDA' }, href: '/home', type: 'route' },
+    { label: { en: 'PROJECT', id: 'PROYEK' }, href: '/project', type: 'route' },
+    { label: { en: 'SERVICE', id: 'LAYANAN' }, href: '/service', type: 'anchor' },
+    { label: { en: 'ABOUT US', id: 'TENTANG KAMI' }, href: '/aboutus', type: 'anchor' },
+    { label: { en: 'INSIGHT', id: 'WAWASAN' }, href: '/insight', type: 'anchor' },
+    { label: { en: 'COLLABORATION', id: 'KOLABORASI' }, href: '/collaboration', type: 'anchor' }
   ];
 
   useEffect(() => {
