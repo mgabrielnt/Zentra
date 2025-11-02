@@ -1,0 +1,65 @@
+import { ProjectCard } from '@/types/project.types';
+
+export const projects: ProjectCard[] = [
+  {
+    id: 1,
+    title: 'Waskita Project',
+    price: '$0',
+    description: 'Educational platform for Waskita.',
+    image: '/project/waskita/Waskita by STOPHIVA.png',
+    category: 'EDUCATION',
+    logoText: 'W',
+    logoGradient: 'from-pink-500 to-red-500',
+    madeByText: 'Made by STOPHIVA',
+    categoryBadgeColor: 'bg-blue-900',
+    showMadeBy: true,
+  },
+  {
+    id: 2,
+    title: 'Company Dashboard',
+    price: '$0',
+    description: 'Modern dashboard interface.',
+    image: '/placeholder-image.jpg',
+    category: 'COMPANY PROFILE',
+    logoText: 'C',
+    logoGradient: 'from-blue-500 to-cyan-500',
+    madeByText: 'Astra',
+    categoryBadgeColor: 'bg-purple-900',
+    showMadeBy: true,
+  },
+  {
+    id: 3,
+    title: 'Waskita Project',
+    price: '$0',
+    description: 'Educational platform for Waskita.',
+    image: '/project/waskita/Waskita by STOPHIVA.png',
+    category: 'EDUCATION',
+    logoText: 'W',
+    logoGradient: 'from-pink-500 to-red-500',
+    madeByText: 'Made by STOPHIVA',
+    categoryBadgeColor: 'bg-blue-900',
+    showMadeBy: true,
+  },
+  {
+    id: 4,
+    title: 'Company Dashboard',
+    price: '$0',
+    description: 'Modern dashboard interface.',
+    image: '/placeholder-image.jpg',
+    category: 'COMPANY PROFILE',
+    logoText: 'C',
+    logoGradient: 'from-blue-500 to-cyan-500',
+    madeByText: 'Astra',
+    categoryBadgeColor: 'bg-purple-900',
+    showMadeBy: true,
+  },
+  // ... project lainnya
+];
+
+export const categories = [
+  'SHOW ALL',
+  'EDUCATION',
+  'COMPANY PROFILE',
+  'DASHBOARD',
+  'LANDING PAGES',
+];
