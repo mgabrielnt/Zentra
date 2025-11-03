@@ -1,16 +1,16 @@
 export interface WaskitaProject {
-  id: string; // Changed from integer to string
+  id: string | number; // Changed from integer to string
   title: string;
   category: string;
   description: string;
-  image: string;
+  image: string ;
   backgroundImage: string;
   overview: {
     title: string;
     paragraphs: string[];
   };
   gallery: {
-    id: number;
+    id: number | string;
     image: string;
     alt: string;
   }[];

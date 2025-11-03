@@ -1,5 +1,5 @@
 export interface ProjectCard {
-  id: number;
+  id: number | string ;
   title: string;
   price: string;
   description: string;
