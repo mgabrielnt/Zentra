@@ -5,33 +5,31 @@ import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
 
 type LayoutTextFlipProps = {
-  text?: string;
-  words?: string[];
+  text: string;
+  words: string[];
   duration?: number;
-  gradientClass?: string; // e.g. "from-[#B19EEF] via-[#FF9FFC] to-[#5227FF]"
+  gradientClass?: string;
   blend?: boolean;
   glass?: boolean;
 };
 
 export const LayoutTextFlip = ({
-  text = "We build",
-  words = ["Web & Mobile Apps", "UI/UX Systems", "Headless Commerce", "AI Solutions"],
-  duration = 3000,
-  gradientClass = "from-[#B19EEF] via-[#FF9FFC] to-[#5227FF]",
+  text,
+  words,
+  duration = 2600,
+  gradientClass = "from-white via-white to-white",
   blend = true,
   glass = true,
 }: LayoutTextFlipProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Stabilize inputs
   const safeWords = useMemo(
     () => (Array.isArray(words) && words.length > 0 ? words : ["Amazing Products"]),
     [words]
   );
   const wordCount = safeWords.length;
-  const durationMs = Math.max(600, duration ?? 3000); // guard biar ga terlalu cepat
+  const durationMs = Math.max(600, duration ?? 2600);
 
-  // Interval handler (browser-friendly typing)
   const intervalRef = useRef<number | null>(null);
 
   const start = useCallback(() => {
@@ -43,7 +41,6 @@ export const LayoutTextFlip = ({
     }, durationMs);
   }, [wordCount, durationMs]);
 
-  // Satu effect saja dengan dependency size konstan (1 elemen)
   useEffect(() => {
     start();
     return () => {
@@ -55,7 +52,6 @@ export const LayoutTextFlip = ({
 
   return (
     <>
-      {/* Teks kiri: gradient + blend supaya menyatu di LiquidEther */}
       <motion.span
         layoutId="subtext"
         className={cn(
@@ -69,7 +65,6 @@ export const LayoutTextFlip = ({
         {text}
       </motion.span>
 
-      {/* Chip kata flip: glass/frosted */}
       <motion.span
         layout
         className={cn(
