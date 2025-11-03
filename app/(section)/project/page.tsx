@@ -2,77 +2,8 @@
 
 import { useState } from 'react';
 import LiquidEther from '@/components/LiquidEther';
-import Image from 'next/image';
-
-// Types
-interface ProjectCard {
-  id: number;
-  title: string;
-  price: string;
-  description: string;
-  image: string;
-  category: string;
-}
-
-// Sample project data
-const projects: ProjectCard[] = [
-  {
-    id: 1,
-    title: 'Text',
-    price: '$0',
-    description: 'Body text.',
-    image: '/placeholder-image.jpg',
-    category: 'EDUCATION',
-  },
-  {
-    id: 2,
-    title: 'Text',
-    price: '$0',
-    description: 'Body text.',
-    image: '/placeholder-image.jpg',
-    category: 'COMPANY PROFILE',
-  },
-  {
-    id: 3,
-    title: 'Text',
-    price: '$0',
-    description: 'Body text.',
-    image: '/placeholder-image.jpg',
-    category: 'DASHBOARD',
-  },
-  {
-    id: 4,
-    title: 'Text',
-    price: '$0',
-    description: 'Body text.',
-    image: '/placeholder-image.jpg',
-    category: 'LANDING PAGES',
-  },
-  {
-    id: 5,
-    title: 'Text',
-    price: '$0',
-    description: 'Body text.',
-    image: '/placeholder-image.jpg',
-    category: 'EDUCATION',
-  },
-  {
-    id: 6,
-    title: 'Text',
-    price: '$0',
-    description: 'Body text.',
-    image: '/placeholder-image.jpg',
-    category: 'COMPANY PROFILE',
-  },
-];
-
-const categories = [
-  'SHOW ALL',
-  'EDUCATION',
-  'COMPANY PROFILE',
-  'DASHBOARD',
-  'LANDING PAGES',
-];
+import ProjectCard from '@/components/project/ProjectCard';
+import { projects, categories } from '@/data/project/mockup.projects.data';
 
 export default function ProjectPage() {
   const [activeCategory, setActiveCategory] = useState('SHOW ALL');
@@ -83,42 +14,51 @@ export default function ProjectPage() {
       : projects.filter((project) => project.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section with LiquidEther Background */}
-      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden">
-        {/* Background animation */}
-        <div className="absolute inset-0 z-0 bg-black">
-          <LiquidEther
-            colors={['#5227FF', '#FF9FFC', '#B19EEF']}
-            mouseForce={100}
-            cursorSize={100}
-            autoDemo={true}
-          />
+    <div className="min-h-screen bg-black">
+      {/* ====================== HERO SECTION ====================== */}
+      <section className="relative h-[85vh] flex items-center justify-center overflow-hidden bg-black">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,black_0%,black_60%,transparent_100%)] [mask-repeat:no-repeat] [mask-size:100%_100%]">
+            <LiquidEther
+              colors={['#5227FF', '#FF9FFC', '#B19EEF']}
+              mouseForce={100}
+              cursorSize={100}
+              autoDemo={true}
+            />
+          </div>
+          {/* Radial glow */}
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_0%,rgba(124,58,237,0.3)_0%,rgba(0,0,0,0)_60%)]" />
         </div>
 
-        {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-black/30 z-10" />
-
-        {/* Hero Content */}
         <div className="relative z-20 text-center px-4">
-          <h1 className="text-6xl md:text-7xl font-bold tracking-tight text-white">
+          <h1 className="text-6xl md:text-7xl font-bold tracking-tight text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]">
             See Our Project
           </h1>
         </div>
       </section>
 
-      {/* Filter Navigation - Not sticky, scrolls with content */}
-      <section className="bg-white py-6 border-b border-gray-200">
-        <div className="container mx-auto px-4">
+      {/* ====================== FILTER NAVIGATION ====================== */}
+      <section className="relative bg-[#0B0B0B] px-0 pb-6 pt-8">
+        {/* seam dari hero → masuk ke #0B0B0B */}
+        <div className="pointer-events-none absolute inset-x-0 -top-10 h-10 bg-gradient-to-t from-[#0B0B0B] to-transparent" />
+
+        {/* Purple glow di top */}
+        <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[42rem] -translate-x-1/2 rounded-full bg-purple-500/15 blur-3xl" />
+
+        {/* Side glows untuk ambient atmosphere */}
+        <div className="pointer-events-none absolute top-20 left-[15%] h-56 w-[36rem] rounded-full bg-fuchsia-500/10 blur-3xl" />
+        <div className="pointer-events-none absolute top-20 right-[15%] h-56 w-[36rem] rounded-full bg-violet-500/10 blur-3xl" />
+
+        <div className="container mx-auto px-4 py-4 relative z-10">
           <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
             {categories.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`text-sm md:text-base font-bold tracking-wide transition-colors ${
+                className={`text-sm md:text-base font-bold tracking-wide transition-all duration-300 ${
                   activeCategory === category
-                    ? 'text-blue-600'
-                    : 'text-black hover:text-blue-600'
+                    ? 'text-purple-300 scale-110 drop-shadow-[0_0_12px_rgba(216,180,254,0.6)]'
+                    : 'text-white/70 hover:text-purple-200 hover:scale-105'
                 }`}
               >
                 {category}
@@ -128,9 +68,17 @@ export default function ProjectPage() {
         </div>
       </section>
 
-      {/* Projects Grid */}
-      <section className="bg-gray-50 py-16 px-4 min-h-screen">
-        <div className="container mx-auto max-w-7xl">
+      {/* ====================== PROJECTS GRID ====================== */}
+      <section className="relative bg-[#0B0B0B] px-0 pb-28 pt-2">
+        {/* seam continuation dari filter section */}
+        <div className="pointer-events-none absolute inset-x-0 -top-10 h-10 bg-gradient-to-t from-[#0B0B0B] to-transparent" />
+
+        {/* Ambient purple glows - very subtle */}
+        <div className="pointer-events-none absolute top-32 left-1/4 h-80 w-[40rem] rounded-full bg-purple-500/8 blur-3xl" />
+        <div className="pointer-events-none absolute top-64 right-1/4 h-72 w-[36rem] rounded-full bg-fuchsia-500/6 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-40 left-1/2 h-64 w-[32rem] -translate-x-1/2 rounded-full bg-violet-500/5 blur-3xl" />
+        
+        <div className="container mx-auto max-w-7xl px-4 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {filteredProjects.map((project) => (
               <ProjectCard key={project.id} project={project} />
@@ -138,50 +86,6 @@ export default function ProjectPage() {
           </div>
         </div>
       </section>
-    </div>
-  );
-}
-
-// Project Card Component
-function ProjectCard({ project }: { project: ProjectCard }) {
-  return (
-    <div className="group relative bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300">
-      {/* Card Background Gradient - matching the exact colors from the images */}
-      <div className="absolute inset-0 bg-gradient-to-br from-cyan-300 via-blue-400 to-indigo-600 opacity-90" />
-
-      {/* Content Container */}
-      <div className="relative z-10 p-6 flex flex-col h-full">
-        {/* Logo/Badge and "Made by" text */}
-        <div className="flex justify-between items-start mb-6">
-          {/* Logo */}
-          <div className="w-14 h-14 bg-white rounded-full flex items-center justify-center shadow-md">
-            <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-red-500 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold text-xl">W</span>
-            </div>
-          </div>
-          {/* Made by text */}
-          <span className="text-white/80 text-xs font-medium">Made by STOPHIVA</span>
-        </div>
-
-        {/* Image Placeholder */}
-        <div className="bg-gray-300 rounded-2xl mb-6 h-48 flex items-center justify-center overflow-hidden">
-          <div className="w-full h-full bg-gradient-to-br from-gray-300 to-gray-400" />
-        </div>
-
-        {/* Text Content */}
-        <div className="flex-grow space-y-2">
-          <h3 className="text-gray-900 font-semibold text-base">{project.title}</h3>
-          <p className="text-gray-900 font-bold text-xl">{project.price}</p>
-          <p className="text-gray-700 text-sm">{project.description}</p>
-        </div>
-
-        {/* Footer Badge */}
-        <div className="mt-6 pt-4">
-          <span className="inline-block bg-blue-900 text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-md">
-            STOPHIVA
-          </span>
-        </div>
-      </div>
     </div>
   );
 }

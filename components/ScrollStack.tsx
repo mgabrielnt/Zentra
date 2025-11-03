@@ -1,20 +1,29 @@
-// D:\zentra\components\ScrollStack.tsx
 "use client";
 
-import React, { ReactNode, useLayoutEffect, useRef, useCallback } from 'react';
-import Lenis from 'lenis';
+import React, {
+  ReactNode,
+  useLayoutEffect,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
+import Lenis from "lenis";
 
+// ----- Types -----
 export interface ScrollStackItemProps {
   itemClassName?: string;
   children: ReactNode;
 }
 
-export const ScrollStackItem: React.FC<ScrollStackItemProps> = ({ children, itemClassName = '' }) => (
+export const ScrollStackItem: React.FC<ScrollStackItemProps> = ({
+  children,
+  itemClassName = "",
+}) => (
   <div
-    className={`scroll-stack-card relative w-full min-h-[28rem] md:min-h-[36rem] my-8 p-14 md:p-16 rounded-[40px] shadow-[0_0_30px_rgba(0,0,0,0.12)] box-border origin-top will-change-transform ${itemClassName}`.trim()}
+    className={`scroll-stack-card relative w-full min-h-[24rem] md:min-h-[36rem] my-2 md:my-8 px-4 py-8 sm:px-6 sm:py-10 md:p-16 rounded-3xl md:rounded-[40px] shadow-[0_0_30px_rgba(0,0,0,0.12)] box-border origin-top will-change-transform ${itemClassName}`.trim()}
     style={{
-      backfaceVisibility: 'hidden',
-      transformStyle: 'preserve-3d'
+      backfaceVisibility: "hidden",
+      transformStyle: "preserve-3d",
     }}
   >
     {children}
@@ -30,13 +39,22 @@ interface ScrollStackProps {
   stackPosition?: string | number;
   scaleEndPosition?: string | number;
   baseScale?: number;
-  scaleDuration?: number;
+  scaleDuration?: number; // reserved
   rotationAmount?: number;
-  blurAmount?: number;
+  blurAmount?: number; // disarankan 0 untuk performa
   useWindowScroll?: boolean;
   onStackComplete?: () => void;
 }
 
+// Hindari any untuk Lenis
+interface LenisLike {
+  raf: (t: number) => void;
+  readonly scroll: number;
+  destroy: () => void;
+}
+type LenisCtor = new (options?: Record<string, unknown>) => LenisLike;
+
+// ----- Component -----
 const ScrollStack: React.FC<ScrollStackProps> = ({
   children,
   className = "",
@@ -55,37 +73,55 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
   const scrollerRef = useRef<HTMLDivElement>(null);
   const stackCompletedRef = useRef(false);
   const rafIdRef = useRef<number | null>(null);
-  const lenisRef = useRef<Lenis | null>(null);
+  const lenisRef = useRef<LenisLike | null>(null);
 
   const cardsRef = useRef<HTMLElement[]>([]);
-  const lastTransformsRef = useRef(new Map<number, any>());
+  interface TransformState {
+    translateY: number;
+    scale: number;
+    rotation: number;
+    blur: number;
+  }
+  // ✅ Map disimpan di ref dan selalu diakses via .current
+  const lastTransformsRef = useRef<Map<number, TransformState>>(new Map());
 
-  // === NEW: cache measurement supaya tidak forced reflow tiap frame
+  // Cached measurement
   const measuredTopsRef = useRef<number[]>([]);
   const endTopRef = useRef<number>(0);
   const containerHRef = useRef<number>(0);
-
-  // untuk re-measure debounce
+  const dprRef = useRef<number>(1);
   const remeasureScheduledRef = useRef(false);
 
-  const parsePercentage = useCallback((value: string | number, containerHeight: number) => {
-    if (typeof value === "string" && value.includes("%")) {
-      return (parseFloat(value) / 100) * containerHeight;
-    }
-    return parseFloat(value as string);
-  }, []);
+  const useFilter = blurAmount > 0;
+
+  const parsePercentage = useCallback(
+    (value: string | number, containerHeight: number) => {
+      if (typeof value === "string" && value.includes("%")) {
+        return (parseFloat(value) / 100) * containerHeight;
+      }
+      return Number(value);
+    },
+    []
+  );
 
   const getScrollY = useCallback(() => {
-    // Lenis menyimpan virtual scroll; lebih stabil pakai nilai dari lenis ketika ada
     if (lenisRef.current) return lenisRef.current.scroll;
     return useWindowScroll ? window.scrollY : scrollerRef.current?.scrollTop || 0;
   }, [useWindowScroll]);
 
   const measure = useCallback(() => {
+    dprRef.current = window.devicePixelRatio || 1;
+
     const scroller = scrollerRef.current;
     const cards = (useWindowScroll
-      ? (document.querySelectorAll(".scroll-stack-card") as NodeListOf<HTMLElement>)
-      : (scroller?.querySelectorAll(".scroll-stack-card") as NodeListOf<HTMLElement> | null)) || [];
+      ? (document.querySelectorAll(
+          ".scroll-stack-card"
+        ) as NodeListOf<HTMLElement>)
+      : (scroller?.querySelectorAll(
+          ".scroll-stack-card"
+        ) as NodeListOf<HTMLElement> | null)) as
+      | NodeListOf<HTMLElement>
+      | [];
 
     cardsRef.current = Array.from(cards);
 
@@ -96,20 +132,20 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
 
     const currentScroll = getScrollY();
 
-    // hitung posisi top absolut (sekali)
+    // Absolut top (window-mode) / relatif (scroller-mode)
     measuredTopsRef.current = cardsRef.current.map((el) => {
       if (useWindowScroll) {
         const rect = el.getBoundingClientRect();
         return rect.top + currentScroll;
       }
-      // relatif terhadap scroller
       return el.offsetTop;
     });
 
-    // end marker
+    // End marker
     const endEl = useWindowScroll
       ? (document.querySelector(".scroll-stack-end") as HTMLElement | null)
       : (scroller?.querySelector(".scroll-stack-end") as HTMLElement | null);
+
     if (endEl) {
       if (useWindowScroll) {
         const rect = endEl.getBoundingClientRect();
@@ -123,55 +159,60 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
   }, [getScrollY, useWindowScroll]);
 
   const calculateProgress = useCallback((v: number, start: number, end: number) => {
-    if (v < start) return 0;
-    if (v > end) return 1;
+    if (v <= start) return 0;
+    if (v >= end) return 1;
     return (v - start) / (end - start);
   }, []);
 
   const updateCardTransforms = useCallback(() => {
-    if (!cardsRef.current.length) return;
+    const cards = cardsRef.current;
+    if (!cards.length) return;
 
     const scrollTop = getScrollY();
     const containerHeight = containerHRef.current;
     const stackPosPx = parsePercentage(stackPosition, containerHeight);
     const scaleEndPosPx = parsePercentage(scaleEndPosition, containerHeight);
     const endTop = endTopRef.current;
+    const dpr = dprRef.current;
 
-    const cache = lastTransformsRef.current;
+    // Quantizer anti-jitter
+    const q = (v: number, precision = 1) =>
+      Math.round(v * dpr * precision) / (dpr * precision);
 
-    cardsRef.current.forEach((card, i) => {
+    // index kartu teratas (di depan)
+    let topIdx = 0;
+    for (let j = 0; j < cards.length; j++) {
+      const jTop = measuredTopsRef.current[j] ?? 0;
+      const jStart = jTop - stackPosPx - itemStackDistance * j;
+      if (scrollTop >= jStart) topIdx = j;
+    }
+
+    for (let i = 0; i < cards.length; i++) {
+      const card = cards[i];
       const cardTop = measuredTopsRef.current[i] ?? 0;
 
-      // waktu trigger scale
+      // Scale timing
       const triggerStart = cardTop - stackPosPx - itemStackDistance * i;
       const triggerEnd = cardTop - scaleEndPosPx;
 
-      // pin range
+      // Pin timing
       const pinStart = cardTop - stackPosPx - itemStackDistance * i;
       const pinEnd = endTop - containerHeight / 2;
 
-      // scale & rot
+      // Scale & rotation
       const scaleProgress = calculateProgress(scrollTop, triggerStart, triggerEnd);
       const targetScale = baseScale + i * itemScale;
       const scale = 1 - scaleProgress * (1 - targetScale);
       const rotation = rotationAmount ? i * rotationAmount * scaleProgress : 0;
 
-      // blur (hanya kartu di belakang top-card)
+      // Depth blur (di belakang top-card) — disarankan 0 untuk perf
       let blur = 0;
-      if (blurAmount) {
-        let topIdx = 0;
-        for (let j = 0; j < cardsRef.current.length; j++) {
-          const jTop = measuredTopsRef.current[j] ?? 0;
-          const jStart = jTop - stackPosPx - itemStackDistance * j;
-          if (scrollTop >= jStart) topIdx = j;
-        }
-        if (i < topIdx) {
-          const depth = topIdx - i;
-          blur = Math.max(0, depth * blurAmount);
-        }
+      if (useFilter && i < topIdx) {
+        const depth = topIdx - i;
+        blur = Math.max(0, depth * blurAmount);
       }
 
-      // translateY (pin logic)
+      // TranslateY (pin)
       let translateY = 0;
       const isPinned = scrollTop >= pinStart && scrollTop <= pinEnd;
 
@@ -181,36 +222,40 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
         translateY = pinEnd - cardTop + stackPosPx + itemStackDistance * i;
       }
 
-      const next = {
-        translateY: Math.round(translateY * 100) / 100,
-        scale: Math.round(scale * 1000) / 1000,
-        rotation: Math.round(rotation * 100) / 100,
-        blur: Math.round(blur * 100) / 100,
+      // Quantize
+      const next: TransformState = {
+        translateY: q(translateY, 1),
+        scale: q(scale, 1000),
+        rotation: q(rotation, 100),
+        blur: Math.max(0, Math.round(blur)),
       };
 
-      const prev = cache.get(i);
+      const prev = lastTransformsRef.current.get(i);
       const changed =
         !prev ||
-        Math.abs(prev.translateY - next.translateY) > 0.1 ||
-        Math.abs(prev.scale - next.scale) > 0.001 ||
-        Math.abs(prev.rotation - next.rotation) > 0.1 ||
-        Math.abs(prev.blur - next.blur) > 0.1;
+        Math.abs(prev.translateY - next.translateY) > 0.01 ||
+        Math.abs(prev.scale - next.scale) > 0.0005 ||
+        Math.abs(prev.rotation - next.rotation) > 0.05 ||
+        prev.blur !== next.blur;
 
       if (changed) {
-        // cukup satu write per frame
         const transform = `translate3d(0, ${next.translateY}px, 0) scale(${next.scale}) rotate(${next.rotation}deg)`;
         if (card.style.transform !== transform) {
           card.style.transform = transform;
         }
-        const filter = next.blur > 0 ? `blur(${next.blur}px)` : "";
-        if (card.style.filter !== filter) {
-          card.style.filter = filter;
+
+        if (useFilter) {
+          const filter = `blur(${next.blur}px)`;
+          if (card.style.filter !== filter) {
+            card.style.filter = filter;
+          }
         }
-        cache.set(i, next);
+
+        lastTransformsRef.current.set(i, next);
       }
 
-      // panggil onStackComplete saat kartu terakhir ter-pin
-      if (i === cardsRef.current.length - 1) {
+      // onStackComplete saat kartu terakhir ter-pin
+      if (i === cards.length - 1) {
         const inView = scrollTop >= pinStart && scrollTop <= pinEnd;
         if (inView && !stackCompletedRef.current) {
           stackCompletedRef.current = true;
@@ -219,7 +264,7 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
           stackCompletedRef.current = false;
         }
       }
-    });
+    }
   }, [
     getScrollY,
     parsePercentage,
@@ -232,9 +277,10 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
     blurAmount,
     onStackComplete,
     calculateProgress,
+    useFilter,
   ]);
 
-  // === LENIS setup dengan loop rAF tunggal (hindari double-callback)
+  // Lenis setup dengan rAF tunggal
   const startRaf = useCallback(() => {
     const loop = (t: number) => {
       if (lenisRef.current) {
@@ -254,11 +300,13 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
   }, []);
 
   const setupLenis = useCallback(() => {
+    const LenisClass = Lenis as unknown as LenisCtor;
+
     if (useWindowScroll) {
-      // window mode
-      const lenis = new Lenis({
+      const lenis = new LenisClass({
         duration: 1.0,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        easing: (t: unknown) =>
+          Math.min(1, 1.001 - Math.pow(2, -10 * Number(t))),
         smoothWheel: true,
         syncTouch: true,
         syncTouchLerp: 0.08,
@@ -269,15 +317,15 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
       return;
     }
 
-    // scroller mode
     const scroller = scrollerRef.current;
     if (!scroller) return;
 
-    const lenis = new Lenis({
+    const lenis = new LenisClass({
       wrapper: scroller,
       content: scroller.querySelector(".scroll-stack-inner") as HTMLElement,
       duration: 1.0,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      easing: (t: unknown) =>
+        Math.min(1, 1.001 - Math.pow(2, -10 * Number(t))),
       smoothWheel: true,
       syncTouch: true,
       syncTouchLerp: 0.08,
@@ -289,16 +337,20 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
     startRaf();
   }, [startRaf, useWindowScroll]);
 
-  // === mount / unmount
+  // Mount / unmount
   useLayoutEffect(() => {
     const scrollerOk = useWindowScroll || !!scrollerRef.current;
     if (!scrollerOk) return;
 
-    // inisialisasi kartu
+    // Init card styles
     const cards = Array.from(
       useWindowScroll
-        ? (document.querySelectorAll(".scroll-stack-card") as NodeListOf<HTMLElement>)
-        : (scrollerRef.current?.querySelectorAll(".scroll-stack-card") as NodeListOf<HTMLElement> | null) || []
+        ? (document.querySelectorAll(
+            ".scroll-stack-card"
+          ) as NodeListOf<HTMLElement>)
+        : (scrollerRef.current?.querySelectorAll(
+            ".scroll-stack-card"
+          ) as NodeListOf<HTMLElement> | null) || []
     ) as HTMLElement[];
 
     cardsRef.current = cards;
@@ -308,17 +360,16 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
       if (i < cards.length - 1) {
         card.style.marginBottom = `${itemDistance}px`;
       }
-      card.style.willChange = "transform, filter";
+      card.style.willChange = "transform";
       card.style.transformOrigin = "top center";
       card.style.backfaceVisibility = "hidden";
-      // jangan set transform di sini (biar tidak buat layer extra saat idle)
     });
 
     measure();
     setupLenis();
     updateCardTransforms();
 
-    // re-measure on resize / font loads / images
+    // Re-measure on resize
     const onResize = () => {
       if (remeasureScheduledRef.current) return;
       remeasureScheduledRef.current = true;
@@ -355,17 +406,19 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
     updateCardTransforms,
   ]);
 
-  // === wrapper class & inline style dipisah agar window-mode tidak bikin layer extra
-  const wrapperClass =
-    "relative w-full " +
-    (useWindowScroll ? "" : "h-full overflow-y-auto overflow-x-visible ") +
-    className;
+  // Wrapper class & style
+  const wrapperClass = useMemo(
+    () =>
+      (
+        "relative w-full " +
+        (useWindowScroll ? "" : "h-full overflow-y-auto overflow-x-visible ") +
+        className
+      ).trim(),
+    [useWindowScroll, className]
+  );
 
   const wrapperStyle: React.CSSProperties = useWindowScroll
-    ? {
-        // window mode: hindari style yang memicu compositor layer
-        overscrollBehavior: "auto",
-      }
+    ? { overscrollBehavior: "auto" }
     : {
         overscrollBehavior: "contain",
         WebkitOverflowScrolling: "touch",
@@ -374,7 +427,7 @@ const ScrollStack: React.FC<ScrollStackProps> = ({
       };
 
   return (
-    <div className={wrapperClass.trim()} ref={scrollerRef} style={wrapperStyle}>
+    <div className={wrapperClass} ref={scrollerRef} style={wrapperStyle}>
       <div className="scroll-stack-inner pt-[20vh] px-20 pb-[50rem] min-h-screen">
         {children}
         {/* spacer untuk melepaskan pin terakhir */}
