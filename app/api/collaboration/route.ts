@@ -30,7 +30,7 @@ const safe = (val?: string) => (val && val.trim().length ? val : "-");
 
 export async function POST(req: NextRequest) {
   try {
-    // 🔹 BACA ENV DI DALAM HANDLER
+    // 🔹 Baca ENV
     const CONTACT_EMAIL =
       process.env.CONTACT_EMAIL ||
       process.env.ZENTRA_GMAIL_USER ||
@@ -40,16 +40,19 @@ export async function POST(req: NextRequest) {
       process.env.CONTACT_EMAIL_APP_PASSWORD ||
       process.env.ZENTRA_GMAIL_APP_PASSWORD;
 
-    // 🔹 DEBUG – LIHAT DI TERMINAL (bukan di browser)
+    // 🔹 Log ke server (cek di Logs Railway)
     console.log("CONTACT_EMAIL:", CONTACT_EMAIL);
     console.log(
       "CONTACT_EMAIL_APP_PASSWORD set?",
       !!CONTACT_EMAIL_APP_PASSWORD,
     );
 
-    if (!CONTACT_EMAIL_APP_PASSWORD) {
+    if (!CONTACT_EMAIL || !CONTACT_EMAIL_APP_PASSWORD) {
       return NextResponse.json(
-        { ok: false, error: "Email credentials are not configured on the server." },
+        {
+          ok: false,
+          error: "Email credentials are not configured on the server.",
+        },
         { status: 500 },
       );
     }
@@ -119,58 +122,28 @@ ${message}
   <h2 style="font-size:16px;margin:16px 0 4px;">Contact</h2>
   <table style="border-collapse:collapse;width:100%;max-width:640px;">
     <tbody>
-      <tr>
-        <td style="padding:4px 8px;width:160px;font-weight:600;">Name</td>
-        <td style="padding:4px 8px;">${name}</td>
-      </tr>
-      <tr>
-        <td style="padding:4px 8px;font-weight:600;">Work email</td>
-        <td style="padding:4px 8px;">${email}</td>
-      </tr>
-      <tr>
-        <td style="padding:4px 8px;font-weight:600;">Company</td>
-        <td style="padding:4px 8px;">${company}</td>
-      </tr>
-      <tr>
-        <td style="padding:4px 8px;font-weight:600;">Role</td>
-        <td style="padding:4px 8px;">${safe(role)}</td>
-      </tr>
+      <tr><td style="padding:4px 8px;width:160px;font-weight:600;">Name</td><td style="padding:4px 8px;">${name}</td></tr>
+      <tr><td style="padding:4px 8px;font-weight:600;">Work email</td><td style="padding:4px 8px;">${email}</td></tr>
+      <tr><td style="padding:4px 8px;font-weight:600;">Company</td><td style="padding:4px 8px;">${company}</td></tr>
+      <tr><td style="padding:4px 8px;font-weight:600;">Role</td><td style="padding:4px 8px;">${safe(role)}</td></tr>
     </tbody>
   </table>
 
   <h2 style="font-size:16px;margin:20px 0 4px;">Context</h2>
   <table style="border-collapse:collapse;width:100%;max-width:640px;">
     <tbody>
-      <tr>
-        <td style="padding:4px 8px;width:160px;font-weight:600;">Website</td>
-        <td style="padding:4px 8px;">${safe(website)}</td>
-      </tr>
-      <tr>
-        <td style="padding:4px 8px;font-weight:600;">WhatsApp</td>
-        <td style="padding:4px 8px;">${safe(phone)}</td>
-      </tr>
-      <tr>
-        <td style="padding:4px 8px;font-weight:600;">Preferred channel</td>
-        <td style="padding:4px 8px;">${safe(channel)}</td>
-      </tr>
+      <tr><td style="padding:4px 8px;width:160px;font-weight:600;">Website</td><td style="padding:4px 8px;">${safe(website)}</td></tr>
+      <tr><td style="padding:4px 8px;font-weight:600;">WhatsApp</td><td style="padding:4px 8px;">${safe(phone)}</td></tr>
+      <tr><td style="padding:4px 8px;font-weight:600;">Preferred channel</td><td style="padding:4px 8px;">${safe(channel)}</td></tr>
     </tbody>
   </table>
 
   <h2 style="font-size:16px;margin:20px 0 4px;">Focus & scope</h2>
   <table style="border-collapse:collapse;width:100%;max-width:640px;">
     <tbody>
-      <tr>
-        <td style="padding:4px 8px;width:160px;font-weight:600;">Focus areas</td>
-        <td style="padding:4px 8px;">${focusReadable}</td>
-      </tr>
-      <tr>
-        <td style="padding:4px 8px;font-weight:600;">Estimated budget (IDR)</td>
-        <td style="padding:4px 8px;">${safe(budget)}</td>
-      </tr>
-      <tr>
-        <td style="padding:4px 8px;font-weight:600;">Timeline</td>
-        <td style="padding:4px 8px;">${safe(timeline)}</td>
-      </tr>
+      <tr><td style="padding:4px 8px;width:160px;font-weight:600;">Focus areas</td><td style="padding:4px 8px;">${focusReadable}</td></tr>
+      <tr><td style="padding:4px 8px;font-weight:600;">Estimated budget (IDR)</td><td style="padding:4px 8px;">${safe(budget)}</td></tr>
+      <tr><td style="padding:4px 8px;font-weight:600;">Timeline</td><td style="padding:4px 8px;">${safe(timeline)}</td></tr>
     </tbody>
   </table>
 
@@ -182,14 +155,8 @@ ${message}
   <h2 style="font-size:16px;margin:20px 0 4px;">Preferences</h2>
   <table style="border-collapse:collapse;width:100%;max-width:640px;">
     <tbody>
-      <tr>
-        <td style="padding:4px 8px;width:160px;font-weight:600;">NDA requested</td>
-        <td style="padding:4px 8px;">${nda ? "Yes" : "No"}</td>
-      </tr>
-      <tr>
-        <td style="padding:4px 8px;font-weight:600;">Receive updates</td>
-        <td style="padding:4px 8px;">${updates ? "Yes" : "No"}</td>
-      </tr>
+      <tr><td style="padding:4px 8px;width:160px;font-weight:600;">NDA requested</td><td style="padding:4px 8px;">${nda ? "Yes" : "No"}</td></tr>
+      <tr><td style="padding:4px 8px;font-weight:600;">Receive updates</td><td style="padding:4px 8px;">${updates ? "Yes" : "No"}</td></tr>
     </tbody>
   </table>
 
@@ -219,8 +186,12 @@ ${message}
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("Collaboration email error:", err);
+
+    const message =
+      err instanceof Error ? err.message : "Failed to send email";
+
     return NextResponse.json(
-      { ok: false, error: "Failed to send email" },
+      { ok: false, error: message },
       { status: 500 },
     );
   }
