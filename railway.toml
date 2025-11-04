@@ -1,0 +1,18 @@
+[build]
+builder = "nixpacks"
+
+[build.nixpacks]
+cmds = [
+  "corepack enable",
+  "corepack prepare pnpm@9.15.9 --activate",
+  "pnpm install",
+  "pnpm build"
+]
+
+[deploy]
+startCommand = "pnpm start"
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10
+
+[env]
+NODE_ENV = "production"
