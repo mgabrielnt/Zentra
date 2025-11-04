@@ -1,73 +1,73 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import { useMotionValueEvent, useScroll, motion } from "motion/react";
+
+import React, { useRef, useState } from "react";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-export const StickyScroll = ({
+type StickyContentItem = {
+  title: string;
+  description: string;
+  content?: React.ReactNode;
+  accent?: string;
+};
+
+export function StickyScroll({
   content,
   contentClassName,
 }: {
-  content: {
-    title: string;
-    description: string;
-    content?: React.ReactNode;
-  }[];
+  content: StickyContentItem[];
   contentClassName?: string;
-}) => {
+}) {
   const [activeCard, setActiveCard] = useState(0);
   const ref = useRef<HTMLDivElement | null>(null);
 
-  // ➜ PAGE SCROLL (tidak ada nested scroll)
   const { scrollYProgress } = useScroll({
-    target: ref,                             // gunakan target element
-    // container: ref,                       // JANGAN pakai container (ini bikin nested scroll)
-    offset: ["start center", "end center"],  // progress 0..1 saat section masuk/keluar viewport
+    target: ref,                 // track seluruh section StickyScroll
+    offset: ["start start", "end start"],
   });
 
-  const cardLength = content.length;
+  const cardCount = content.length;
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    // Map progress ke index konten terdekat
-    const breakpoints = content.map((_, i) => i / Math.max(cardLength - 1, 1));
-    const closest = breakpoints.reduce((acc, bp, i) => {
-      const d = Math.abs(latest - bp);
-      return d < Math.abs(latest - breakpoints[acc]) ? i : acc;
-    }, 0);
-    setActiveCard(closest);
+    if (!cardCount) return;
+
+    // Sama seperti versi resmi: bikin breakpoint rata
+    const breakpoints = content.map((_, i) => i / cardCount);
+
+    let closestIndex = 0;
+    breakpoints.forEach((bp, i) => {
+      if (
+        Math.abs(latest - bp) <
+        Math.abs(latest - breakpoints[closestIndex])
+      ) {
+        closestIndex = i;
+      }
+    });
+
+    setActiveCard(closestIndex);
   });
 
-  const backgroundColors = ["#0f172a", "#000000", "#171717"];
-  const linearGradients = [
-    "linear-gradient(to bottom right, #06b6d4, #10b981)",
-    "linear-gradient(to bottom right, #ec4899, #6366f1)",
-    "linear-gradient(to bottom right, #f97316, #eab308)",
-  ];
-  const [backgroundGradient, setBackgroundGradient] = useState(linearGradients[0]);
-
-  useEffect(() => {
-    setBackgroundGradient(linearGradients[activeCard % linearGradients.length]);
-  }, [activeCard]);
+  const activeAccent = content[activeCard]?.accent ?? "#5227FF";
 
   return (
     <motion.div
       ref={ref}
-      animate={{
-        backgroundColor: backgroundColors[activeCard % backgroundColors.length],
+      style={{
+        backgroundImage: `radial-gradient(circle at 0% 0%, ${activeAccent}33, transparent 60%)`,
       }}
-      // ❌ TIDAK ADA overflow-y-auto, ❌ TIDAK ADA h-[30rem]
-      className="relative mx-auto flex w-full max-w-6xl justify-center gap-10 rounded-md p-6 md:p-10"
+      className="relative mx-auto flex w-full max-w-6xl flex-col lg:flex-row justify-center gap-10 rounded-3xl bg-[#020617] px-4 py-8 md:px-8 md:py-12"
     >
-      {/* Left: text list (panjang → bikin page height) */}
+      {/* Kiri: teks scrollable */}
       <div className="relative flex-1">
         <div className="max-w-2xl">
           {content.map((item, index) => (
-            <div key={item.title + index} className="my-20">
+            <div key={item.title + index} className="my-12 md:my-16">
               <motion.h2
                 initial={{ opacity: 0, y: 8 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 animate={{ opacity: activeCard === index ? 1 : 0.35 }}
-                className="text-2xl font-bold text-slate-100 md:text-3xl"
+                className="text-lg font-bold text-slate-50 md:text-3xl"
               >
                 {item.title}
               </motion.h2>
@@ -76,21 +76,24 @@ export const StickyScroll = ({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.4 }}
                 animate={{ opacity: activeCard === index ? 1 : 0.35 }}
-                className="mt-6 max-w-sm text-base text-slate-300 md:text-lg"
+                className="mt-3 max-w-sm text-sm text-slate-300 md:mt-5 md:text-lg"
               >
                 {item.description}
               </motion.p>
             </div>
           ))}
-          <div className="h-24" />
+          <div className="h-16" />
         </div>
       </div>
 
-      {/* Right: sticky preview (tidak bikin scroll baru) */}
+      {/* Kanan: card sticky */}
       <div
-        style={{ background: backgroundGradient }}
+        style={{
+          backgroundImage: `linear-gradient(135deg, ${activeAccent}, #0b0b0b)`,
+        }}
         className={cn(
-          "sticky top-10 hidden h-64 w-80 overflow-hidden rounded-xl bg-white/5 shadow-sm ring-1 ring-white/10 lg:block",
+          "mt-6 h-64 w-full overflow-hidden rounded-3xl border border-white/15 shadow-[0_0_40px_rgba(0,0,0,0.65)]",
+          "lg:mt-0 lg:h-72 lg:w-[22rem] lg:sticky lg:top-28",
           contentClassName,
         )}
         aria-hidden
@@ -99,4 +102,4 @@ export const StickyScroll = ({
       </div>
     </motion.div>
   );
-};
+}

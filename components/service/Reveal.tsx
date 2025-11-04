@@ -1,8 +1,16 @@
-﻿"use client";
+﻿// D:\zentra\components\service\Reveal.tsx
+"use client";
+
 import type { ReactNode } from "react";
 import { motion } from "motion/react";
 
-export default function Reveal({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
+export default function Reveal({
+  children,
+  delay = 0,
+}: {
+  children: ReactNode;
+  delay?: number;
+}) {
   return (
     <motion.div
       initial={{ opacity: 0, y: -42 }}

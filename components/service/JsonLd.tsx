@@ -1,4 +1,5 @@
-﻿"use client";
+﻿// D:\zentra\components\service\JsonLd.tsx
+"use client";
 
 export default function JsonLd() {
   const services = [
@@ -8,20 +9,22 @@ export default function JsonLd() {
     { name: "Machine Learning & AI", slug: "ai" },
   ] as const;
 
+  const baseUrl = "https://www.zentra.tech";
+
   const webpage = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     inLanguage: "en",
     name:
-      "Zentra Services  Web & Mobile Development, UI/UX Design, Headless Commerce, Machine Learning & AI",
+      "Zentra Services – Web & Mobile Development, UI/UX Design, Headless Commerce, Machine Learning & AI",
     description:
       "Zentra designs and builds modern digital products: high-performance websites, mobile apps, conversion-focused headless commerce, and pragmatic machine learning with strong SEO and Core Web Vitals.",
-    url: "https://example.com/service",
+    url: `${baseUrl}/service`,
     breadcrumb: {
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: "https://example.com" },
-        { "@type": "ListItem", position: 2, name: "Services", item: "https://example.com/service" },
+        { "@type": "ListItem", position: 1, name: "Home", item: baseUrl },
+        { "@type": "ListItem", position: 2, name: "Services", item: `${baseUrl}/service` },
       ],
     },
   } as const;
@@ -33,14 +36,20 @@ export default function JsonLd() {
       "@type": "ListItem",
       position: idx + 1,
       name: s.name,
-      url: `https://example.com/service#${s.slug}`,
+      url: `${baseUrl}/service#${s.slug}`,
     })),
   } as const;
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webpage) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webpage) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
+      />
     </>
   );
 }
