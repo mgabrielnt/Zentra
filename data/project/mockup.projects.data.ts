@@ -5,85 +5,61 @@ export const projects: ProjectCard[] = [
     id: 1,
     title: 'Waskita Project',
     price: '$0',
-    description: 'Educational platform for Waskita.',
+    description:
+      'An educational platform for HIV/AIDS awareness with quizzes and articles.', // 👈 Diperbarui
     image: '/project/waskita/PosterStophivaDenganTulisana.png',
     category: 'EDUCATION',
-    logoText: 'W',
+    logoText: 'E',
     logoGradient: 'from-pink-500 to-red-500',
-    madeByText: 'Made by STOPHIVA',
+    madeByText: 'Made by Zentra',
     categoryBadgeColor: 'bg-blue-900',
     showMadeBy: true,
-    gradient: 'from-indigo-500/20 via-fuchsia-500/10 to-transparent', // 👈 UNGU/PINK
+    gradient: 'from-indigo-500/20 via-fuchsia-500/10 to-transparent',
   },
   {
     id: 2,
-    title: 'Company Dashboard',
+    title: 'PKPRI',
     price: '$0',
-    description: 'Modern dashboard interface.',
+    description:
+      'Comprehensive company profile for Indonesian Cooperatives (PKPRI).', // 👈 Diperbarui
     image: '/project/pkpri/PosterPKPRIDenganTulisan.png',
     category: 'COMPANY PROFILE',
     logoText: 'C',
     logoGradient: 'from-blue-500 to-cyan-500',
-    madeByText: 'Made by STOPHIVA',
+    madeByText: 'Made by Zentra',
     categoryBadgeColor: 'bg-purple-900',
     showMadeBy: true,
-    gradient: 'from-pink-500/20 via-purple-500/10 to-transparent', // 👈 PINK/PURPLE
+    gradient: 'from-pink-500/20 via-purple-500/10 to-transparent',
   },
   {
     id: 3,
-    title: 'Analytics Dashboard',
+    title: 'Biro Klasifikasi Indonesia',
     price: '$0',
-    description: 'Real-time analytics platform.',
+    description:
+      'Admin dashboard for tracking financial performance and staff metrics.', // 👈 Diperbarui
     image: '/project/bki/PosterBKIDenganTulisani.png',
     category: 'DASHBOARD',
-    logoText: 'A',
+    logoText: 'D',
     logoGradient: 'from-green-500 to-emerald-500',
-    madeByText: 'Made by STOPHIVA',
+    madeByText: 'Made by Zentra',
     categoryBadgeColor: 'bg-green-900',
     showMadeBy: false,
-    gradient: 'from-cyan-500/20 via-sky-500/10 to-transparent', // 👈 CYAN/SKY
+    gradient: 'from-cyan-500/20 via-sky-500/10 to-transparent',
   },
   {
     id: 4,
-    title: 'Landing Page Pro',
+    title: 'Landing Page Mlokomanis',
     price: '$0',
-    description: 'High-converting landing page.',
-    image: '/placeholder-image.jpg',
+    description:
+      'A landing page designed to showcase the potential of Mlokomanis Village.', // 👈 Diperbarui
+    image: '/project/mlokomanis/PosterMlokomanisDenganTulisan.png',
     category: 'LANDING PAGES',
     logoText: 'L',
     logoGradient: 'from-orange-500 to-red-500',
-    madeByText: 'Made by STOPHIVA',
+    madeByText: 'Made by Zentra',
     categoryBadgeColor: 'bg-orange-900',
     showMadeBy: true,
-    gradient: 'from-amber-500/20 via-fuchsia-500/10 to-transparent', // 👈 AMBER/FUCHSIA
-  },
-  {
-    id: 5,
-    title: 'E-Learning Platform',
-    price: '$0',
-    description: 'Interactive learning system.',
-    image: '/placeholder-image.jpg',
-    category: 'EDUCATION',
-    logoText: 'E',
-    logoGradient: 'from-indigo-500 to-purple-500',
-    madeByText: 'Made by STOPHIVA',
-    categoryBadgeColor: 'bg-indigo-900',
-    showMadeBy: true,
-    gradient: 'from-indigo-500/20 via-purple-500/10 to-transparent', // 👈 INDIGO/PURPLE
-  },
-  {
-    id: 6,
-    title: 'Corporate Website',
-    price: '$0',
-    description: 'Professional company website.',
-    image: '/placeholder-image.jpg',
-    category: 'COMPANY PROFILE',
-    logoText: 'C',
-    logoGradient: 'from-teal-500 to-cyan-500',
-    madeByText: 'Made by STOPHIVA',
-    categoryBadgeColor: 'bg-teal-900',
-    showMadeBy: true,
-    gradient: 'from-purple-500/20 via-blue-500/10 to-transparent', // 👈 PURPLE/BLUE
+    gradient: 'from-amber-500/20 via-fuchsia-500/10 to-transparent',
   },
 ];
 
