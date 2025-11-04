@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { getProjectContentById } from '@/data/project/waskita/waskitacontent.project.data';
+import { getProjectContentById } from '@/data/project/waskita/content.project.data';
 import { notFound } from 'next/navigation';
 import BackButton from '@/components/project/details/BackButton';
 import ProjectHeroSection from '@/components/project/details/ProjectHeroSection';
