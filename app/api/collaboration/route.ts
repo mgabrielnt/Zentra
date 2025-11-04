@@ -1,6 +1,6 @@
 // app/api/collaboration/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 type CollaborationPayload = {
   name: string;
@@ -30,24 +30,15 @@ const safe = (val?: string) => (val && val.trim().length ? val : "-");
 
 export async function POST(req: NextRequest) {
   try {
-    // 🔹 Baca ENV
+    // 🔹 ENV yang kita pakai
     const CONTACT_EMAIL =
-      process.env.CONTACT_EMAIL ||
-      process.env.ZENTRA_GMAIL_USER ||
-      "zentraconsultant@gmail.com";
+      process.env.CONTACT_EMAIL ?? "zentraconsultant@gmail.com";
+    const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
-    const CONTACT_EMAIL_APP_PASSWORD =
-      process.env.CONTACT_EMAIL_APP_PASSWORD ||
-      process.env.ZENTRA_GMAIL_APP_PASSWORD;
-
-    // 🔹 Log ke server (cek di Logs Railway)
     console.log("CONTACT_EMAIL:", CONTACT_EMAIL);
-    console.log(
-      "CONTACT_EMAIL_APP_PASSWORD set?",
-      !!CONTACT_EMAIL_APP_PASSWORD,
-    );
+    console.log("RESEND_API_KEY set?", !!RESEND_API_KEY);
 
-    if (!CONTACT_EMAIL || !CONTACT_EMAIL_APP_PASSWORD) {
+    if (!CONTACT_EMAIL || !RESEND_API_KEY) {
       return NextResponse.json(
         {
           ok: false,
@@ -133,7 +124,7 @@ ${message}
   <table style="border-collapse:collapse;width:100%;max-width:640px;">
     <tbody>
       <tr><td style="padding:4px 8px;width:160px;font-weight:600;">Website</td><td style="padding:4px 8px;">${safe(website)}</td></tr>
-      <tr><td style="padding:4px 8px;font-weight:600;">WhatsApp</td><td style="padding:4px 8px;">${safe(phone)}</td></tr>
+      <tr><td style="padding:4px 8px;font-weight:600;">WhatsApp</td><td style="padding:4px_8px;">${safe(phone)}</td></tr>
       <tr><td style="padding:4px 8px;font-weight:600;">Preferred channel</td><td style="padding:4px 8px;">${safe(channel)}</td></tr>
     </tbody>
   </table>
@@ -166,30 +157,34 @@ ${message}
 </div>
 `;
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: CONTACT_EMAIL,
-        pass: CONTACT_EMAIL_APP_PASSWORD,
-      },
-    });
+    // 🔹 Kirim via Resend
+    const resend = new Resend(RESEND_API_KEY);
 
-    await transporter.sendMail({
-      from: `"Zentra Website" <${CONTACT_EMAIL}>`,
-      to: "zentraconsultant@gmail.com",
+    const { data: sent, error } = await resend.emails.send({
+      // GANTI 'onboarding@resend.dev' dengan sender yang sudah kamu setup/verify di Resend
+      from: "Zentra Website <onboarding@resend.dev>",
+      to: [CONTACT_EMAIL],
       replyTo: email,
       subject: `New collaboration request – ${name} (${company})`,
       text,
       html,
     });
 
+    if (error) {
+      console.error("Resend error:", error);
+      return NextResponse.json(
+        { ok: false, error: error.message ?? "Failed to send email" },
+        { status: 500 },
+      );
+    }
+
+    console.log("Resend email sent:", sent);
+
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("Collaboration email error:", err);
-
     const message =
       err instanceof Error ? err.message : "Failed to send email";
-
     return NextResponse.json(
       { ok: false, error: message },
       { status: 500 },
