@@ -135,16 +135,7 @@ export default function AboutUsPage() {
         />
 
         {/* brand row */}
-        <div className="relative z-10 flex items-center gap-3 px-6 pt-16 md:pt-24">
-          <Image
-            src="/logo_zentra.png"
-            alt="Zentra logo"
-            width={48}
-            height={48}
-            className="h-12 w-12 drop-shadow-[0_0_10px_rgba(128,90,213,0.5)]"
-            priority
-          />
-          <span className="font-inter text-2xl font-bold tracking-tight text-white">Zentra.</span>
+        <div className="relative z-10 flex items-center gap-3 px-6 pt-16 md:pt-24 h-48">
         </div>
 
         {/* headline */}
