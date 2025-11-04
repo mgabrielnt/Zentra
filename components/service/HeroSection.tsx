@@ -36,7 +36,7 @@ export function HeroSection() {
              mt-6 md:mt-10 
              text-center"
       >
-        <Reveal>
+        <Reveal mode="mount">
           <h1 className="sr-only">
             Zentra Services: Web & Mobile Development, UI/UX Design, Headless
             Commerce, Machine Learning & AI
@@ -57,9 +57,11 @@ export function HeroSection() {
             </p>
           </div>
         </Reveal>
+      </div>
+
 
      
-      </div>
+
     </section>
   );
 }

@@ -4,7 +4,7 @@
   label: string;
   description: string;
   accent: string;
-  image: string;        // ⬅️ tambah field image
+  image: string;
 };
 
 export const services: ServiceItem[] = [
@@ -14,8 +14,8 @@ export const services: ServiceItem[] = [
     label: "Product engineering",
     description:
       "We design, build, and operate web & mobile apps with clean architecture, CI/CD, and observability baked in—ready for the next feature wave.",
-    accent: "#38bdf8",
-    image: "/images/services/dev.png",        // ⬅️ path relatif dari /public
+    accent: "#38bdf8", // cyan
+    image: "/images/services/dev.png",
   },
   {
     id: "ux",
@@ -23,7 +23,7 @@ export const services: ServiceItem[] = [
     label: "Design systems",
     description:
       "We turn fuzzy requirements into clear journeys, components, and prototypes that ship smoothly and move your product metrics.",
-    accent: "#f97316",
+    accent: "#f97316", // orange
     image: "/images/services/ux.png",
   },
   {
@@ -32,7 +32,7 @@ export const services: ServiceItem[] = [
     label: "Revenue engines",
     description:
       "We build headless commerce stacks tuned for conversion, page speed, and operations so growth and merchandising can iterate safely.",
-    accent: "#22c55e",
+    accent: "#22c55e", // green
     image: "/images/services/commerce.png",
   },
   {
@@ -41,7 +41,7 @@ export const services: ServiceItem[] = [
     label: "Applied AI",
     description:
       "We add pragmatic AI—recommendations, copilots, fraud detection—into your existing products with governance and MLOps in place.",
-    accent: "#a855f7",
+    accent: "#a855f7", // purple
     image: "/images/services/ai.png",
   },
 ];
