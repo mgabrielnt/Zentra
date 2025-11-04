@@ -13,13 +13,13 @@ export function ServiceCard({ s, className }: Props) {
   return (
     <div
       className={cn(
-        "relative aspect-[4/3] w-full overflow-hidden rounded-3xl",
+        "relative h-full w-full overflow-hidden rounded-3xl",
         "border border-white/10 bg-[#020617] backdrop-blur-xl",
         "shadow-[0_0_40px_rgba(0,0,0,0.6)]",
         className,
       )}
     >
-      {/* Gambar utama */}
+      {/* Gambar utama full-card */}
       <Image
         src={s.image}
         alt={s.title}

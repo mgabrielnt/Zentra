@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
-import Footer from "@/components/footer/Footer"; // ⬅️ tambahkan ini
+import Footer from "@/components/footer/Footer";
 import { LanguageProvider } from "@/components/LanguageContext";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,12 +19,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={inter.className}>
+    <html
+      lang="en"
+      className="scroll-smooth w-full max-w-full overflow-x-hidden"
+    >
+      <body
+        className={`${inter.className} w-full max-w-full overflow-x-hidden`}
+      >
         <LanguageProvider>
-          <div className="flex min-h-screen flex-col bg-black">
+          <div className="flex min-h-screen w-full max-w-full flex-col bg-black overflow-x-hidden">
             <Header />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 w-full max-w-full overflow-x-hidden">
+              {children}
+            </main>
             <Footer />
           </div>
         </LanguageProvider>

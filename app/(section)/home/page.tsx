@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Space_Grotesk, Inter } from "next/font/google";
 import LiquidEther from "@/components/LiquidEther";
 import TextType from "@/components/TextType";
@@ -18,24 +19,68 @@ const inter = Inter({
 });
 
 export default function Home() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (typeof window === "undefined") return;
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Profil kualitas LiquidEther: mobile vs desktop
+  const liquidProps = isMobile
+    ? {
+        // 🔻 MOBILE: super ringan
+        resolution: 0.2,
+        isViscous: false,
+        iterationsViscous: 0,
+        iterationsPoisson: 10,
+        dt: 0.02,
+        mouseForce: 40,
+        cursorSize: 80,
+        autoSpeed: 0.25,
+      }
+    : {
+        // 💻 DESKTOP: tetap bagus tapi nggak overkill
+        resolution: 0.4,
+        isViscous: true,
+        iterationsViscous: 18,
+        iterationsPoisson: 24,
+        dt: 0.014,
+        mouseForce: 100,
+        cursorSize: 100,
+        autoSpeed: 0.5,
+      };
+
   return (
     <main
       className={`min-h-screen bg-black ${inter.variable} ${spaceGrotesk.variable}`}
     >
       {/* Hero Section */}
       <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
-        {/* Radial gradient background */}
-        <div className="absolute inset-0 bg-black">
+        {/* Radial gradient background (non-interaktif) */}
+        <div className="pointer-events-none absolute inset-0 bg-black">
           <div className="absolute inset-0 bg-gradient-radial from-purple-900/50 via-black to-black" />
         </div>
 
-        {/* Background animation */}
-        <div className="absolute inset-0 z-0">
+        {/* Background animation (non-interaktif, biar scroll nggak ke-attach ke sini) */}
+        <div className="pointer-events-none absolute inset-0 z-0">
           <LiquidEther
             colors={["#5227FF", "#FF9FFC", "#B19EEF"]}
-            mouseForce={100}
-            cursorSize={100}
             autoDemo={true}
+            mouseForce={liquidProps.mouseForce}
+            cursorSize={liquidProps.cursorSize}
+            resolution={liquidProps.resolution}
+            isViscous={liquidProps.isViscous}
+            iterationsViscous={liquidProps.iterationsViscous}
+            iterationsPoisson={liquidProps.iterationsPoisson}
+            dt={liquidProps.dt}
+            autoSpeed={liquidProps.autoSpeed}
           />
         </div>
 
@@ -71,7 +116,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Strip layanan dengan card mengikuti scroll */}
+      {/* Strip layanan */}
       <ServiceStrip />
     </main>
   );
