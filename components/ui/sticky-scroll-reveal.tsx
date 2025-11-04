@@ -231,12 +231,12 @@ export function StickyScroll({
                 cx="24"
                 r="7"
                 fill={activeAccent}
-                style={{ cy: yHighlight }}
+                cy={yHighlight as any} // gunakan MotionValue langsung ke attribute
               />
               <motion.circle
                 cx="24"
                 r="18"
-                style={{ cy: yHighlight }}
+                cy={yHighlight as any}
                 fill="url(#beam-orb-glow)"
               />
             </g>
