@@ -5,6 +5,8 @@ import { Space_Grotesk, Inter } from "next/font/google";
 import LiquidEther from "@/components/LiquidEther";
 import TextType from "@/components/TextType";
 import { ServiceStrip } from "@/components/home/ServiceStrip";
+import FeaturedArticles from "@/components/home/FeaturedArticles";
+import AboutCTASection from "@/components/home/AboutCTASection";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -118,6 +120,9 @@ export default function Home() {
 
       {/* Strip layanan */}
       <ServiceStrip />
+
+      <FeaturedArticles />
+      <AboutCTASection />
     </main>
   );
 }
