@@ -143,18 +143,7 @@ export default function Footer() {
             © {year} Zentra. All rights reserved.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link
-              href="/privacy"
-              className="transition-colors hover:text-white/80"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/terms"
-              className="transition-colors hover:text-white/80"
-            >
-              Terms of Service
-            </Link>
+            
             <span className="text-white/30">
               Vendor-neutral · Outcome-driven
             </span>
