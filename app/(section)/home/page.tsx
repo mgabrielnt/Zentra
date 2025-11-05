@@ -1,10 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Space_Grotesk, Inter } from "next/font/google";
 import LiquidEther from "@/components/LiquidEther";
 import TextType from "@/components/TextType";
 import { ServiceStrip } from "@/components/home/ServiceStrip";
+import FlowingMenu from "@/components/home/FlowingMenu";
+import { menuItems } from "@/data/home/data";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -32,10 +35,8 @@ export default function Home() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Profil kualitas LiquidEther: mobile vs desktop
   const liquidProps = isMobile
     ? {
-        // 🔻 MOBILE: super ringan
         resolution: 0.2,
         isViscous: false,
         iterationsViscous: 0,
@@ -46,7 +47,6 @@ export default function Home() {
         autoSpeed: 0.25,
       }
     : {
-        // 💻 DESKTOP: tetap bagus tapi nggak overkill
         resolution: 0.4,
         isViscous: true,
         iterationsViscous: 18,
@@ -59,16 +59,14 @@ export default function Home() {
 
   return (
     <main
-      className={`min-h-screen bg-black ${inter.variable} ${spaceGrotesk.variable}`}
+      className={`min-h-screen bg-white ${inter.variable} ${spaceGrotesk.variable}`}
     >
       {/* Hero Section */}
-      <section className="relative flex min-h-screen items-center justify-center overflow-hidden">
-        {/* Radial gradient background (non-interaktif) */}
+      <section className="relative flex min-h-screen items-center justify-center overflow-hidden bg-black">
         <div className="pointer-events-none absolute inset-0 bg-black">
           <div className="absolute inset-0 bg-gradient-radial from-purple-900/50 via-black to-black" />
         </div>
 
-        {/* Background animation (non-interaktif, biar scroll nggak ke-attach ke sini) */}
         <div className="pointer-events-none absolute inset-0 z-0">
           <LiquidEther
             colors={["#5227FF", "#FF9FFC", "#B19EEF"]}
@@ -84,7 +82,6 @@ export default function Home() {
           />
         </div>
 
-        {/* Center content */}
         <div className="relative z-10 px-4 text-center">
           <div className="mb-6">
             <TextType
@@ -106,17 +103,31 @@ export default function Home() {
           </p>
 
           <div className="flex flex-wrap justify-center gap-4">
-            <button className="shadow-lg hover:shadow-xl px-6 py-3 text-sm font-semibold text-purple-600 transition-all hover:scale-105 hover:bg-white/90 md:px-8 md:py-4 md:text-base rounded-xl bg-white font-inter">
-              Explore Now
-            </button>
-            <button className="px-6 py-3 text-sm font-semibold text-white transition-all hover:scale-105 md:px-8 md:py-4 md:text-base rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 font-inter">
-              Learn More
-            </button>
+            <Link href="/Collaboration">
+              <button className="shadow-lg hover:shadow-xl px-6 py-3 text-sm font-semibold text-purple-600 transition-all hover:scale-105 hover:bg-white/90 md:px-8 md:py-4 md:text-base rounded-xl bg-white font-inter">
+                Collaboration Now
+              </button>
+            </Link>
+            <Link href="/aboutus">
+              <button className="px-6 py-3 text-sm font-semibold text-white transition-all hover:scale-105 md:px-8 md:py-4 md:text-base rounded-xl border border-white/20 bg-white/10 backdrop-blur-sm hover:bg-white/20 font-inter">
+                About Us
+              </button>
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Strip layanan */}
+      {/* FlowingMenu Section - NO PADDING */}
+      <section className="relative h-screen w-full bg-black">
+        <FlowingMenu items={menuItems} />
+      </section>
+
+      {/* Gradient Transition Zone - LANGSUNG NYAMBUNG */}
+      <div className="relative h-24 bg-gradient-to-b from-black via-gray-400 to-white -mt-1">
+        <div className="hidden md:block pointer-events-none absolute top-1/2 left-1/2 h-64 w-[90rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-purple-600/5 blur-3xl" />
+      </div>
+
+      {/* Strip layanan - LANGSUNG NYAMBUNG */}
       <ServiceStrip />
     </main>
   );

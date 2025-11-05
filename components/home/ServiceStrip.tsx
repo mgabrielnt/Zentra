@@ -13,13 +13,8 @@ export function ServiceStrip() {
   }));
 
   return (
-    <section className="relative bg-black">
-      {/* gradasi sambungan dari hero ke section ini */}
-      <div className="pointer-events-none absolute inset-x-0 -top-10 h-10 bg-gradient-to-t from-black to-transparent" />
-
+    <section className="relative bg-white">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 py-12 md:py-16">
-        
-
         <div className="mt-8 md:mt-10">
           <InfiniteMovingCards items={items} />
         </div>

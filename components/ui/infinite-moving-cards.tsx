@@ -7,13 +7,13 @@ import { motion, useScroll, useSpring, useTransform } from "motion/react";
 
 type InfiniteMovingCardsProps = {
   items: {
-    quote: string;   // tidak dipakai lagi (boleh tetap ada di tipe)
-    name: string;    // judul layanan
-    title: string;   // tidak dipakai di layout
+    quote: string;
+    name: string;
+    title: string;
     image?: string;
     accent?: string;
   }[];
-  direction?: "left" | "right";      // props lama (diabaikan)
+  direction?: "left" | "right";
   speed?: "fast" | "normal" | "slow";
   pauseOnHover?: boolean;
   className?: string;
@@ -27,7 +27,7 @@ export const InfiniteMovingCards = ({
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"], // gerak ikut scroll section
+    offset: ["start end", "end start"],
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
@@ -45,71 +45,72 @@ export const InfiniteMovingCards = ({
   const loopItems = [...items, ...items];
 
   return (
-    <div className="relative mx-auto max-w-6xl">
+    <div className="relative mx-auto max-w-7xl">
       <div
         ref={containerRef}
         className={cn(
-          "relative w-full overflow-hidden border-y border-white/10 bg-black/40 backdrop-blur-xl",
-          "[mask-image:linear-gradient(to_right,transparent,white_18%,white_82%,transparent)]",
+          "relative w-full overflow-hidden bg-white",
+          "[mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]",
           className
         )}
       >
         <motion.ul
           style={{ x }}
-          className="flex w-max min-w-full shrink-0 flex-nowrap gap-4 px-4 py-6 sm:px-6 sm:py-8"
+          className="flex w-max min-w-full shrink-0 flex-nowrap gap-6 px-6 py-12 sm:gap-8 sm:px-8 sm:py-16"
         >
           {loopItems.map((item, idx) => {
             const accent = item.accent || "#6366f1";
             return (
               <li
                 key={`${item.name}-${idx}`}
-                className="relative w-[260px] sm:w-[300px] md:w-[340px] shrink-0 px-1 sm:px-2"
+                className="relative w-[280px] sm:w-[320px] md:w-[360px] shrink-0"
               >
                 <div
-                  className="relative h-36 sm:h-44 md:h-52 w-full overflow-hidden rounded-3xl bg-[#050712]"
+                  className="group relative h-44 sm:h-52 md:h-60 w-full overflow-hidden rounded-2xl bg-white transition-all duration-500 hover:scale-[1.02]"
                   style={{
                     boxShadow:
-                      "0 18px 45px rgba(0,0,0,0.55), 0 0 0 1px rgba(255,255,255,0.05)",
+                      "0 1px 3px rgba(0,0,0,0.05), 0 10px 40px rgba(0,0,0,0.08)",
                   }}
                 >
-                  {/* glow halus pakai accent */}
+                  {/* Subtle gradient overlay */}
                   <div
-                    className="pointer-events-none absolute inset-0"
+                    className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                     style={{
-                      background:
-                        "radial-gradient(circle at top, rgba(148,163,255,0.22), transparent 60%)",
-                    }}
-                  />
-                  <div
-                    className="pointer-events-none absolute inset-x-0 -top-px h-px"
-                    style={{
-                      backgroundImage: `linear-gradient(to_right,transparent,${accent},transparent)`,
-                      opacity: 0.95,
+                      background: `linear-gradient(135deg, ${accent}15, transparent 60%)`,
                     }}
                   />
 
-                  {/* CARD = GAMBAR ITU SENDIRI */}
+                  {/* Top accent line */}
+                  <div
+                    className="pointer-events-none absolute inset-x-0 top-0 h-[2px]"
+                    style={{
+                      background: `linear-gradient(to right, transparent, ${accent}, transparent)`,
+                      opacity: 0.6,
+                    }}
+                  />
+
+                  {/* CARD = GAMBAR */}
                   {item.image && (
                     <Image
                       src={item.image}
                       alt={item.name}
                       fill
-                      sizes="(max-width:768px) 260px, 340px"
-                      className="relative z-0 object-cover"
+                      sizes="(max-width:768px) 280px, 360px"
+                      className="relative z-0 object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   )}
 
-                  {/* teks sangat sedikit: judul saja, di dalam gambar bagian bawah */}
-                  <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/90 via-black/30 to-transparent">
-                    <div className="px-3 pb-3 pt-4 sm:px-4 sm:pb-4">
-                      <h3 className="text-xs sm:text-sm font-semibold text-white tracking-tight">
+                  {/* Text overlay dengan gradient yang lebih subtle */}
+                  <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/85 via-black/50 to-transparent">
+                    <div className="px-4 pb-4 pt-8 sm:px-5 sm:pb-5">
+                      <h3 className="text-sm sm:text-base font-semibold text-white tracking-tight drop-shadow-lg">
                         {item.name}
                       </h3>
                     </div>
                   </div>
 
-                  {/* ring tipis */}
-                  <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-white/10" />
+                  {/* Subtle border */}
+                  <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-black/5" />
                 </div>
               </li>
             );
