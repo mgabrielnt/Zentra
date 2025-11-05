@@ -7,6 +7,7 @@ import { Space_Grotesk, Inter } from "next/font/google";
 import { motion, useScroll, useSpring } from "motion/react";
 import LiquidEther from "@/components/LiquidEther";
 import DomeGallery from "@/components/aboutus/DomeGallery";
+import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 
 // Fonts
 const spaceGrotesk = Space_Grotesk({
@@ -38,7 +39,6 @@ function JsonLd() {
       url: "https://example.com/contact",
     },
     sameAs: [
-      // Add your social media URLs here
       "https://linkedin.com/company/zentra",
       "https://twitter.com/zentra",
     ],
@@ -92,12 +92,11 @@ export default function AboutUsPage() {
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 220, damping: 18, mass: 0.2 });
 
-  const milestones = [
-    { year: "2020", event: "Founded with a mission to democratize world-class digital products" },
-    { year: "2021", event: "Launched 20+ projects across ecommerce, SaaS, and fintech" },
-    { year: "2022", event: "Expanded to AI/ML services and headless commerce specialization" },
-    { year: "2023", event: "Achieved 100% client retention rate with measurable impact" },
-    { year: "2024", event: "Grew team to 50+ experts across design, engineering, and product" },
+  const stats = [
+    { number: "20+", label: "Projects Delivered" },
+    { number: "20+", label: "Happy Clients" },
+    { number: "3+", label: "Years Experience" },
+    { number: "100%", label: "Client Satisfaction" },
   ];
 
   return (
@@ -134,25 +133,33 @@ export default function AboutUsPage() {
           className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-[color:var(--seam)]"
         />
 
-        {/* brand row */}
-        <div className="relative z-10 flex items-center gap-3 px-6 pt-16 md:pt-24 h-48">
-        </div>
-
-        {/* headline */}
-        <div className="relative z-10 mx-auto max-w-5xl px-6 pb-20 pt-16 md:pt-24 text-center">
+        {/* Headline */}
+        <div
+          className="relative z-10 mx-auto max-w-5xl px-6 
+               pb-16 sm:pb-20 md:pb-24 lg:pb-32
+               pt-24 md:pt-32
+               mt-6 md:mt-10 
+               text-center"
+        >
           <Reveal>
-            <h1 className="bg-gradient-to-b from-white via-white to-white/70 bg-clip-text font-inter text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-transparent">
-              We build digital products
-              <br />
-              that drive real results
+            <h1 className="sr-only">
+              About Zentra: We are innovators, craftspeople, and problem solvers building digital products that drive real results
             </h1>
-          </Reveal>
-
-          <Reveal delay={0.12}>
-            <p className="mx-auto mt-6 max-w-2xl font-space-grotesk text-lg text-white/80 drop-shadow-[0_1px_0_rgba(0,0,0,0.35)]">
-              Zentra is a modern digital studio focused on measurable outcomes. We combine
-              strategic thinking, craft, and engineering excellence to ship products that perform.
-            </p>
+            <div aria-hidden="true" className="flex flex-col items-center gap-3">
+              <LayoutTextFlip
+                text="We are"
+                words={[
+                  "Innovators",
+                  "Craftspeople",
+                  "Problem Solvers",
+                  "Dream Builders",
+                ]}
+                duration={2600}
+              />
+              <p className="font-inter text-base text-white/80 drop-shadow-[0_1px_0_rgba(0,0,0,0.35)]">
+                Building digital products that drive real results.
+              </p>
+            </div>
           </Reveal>
 
           <Reveal delay={0.18}>
@@ -175,7 +182,7 @@ export default function AboutUsPage() {
       </section>
 
       {/* ====================== MISSION ====================== */}
-      <section className="relative bg-[#0B0B0B] px-6 py-20 md:py-32">
+      <section className="relative bg-[#0B0B0B] px-6 pt-20 pb-20 md:pt-32 md:pb-32">
         {/* top seam */}
         <div className="pointer-events-none absolute inset-x-0 -top-10 h-10 bg-gradient-to-t from-[#0B0B0B] to-transparent" />
 
@@ -227,29 +234,39 @@ export default function AboutUsPage() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-[#0B0B0B]" />
       </section>
 
-      {/* ====================== MILESTONES ====================== */}
+      {/* ====================== STATS ====================== */}
       <section className="relative bg-[#0B0B0B] px-6 py-20 pb-32">
         {/* top seam */}
         <div className="pointer-events-none absolute inset-x-0 -top-8 h-8 bg-gradient-to-t from-[#0B0B0B] to-transparent" />
 
-        <div className="mx-auto max-w-4xl">
+        <div className="mx-auto max-w-6xl">
           <Reveal>
-            <h2 className="bg-gradient-to-b from-white to-white/70 bg-clip-text font-inter text-3xl md:text-5xl font-semibold text-transparent">
-              Milestones
+            <h2 className="text-center bg-gradient-to-b from-white to-white/70 bg-clip-text font-inter text-3xl md:text-5xl font-semibold text-transparent">
+              By the Numbers
             </h2>
           </Reveal>
+          <Reveal delay={0.06}>
+            <p className="mx-auto mt-4 max-w-2xl text-center font-space-grotesk text-white/70">
+              Our track record speaks for itself—delivering excellence across every project.
+            </p>
+          </Reveal>
 
-          <div className="mt-12 space-y-8">
-            {milestones.map((m, i) => (
-              <Reveal key={m.year} delay={i * 0.06}>
-                <div className="flex gap-6 border-l-2 border-purple-500/30 pl-6">
-                  <div className="shrink-0">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full border border-purple-500/30 bg-purple-500/10 font-inter text-sm font-bold text-purple-300">
-                      {m.year}
-                    </div>
+          <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {stats.map((stat, i) => (
+              <Reveal key={stat.label} delay={i * 0.08}>
+                <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/5 to-transparent p-8 text-center backdrop-blur-sm transition-all hover:border-purple-500/30 hover:bg-white/10">
+                  {/* Glow effect on hover */}
+                  <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100">
+                    <div className="absolute inset-0 bg-gradient-to-b from-purple-500/10 to-transparent" />
                   </div>
-                  <div className="pt-2">
-                    <p className="font-space-grotesk text-lg text-white/90">{m.event}</p>
+                  
+                  <div className="relative">
+                    <div className="bg-gradient-to-b from-white to-purple-200 bg-clip-text font-inter text-5xl md:text-6xl font-bold text-transparent">
+                      {stat.number}
+                    </div>
+                    <div className="mt-3 font-space-grotesk text-sm uppercase tracking-wider text-white/60">
+                      {stat.label}
+                    </div>
                   </div>
                 </div>
               </Reveal>
