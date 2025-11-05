@@ -10,6 +10,7 @@ import TextType from "@/components/TextType";
 import { ServiceStrip } from "@/components/home/ServiceStrip";
 import FeaturedArticles from "@/components/home/FeaturedArticles";
 import AboutCTASection from "@/components/home/AboutCTASection";
+import ProjectHome from "@/components/home/ProjectHome";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -177,8 +178,6 @@ export default function Home() {
               We embed with your team to design, build, and evolve web, product,
               and AI experiences—without the usual agency baggage.
             </p>
-
-
           </motion.div>
 
           {/* right abstract card */}
@@ -303,6 +302,9 @@ export default function Home() {
 
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent via-black/40 to-black" />
       </motion.section>
+
+      {/* ✅ PROJECTS - Ditambahkan di sini sebelum Services */}
+      <ProjectHome />
 
       {/* SERVICES */}
       <ServiceStrip />
