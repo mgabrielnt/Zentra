@@ -1,0 +1,29 @@
+"use client";
+
+import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
+import { services } from "@/components/service/data";
+
+export function ServiceStrip() {
+  const items = services.map((s) => ({
+    quote: s.description,
+    name: s.title,
+    title: s.label,
+    image: s.image,
+    accent: s.accent,
+  }));
+
+  return (
+    <section className="relative bg-black">
+      {/* gradasi sambungan dari hero ke section ini */}
+      <div className="pointer-events-none absolute inset-x-0 -top-10 h-10 bg-gradient-to-t from-black to-transparent" />
+
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-12 md:py-16">
+        
+
+        <div className="mt-8 md:mt-10">
+          <InfiniteMovingCards items={items} />
+        </div>
+      </div>
+    </section>
+  );
+}

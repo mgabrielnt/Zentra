@@ -12,11 +12,11 @@ interface ProjectHeroSectionProps {
 
 export default function ProjectHeroSection({ project }: ProjectHeroSectionProps) {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
+    <div className="flex flex-col lg:grid lg:grid-cols-2 min-h-[80vh]">
       
-      {/* LEFT SIDE - Image Full Cover */}
-      <div className="relative w-full h-screen">
-        {/* Background Image Layer */}
+      {/* LEFT SIDE - Image (responsif tinggi di mobile) */}
+      <div className="relative w-full h-[50vh] lg:h-screen">
+        {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <Image
             src={project.backgroundImage}
@@ -27,7 +27,7 @@ export default function ProjectHeroSection({ project }: ProjectHeroSectionProps)
           />
         </div>
 
-        {/* Project Image Layer - Full Cover */}
+        {/* Overlay Project Image */}
         <div className="absolute inset-0 z-10">
           <Image
             src={project.image}
@@ -40,29 +40,23 @@ export default function ProjectHeroSection({ project }: ProjectHeroSectionProps)
       </div>
 
       {/* RIGHT SIDE - Content */}
-      <div className="relative bg-black flex items-center justify-center p-8 lg:p-16">
-        <div className="max-w-2xl space-y-8">
-          
-          {/* Title */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight">
+      <div className="relative bg-black flex items-center justify-center p-6 sm:p-8 lg:p-16 text-center lg:text-left">
+        <div className="max-w-2xl space-y-6 sm:space-y-8">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight">
             {project.title}
           </h1>
           
-          {/* Description */}
-          <div className="text-base md:text-lg lg:text-xl text-white/80 leading-relaxed whitespace-pre-line">
+          <div className="text-sm sm:text-base md:text-lg lg:text-xl text-white/80 leading-relaxed whitespace-pre-line">
             {project.description}
           </div>
 
-          {/* Category Badge */}
-          <div className="pt-4">
-            <span className="inline-block px-6 py-3 bg-purple-600/30 border-2 border-purple-400/50 rounded-full text-sm font-bold text-purple-200 uppercase tracking-wider">
+          <div className="pt-2 sm:pt-4">
+            <span className="inline-block px-4 sm:px-6 py-2 sm:py-3 bg-purple-600/30 border-2 border-purple-400/50 rounded-full text-xs sm:text-sm font-bold text-purple-200 uppercase tracking-wider">
               {project.category}
             </span>
           </div>
-
         </div>
       </div>
-
     </div>
   );
 }

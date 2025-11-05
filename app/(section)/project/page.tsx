@@ -14,9 +14,9 @@ export default function ProjectPage() {
       : projects.filter((project) => project.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-black">
+    <div className="min-h-screen bg-white">
       {/* ====================== HERO SECTION ====================== */}
-      <section className="relative h-[85vh] flex items-center justify-center overflow-hidden bg-black">
+      <section className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-black">
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,black_0%,black_60%,transparent_100%)] [mask-repeat:no-repeat] [mask-size:100%_100%]">
             <LiquidEther
@@ -35,20 +35,21 @@ export default function ProjectPage() {
             See Our Project
           </h1>
         </div>
+
+        {/* 
+          ========== GRADIENT TRANSITION (HITAM → PUTIH) ==========
+          - Tinggi gradient dikurangi biar lebih mepet ke navigation
+          - h-12 = gradient layer pertama (paling tinggi)
+          - h-8 = gradient layer kedua (lebih rendah)
+          - Makin kecil angka = makin mepet ke bawah
+        */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-18 bg-gradient-to-t from-white via-white/70 to-transparent z-30" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white/40 to-transparent z-30" />
       </section>
 
       {/* ====================== FILTER NAVIGATION ====================== */}
-      <section className="relative bg-[#0B0B0B] px-0 pb-6 pt-8">
-        {/* seam dari hero → masuk ke #0B0B0B */}
-        <div className="pointer-events-none absolute inset-x-0 -top-10 h-10 bg-gradient-to-t from-[#0B0B0B] to-transparent" />
-
-        {/* Purple glow di top */}
-        <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[42rem] -translate-x-1/2 rounded-full bg-purple-500/15 blur-3xl" />
-
-        {/* Side glows untuk ambient atmosphere */}
-        <div className="pointer-events-none absolute top-20 left-[15%] h-56 w-[36rem] rounded-full bg-fuchsia-500/10 blur-3xl" />
-        <div className="pointer-events-none absolute top-20 right-[15%] h-56 w-[36rem] rounded-full bg-violet-500/10 blur-3xl" />
-
+      {/* Background FULL PUTIH - semua glow effects dihapus */}
+      <section className="relative bg-white px-0 pb-2 pt-4">
         <div className="container mx-auto px-4 py-4 relative z-10">
           <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12">
             {categories.map((category) => (
@@ -57,8 +58,8 @@ export default function ProjectPage() {
                 onClick={() => setActiveCategory(category)}
                 className={`text-sm md:text-base font-bold tracking-wide transition-all duration-300 ${
                   activeCategory === category
-                    ? 'text-purple-300 scale-110 drop-shadow-[0_0_12px_rgba(216,180,254,0.6)]'
-                    : 'text-white/70 hover:text-purple-200 hover:scale-105'
+                    ? 'text-purple-600 scale-110 drop-shadow-[0_0_12px_rgba(147,51,234,0.4)]'
+                    : 'text-gray-600 hover:text-purple-500 hover:scale-105'
                 }`}
               >
                 {category}
@@ -69,17 +70,20 @@ export default function ProjectPage() {
       </section>
 
       {/* ====================== PROJECTS GRID ====================== */}
-      <section className="relative bg-[#0B0B0B] px-0 pb-28 pt-2">
-        {/* seam continuation dari filter section */}
-        <div className="pointer-events-none absolute inset-x-0 -top-10 h-10 bg-gradient-to-t from-[#0B0B0B] to-transparent" />
-
-        {/* Ambient purple glows - very subtle */}
-        <div className="pointer-events-none absolute top-32 left-1/4 h-80 w-[40rem] rounded-full bg-purple-500/8 blur-3xl" />
-        <div className="pointer-events-none absolute top-64 right-1/4 h-72 w-[36rem] rounded-full bg-fuchsia-500/6 blur-3xl" />
-        <div className="pointer-events-none absolute bottom-40 left-1/2 h-64 w-[32rem] -translate-x-1/2 rounded-full bg-violet-500/5 blur-3xl" />
+      <section className="relative bg-white px-0 pb-28 pt-2">
+        {/* Ambient purple glows - very subtle untuk white bg */}
+        <div className="pointer-events-none absolute top-32 left-1/4 h-80 w-[40rem] rounded-full bg-purple-500/4 blur-3xl" />
+        <div className="pointer-events-none absolute top-64 right-1/4 h-72 w-[36rem] rounded-full bg-fuchsia-500/3 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-40 left-1/2 h-64 w-[32rem] -translate-x-1/2 rounded-full bg-violet-500/3 blur-3xl" />
         
-        <div className="container mx-auto max-w-7xl px-4 relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* 
+          ========== GRID SETTINGS ==========
+          - w-full = full width tanpa max-width
+          - px-6 = padding kiri kanan (lebih besar dari sebelumnya)
+          - gap-5 = jarak antar card (dilonggarin dari gap-2)
+        */}
+        <div className="w-full px-6 relative z-10">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             {filteredProjects.map((project) => (
               <ProjectCard key={project.id} project={project} />
             ))}
