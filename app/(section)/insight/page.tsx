@@ -20,7 +20,7 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-// Reveal component
+// Reveal animation
 function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   return (
     <motion.div
@@ -34,7 +34,7 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
   );
 }
 
-// Data artikel
+// Article data
 const articles = [
   {
     id: 1,
@@ -43,7 +43,7 @@ const articles = [
     excerpt: "Exploring how autonomous AI agents are transforming business operations and decision-making in 2025.",
     date: "2025-11-01",
     category: "Artificial Intelligence",
-    image: "/images/insight/ai-agents.jpg",
+    image: "/images/insight/1.png",
     readTime: "8 min read"
   },
   {
@@ -53,7 +53,7 @@ const articles = [
     excerpt: "Major tech companies announce breakthrough in error correction, bringing quantum computing to mainstream applications.",
     date: "2025-10-28",
     category: "Quantum Computing",
-    image: "/images/insight/quantum.jpg",
+    image: "/images/insight/2.png",
     readTime: "6 min read"
   },
   {
@@ -63,7 +63,7 @@ const articles = [
     excerpt: "How the latest WebAssembly update is enabling near-native performance for complex web applications.",
     date: "2025-10-25",
     category: "Web Development",
-    image: "/images/insight/wasm.jpg",
+    image: "/images/insight/3.png",
     readTime: "7 min read"
   },
   {
@@ -73,7 +73,7 @@ const articles = [
     excerpt: "Understanding the shift from cloud-centric to edge-first architectures in IoT ecosystems.",
     date: "2025-10-20",
     category: "Cloud & Edge",
-    image: "/images/insight/edge-computing.jpg",
+    image: "/images/insight/4.png",
     readTime: "9 min read"
   },
   {
@@ -83,7 +83,7 @@ const articles = [
     excerpt: "Best practices for reducing carbon footprint in software development and data center operations.",
     date: "2025-10-15",
     category: "Sustainability",
-    image: "/images/insight/green-tech.jpg",
+    image: "/images/insight/5.png",
     readTime: "5 min read"
   },
   {
@@ -93,12 +93,12 @@ const articles = [
     excerpt: "How blockchain technology is solving practical problems in supply chain, healthcare, and identity verification.",
     date: "2025-10-10",
     category: "Blockchain",
-    image: "/images/insight/blockchain.jpg",
+    image: "/images/insight/6.png",
     readTime: "10 min read"
   }
 ];
 
-// JSON-LD
+// JSON-LD for SEO
 function JsonLd() {
   const webpage = {
     "@context": "https://schema.org",
@@ -121,13 +121,13 @@ function JsonLd() {
   );
 }
 
-// Card component
+// Article Card
 function ArticleCard({ article, index }: { article: typeof articles[0]; index: number }) {
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric"
     });
   };
 
@@ -136,86 +136,79 @@ function ArticleCard({ article, index }: { article: typeof articles[0]; index: n
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: index * 0.1 }}
-      whileHover={{ 
+      whileHover={{
         scale: 1.05,
         transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] }
       }}
       className="will-change-transform"
     >
-      <Link 
-        href={`/insight/${article.slug}`}
-        className="group block h-full"
-      >
+      <Link href={`/insight/${article.slug}`} className="group block h-full">
         <div className="h-full overflow-hidden rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-all duration-300 hover:border-purple-500/30 hover:bg-white/10 hover:shadow-[0_0_40px_rgba(168,85,247,0.25)]">
-          {/* Image dengan zoom effect */}
-          <div className="relative aspect-[16/9] overflow-hidden bg-gradient-to-br from-purple-500/20 to-blue-500/20">
-            {/* Background dengan zoom animation */}
-            <motion.div 
-              className="absolute inset-0 bg-gradient-to-br from-purple-500/30 via-blue-500/20 to-fuchsia-500/30"
-              whileHover={{ scale: 1.15 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            />
-            
-            {/* Icon dengan parallax effect */}
-            <motion.div 
-              className="absolute inset-0 flex items-center justify-center"
-              whileHover={{ scale: 1.2, rotate: 5 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div className="text-6xl opacity-20">📰</div>
-            </motion.div>
-            
-            {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-            
-            {/* Category badge */}
-            <motion.div 
-              className="absolute bottom-3 left-3"
+          
+          {/* === IMAGE SECTION === */}
+          <div className="relative aspect-[16/9] overflow-hidden rounded-t-2xl">
+            <motion.div
+              className="absolute inset-0"
               whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
+              <Image
+                src={article.image}
+                alt={article.title}
+                fill
+                className="object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                priority
+              />
+            </motion.div>
+
+            {/* Gradient overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+
+            {/* Shine effect */}
+            <div className="absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-[1200ms]" />
+            </div>
+
+            {/* Category badge */}
+            <div className="absolute bottom-3 left-3">
               <span className="inline-block rounded-full bg-purple-500/90 px-3 py-1 text-xs font-medium text-white backdrop-blur">
                 {article.category}
               </span>
-            </motion.div>
-
-            {/* Shine effect on hover */}
-            <div className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
             </div>
           </div>
 
-          {/* Content */}
+          {/* === CONTENT === */}
           <div className="p-6">
-            {/* Meta */}
             <div className="flex items-center gap-3 text-xs text-white/50">
               <time dateTime={article.date}>{formatDate(article.date)}</time>
               <span>•</span>
               <span>{article.readTime}</span>
             </div>
 
-            {/* Title */}
             <h3 className="mt-3 font-inter text-xl font-semibold text-white transition-colors group-hover:text-purple-300">
               {article.title}
             </h3>
 
-            {/* Excerpt */}
             <p className="mt-2 font-space-grotesk text-sm leading-relaxed text-white/70">
               {article.excerpt}
             </p>
 
-            {/* Read more dengan animated arrow */}
             <div className="mt-4 flex items-center gap-2 text-sm font-medium text-purple-400 transition-all group-hover:gap-3">
               <span>Read article</span>
-              <motion.svg 
-                className="h-4 w-4" 
-                fill="none" 
-                viewBox="0 0 24 24" 
+              <motion.svg
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
                 stroke="currentColor"
                 whileHover={{ x: 5 }}
                 transition={{ duration: 0.2 }}
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
               </motion.svg>
             </div>
           </div>
@@ -243,7 +236,6 @@ export default function InsightPage() {
 
       {/* ====================== HERO ====================== */}
       <section className="relative isolate overflow-hidden [--seam:#0B0B0B]">
-        {/* LiquidEther + fade bottom */}
         <div className="absolute inset-0 z-0">
           <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,black_0%,black_76%,transparent_100%)] [mask-repeat:no-repeat] [mask-size:100%_100%]">
             <LiquidEther
@@ -256,20 +248,12 @@ export default function InsightPage() {
           <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_0%,rgba(124,58,237,0.35)_0%,rgba(0,0,0,0)_60%)]" />
         </div>
 
-        {/* Seam ke section berikutnya */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-[color:var(--seam)]"
         />
 
-        {/* Headline */}
-        <div
-          className="relative z-10 mx-auto max-w-5xl px-6 
-               pb-24 sm:pb-32 md:pb-40 lg:pb-56
-               pt-24 md:pt-32
-               mt-6 md:mt-10 
-               text-center"
-        >
+        <div className="relative z-10 mx-auto max-w-5xl px-6 pb-24 sm:pb-32 md:pb-40 lg:pb-56 pt-24 md:pt-32 mt-6 md:mt-10 text-center">
           <Reveal>
             <h1 className="sr-only">
               Zentra Insights: Latest Technology Trends, AI, Web Development, and Innovation Articles
@@ -313,9 +297,7 @@ export default function InsightPage() {
           className="mx-auto mt-20 max-w-2xl text-center"
         >
           <div className="rounded-2xl border border-purple-500/20 bg-gradient-to-br from-purple-500/10 to-blue-500/10 p-8 backdrop-blur">
-            <h2 className="font-inter text-2xl font-semibold text-white">
-              Stay Updated
-            </h2>
+            <h2 className="font-inter text-2xl font-semibold text-white">Stay Updated</h2>
             <p className="mt-2 font-space-grotesk text-white/70">
               Get the latest insights delivered to your inbox monthly.
             </p>
@@ -333,7 +315,6 @@ export default function InsightPage() {
         </motion.div>
       </section>
 
-      {/* JSON-LD */}
       <JsonLd />
     </main>
   );
