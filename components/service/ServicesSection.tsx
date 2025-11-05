@@ -1,5 +1,4 @@
-﻿// D:\zentra\components\service\ServicesSection.tsx
-"use client";
+﻿"use client";
 
 import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
 import { services } from "./data";
@@ -13,7 +12,6 @@ export function ServicesSection() {
     content: <ServiceCard s={s} />,
     accent: s.accent,
   }));
-
 
   return (
     <section
@@ -45,7 +43,7 @@ export function ServicesSection() {
         </Reveal>
       </div>
 
-      {/* StickyScroll: background & box kanan ikut card aktif */}
+      {/* StickyScroll */}
       <div className="relative mx-auto mt-10 max-w-6xl px-4 sm:px-6">
         <StickyScroll content={content} />
       </div>

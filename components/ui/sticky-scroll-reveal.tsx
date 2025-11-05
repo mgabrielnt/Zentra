@@ -3,11 +3,15 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import {
   motion,
-  useMotionValueEvent,
   useScroll,
-  useSpring,
   useTransform,
+  useSpring,
+  useMotionValue,
+  useMotionTemplate,
+  AnimatePresence,
 } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { cn } from "@/lib/utils";
 
 type StickyContentItem = {
@@ -25,115 +29,256 @@ export function StickyScroll({
   contentClassName?: string;
 }) {
   const [activeCard, setActiveCard] = useState(0);
-  const ref = useRef<HTMLDivElement | null>(null);
+
+  const sectionRef = useRef<HTMLDivElement | null>(null);
   const beamRef = useRef<HTMLDivElement | null>(null);
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const cardFrameRef = useRef<HTMLDivElement | null>(null);
+
   const [svgHeight, setSvgHeight] = useState(420);
 
   const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
+    target: sectionRef,
+    offset: ["start end", "end start"],
   });
 
-  const cardCount = content.length;
+  const cardCount = content.length || 1;
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+  // Card kanan mengikuti blok teks aktif
+  const cardY = useSpring(0, {
+    stiffness: 170,
+    damping: 26,
+    mass: 0.4,
+  });
+
+  useEffect(() => {
     if (!cardCount) return;
 
-    const breakpoints = content.map((_, i) => i / cardCount);
-    let closestIndex = 0;
+    const handleScroll = () => {
+      const viewportCenter = window.innerHeight / 2;
+      let closestIndex = 0;
+      let smallestDistance = Infinity;
 
-    breakpoints.forEach((bp, i) => {
-      if (Math.abs(latest - bp) < Math.abs(latest - breakpoints[closestIndex])) {
-        closestIndex = i;
+      itemRefs.current.forEach((el, index) => {
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+        const distance = Math.abs(center - viewportCenter);
+
+        if (distance < smallestDistance) {
+          smallestDistance = distance;
+          closestIndex = index;
+        }
+      });
+
+      setActiveCard(closestIndex);
+
+      const first = itemRefs.current[0];
+      const active = itemRefs.current[closestIndex];
+      const isDesktop = window.innerWidth >= 1024;
+
+      if (isDesktop && first && active) {
+        const firstRect = first.getBoundingClientRect();
+        const activeRect = active.getBoundingClientRect();
+        const diff = activeRect.top - firstRect.top;
+        cardY.set(diff);
+      } else {
+        cardY.set(0);
       }
-    });
+    };
 
-    setActiveCard(closestIndex);
-  });
+    handleScroll();
 
-  // ukur tinggi kolom kiri → panjang beam
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [cardCount, cardY]);
+
+  // Tinggi beam = tinggi kolom kiri (supaya nggak jebol)
   useEffect(() => {
     if (!beamRef.current) return;
 
-    const update = () => {
+    const updateHeight = () => {
       const h = beamRef.current?.offsetHeight ?? 0;
-      setSvgHeight(Math.max(320, h + 120));
+      setSvgHeight(Math.max(260, h));
     };
 
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, [content.length]);
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, [cardCount]);
 
-  const activeAccent = content[activeCard]?.accent ?? "#5227FF";
+  const activeAccent = content[activeCard]?.accent ?? "#6366F1";
 
-  // highlight orb yang bergerak
-  const yHighlight = useSpring(
-    useTransform(scrollYProgress, [0, 1], [40, svgHeight - 40]),
-    { stiffness: 260, damping: 32, mass: 0.4 },
-  );
-
-  // node kecil per section
+  // Posisi node di beam
   const nodePositions = useMemo(() => {
     if (!cardCount || svgHeight <= 0) return [];
-    const segment = svgHeight / (cardCount + 1);
-    return content.map((_, idx) => segment * (idx + 1));
-  }, [cardCount, svgHeight, content.length]);
+    if (cardCount === 1) return [svgHeight / 2];
 
-  // parallax tilt untuk card kanan
-  const cardTiltX = useTransform(scrollYProgress, [0, 1], [6, -6]);
-  const cardTiltY = useTransform(scrollYProgress, [0, 1], [-4, 4]);
-  const cardLift = useSpring(
-    useTransform(scrollYProgress, [0, 1], [8, -8]),
-    { stiffness: 180, damping: 26, mass: 0.5 },
+    const start = 40;
+    const end = svgHeight - 40;
+    const segment = (end - start) / (cardCount - 1);
+
+    return Array.from({ length: cardCount }, (_, idx) => start + segment * idx);
+  }, [cardCount, svgHeight]);
+
+  // Orb highlight
+  const yHighlight = useSpring(40, {
+    stiffness: 260,
+    damping: 32,
+    mass: 0.4,
+  });
+
+  useEffect(() => {
+    if (!nodePositions.length) return;
+    const y =
+      nodePositions[activeCard] ?? nodePositions[nodePositions.length - 1];
+    yHighlight.set(y);
+  }, [activeCard, nodePositions, yHighlight]);
+
+  // Parallax & mouse tilt card kanan
+  const scrollTiltX = useTransform(scrollYProgress, [0, 1], [6, -6]);
+  const scrollTiltY = useTransform(scrollYProgress, [0, 1], [-4, 4]);
+  const cardGlowOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.5, 1],
+    [0.35, 0.9, 0.45],
   );
+
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+
+  const mouseTiltX = useTransform(mouseY, [0, 1], [10, -10]);
+  const mouseTiltY = useTransform(mouseX, [0, 1], [-10, 10]);
+
+  const tiltX = useTransform(
+    [scrollTiltX, mouseTiltX],
+    ([sx, mx]: number[]) => sx + mx * 0.7,
+  );
+
+  const tiltY = useTransform(
+    [scrollTiltY, mouseTiltY],
+    ([sy, my]: number[]) => sy + my * 0.7,
+  );
+
+  const spotlightX = useTransform(mouseX, [0, 1], ["0%", "100%"]);
+  const spotlightY = useTransform(mouseY, [0, 1], ["0%", "100%"]);
+  const spotlightBG = useMotionTemplate`
+    radial-gradient(circle at ${spotlightX} ${spotlightY},
+      rgba(255,255,255,0.17),
+      transparent 60%)
+  `;
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0.5);
+    mouseY.set(0.5);
+  };
+
+  // GSAP intro + breathing glow
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      if (!sectionRef.current) return;
+
+      // fade-in section
+      gsap.from(sectionRef.current, {
+        opacity: 0,
+        y: 40,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 80%",
+        },
+      });
+
+      // stagger teks kiri
+      const items = itemRefs.current.filter(
+        (el): el is HTMLDivElement => !!el,
+      );
+      if (items.length) {
+        gsap.from(items, {
+          opacity: 0,
+          y: 24,
+          duration: 0.7,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 75%",
+          },
+        });
+      }
+
+      // breathing glow card frame
+      if (cardFrameRef.current) {
+        gsap.to(cardFrameRef.current, {
+          boxShadow: "0 0 45px rgba(129,140,248,0.7)",
+          duration: 2.4,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [content.length]);
 
   return (
     <motion.div
-      ref={ref}
+      ref={sectionRef}
       className="relative mx-auto flex w-full max-w-6xl flex-col justify-center gap-10 px-4 py-10 md:px-6 md:py-14 lg:flex-row"
     >
-      {/* Glow dinamis belakang section */}
+      {/* Background */}
       <motion.div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-30"
         style={{
           backgroundImage: `
-            radial-gradient(circle at 80% 20%, ${activeAccent}33, transparent 60%),
-            radial-gradient(circle at 10% 90%, ${activeAccent}22, transparent 55%)
+            radial-gradient(circle at 80% 5%, ${activeAccent}33, transparent 55%),
+            radial-gradient(circle at 10% 85%, ${activeAccent}22, transparent 55%)
           `,
         }}
       />
-      {/* soft angular wash */}
       <motion.div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-20 opacity-40"
         style={{
-          backgroundImage: `
-            linear-gradient(120deg, transparent 0, ${activeAccent}19 40%, transparent 80%)
-          `,
+          backgroundImage:
+            "linear-gradient(120deg, transparent 0, rgba(148,163,184,0.16) 40%, transparent 82%)",
         }}
-        animate={{ opacity: [0.25, 0.5, 0.3] }}
+        animate={{ opacity: [0.22, 0.5, 0.3] }}
         transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
       />
-      {/* subtle glass grid */}
       <motion.div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.12]"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.13]"
         style={{
           backgroundImage:
-            "linear-gradient(to right, rgba(148,163,184,0.25) 1px, transparent 1px),linear-gradient(to bottom, rgba(148,163,184,0.25) 1px, transparent 1px)",
+            "linear-gradient(to right, rgba(148,163,184,0.22) 1px, transparent 1px),linear-gradient(to bottom, rgba(148,163,184,0.22) 1px, transparent 1px)",
           backgroundSize: "40px 40px",
         }}
       />
 
-      {/* Beam di kiri teks (desktop only) */}
+      {/* Light beam – di-clip supaya nggak lewat atas/bawah */}
       {svgHeight > 0 && (
-        <div className="pointer-events-none absolute left-0 top-10 hidden h-[calc(100%-5rem)] items-start md:flex lg:left-2">
+        <div className="pointer-events-none absolute inset-y-10 left-0 hidden w-12 overflow-hidden md:flex lg:left-2">
           <svg
             viewBox={`0 0 48 ${svgHeight}`}
-            width="48"
-            height={svgHeight}
+            className="h-full w-full"
             aria-hidden="true"
           >
             <defs>
@@ -160,40 +305,36 @@ export function StickyScroll({
             <motion.path
               d={`M 24 0 L 24 ${svgHeight}`}
               stroke={activeAccent}
-              strokeWidth="6"
+              strokeWidth={6}
               strokeLinecap="round"
               strokeOpacity={0.12}
               filter="blur(8px)"
             />
-
-            {/* base dotted line */}
+            {/* dotted base line */}
             <path
               d={`M 24 0 L 24 ${svgHeight}`}
-              stroke="rgba(148,163,184,0.35)"
-              strokeWidth="1"
+              stroke="rgba(148,163,184,0.4)"
+              strokeWidth={1}
               strokeDasharray="4 6"
             />
-
             {/* gradient beam */}
             <motion.path
               d={`M 24 0 L 24 ${svgHeight}`}
               stroke="url(#sticky-beam-gradient)"
-              strokeWidth="2"
+              strokeWidth={2}
               strokeLinecap="round"
-              initial={{ pathLength: 0 }}
               style={{ pathLength: scrollYProgress }}
             />
-
-            {/* node kecil tiap section */}
+            {/* nodes */}
             {nodePositions.map((y, idx) => {
               const isActive = activeCard === idx;
               return (
                 <g key={idx}>
                   {isActive && (
                     <motion.circle
-                      cx="24"
+                      cx={24}
                       cy={y}
-                      r="14"
+                      r={14}
                       fill="url(#beam-orb-glow)"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: [0.25, 0.6, 0.25] }}
@@ -205,7 +346,7 @@ export function StickyScroll({
                     />
                   )}
                   <motion.circle
-                    cx="24"
+                    cx={24}
                     cy={y}
                     r={isActive ? 4.2 : 2.5}
                     fill={isActive ? activeAccent : "rgba(148,163,184,0.7)"}
@@ -213,10 +354,10 @@ export function StickyScroll({
                     strokeWidth={isActive ? 1.6 : 1}
                     animate={{
                       opacity: isActive ? 1 : 0.6,
-                      scale: isActive ? [1, 1.15, 1] : 1,
+                      scale: isActive ? [1, 1.12, 1] : 1,
                     }}
                     transition={{
-                      duration: isActive ? 1.4 : 0.3,
+                      duration: isActive ? 1.3 : 0.25,
                       repeat: isActive ? Infinity : 0,
                       ease: "easeInOut",
                     }}
@@ -224,37 +365,36 @@ export function StickyScroll({
                 </g>
               );
             })}
-
-            {/* highlight orb */}
+            {/* orb highlight */}
             <g>
               <motion.circle
-                cx="24"
-                r="7"
+                cx={24}
+                r={7}
                 fill={activeAccent}
-                cy={yHighlight as any} // gunakan MotionValue langsung ke attribute
+                cy={yHighlight as any}
               />
               <motion.circle
-                cx="24"
-                r="18"
-                cy={yHighlight as any}
+                cx={24}
+                r={18}
                 fill="url(#beam-orb-glow)"
+                cy={yHighlight as any}
               />
             </g>
           </svg>
         </div>
       )}
 
-      {/* Kiri: teks scrollable */}
-      <div
-        ref={beamRef}
-        className="relative flex-1 pl-0 md:pl-10 lg:pl-18"
-      >
+      {/* Kiri: teks */}
+      <div ref={beamRef} className="relative flex-1 pl-0 md:pl-10 lg:pl-18">
         <div className="max-w-2xl">
           {content.map((item, index) => {
             const isActive = activeCard === index;
             return (
               <div
                 key={item.title + index}
+                ref={(el) => {
+                  itemRefs.current[index] = el;
+                }}
                 className={cn(
                   "my-12 md:my-16 rounded-2xl border transition-colors duration-300",
                   isActive
@@ -271,10 +411,9 @@ export function StickyScroll({
                     y: isActive ? 0 : 4,
                     scale: isActive ? 1 : 0.99,
                   }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
                   className="relative text-lg font-bold text-slate-50 md:text-3xl"
                 >
-                  {/* indikator kecil di kiri title */}
                   <span
                     className={cn(
                       "absolute -left-4 top-[0.45em] hidden h-[1px] w-5 bg-slate-500/40 md:inline-block",
@@ -291,7 +430,7 @@ export function StickyScroll({
                     opacity: isActive ? 1 : 0.38,
                     y: isActive ? 0 : 3,
                   }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
                   className="mt-3 max-w-sm text-sm text-slate-300 md:mt-5 md:text-lg"
                 >
                   {item.description}
@@ -303,52 +442,69 @@ export function StickyScroll({
         </div>
       </div>
 
-      {/* Kanan: card sticky dengan parallax tilt */}
+      {/* Kanan: card */}
       <motion.div
+        ref={cardFrameRef}
         style={{
-          rotateX: cardTiltX,
-          rotateY: cardTiltY,
-          translateY: cardLift,
+          y: cardY,
+          rotateX: tiltX,
+          rotateY: tiltY,
           transformPerspective: 900,
         }}
         className={cn(
-          "mt-6 h-64 w-full lg:mt-0 lg:h-80 lg:w-[24rem] lg:sticky lg:top-28",
+          "mt-6 h-64 w-full lg:mt-0 lg:h-80 lg:w-[24rem]",
           contentClassName,
         )}
-        aria-hidden
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
       >
-        <div className="relative h-full w-full overflow-hidden rounded-3xl border border-white/14 bg-[#050508]/90 shadow-[0_24px_80px_rgba(0,0,0,0.65)] backdrop-blur-xl">
-          {/* border / aura accent */}
+        <div className="relative h-full w-full overflow-hidden rounded-3xl border border-white/14 bg-[#050508]/95 shadow-[0_28px_90px_rgba(0,0,0,0.7)] backdrop-blur-xl">
+          {/* aura accent */}
           <motion.div
             aria-hidden
-            className="pointer-events-none absolute inset-px rounded-[22px] opacity-80"
+            className="pointer-events-none absolute inset-px rounded-[22px]"
             style={{
+              opacity: cardGlowOpacity,
               backgroundImage: `
-                radial-gradient(circle at 0% 0%, ${activeAccent}33, transparent 55%),
-                radial-gradient(circle at 100% 100%, ${activeAccent}22, transparent 60%)
+                radial-gradient(circle at 0% 0%, ${activeAccent}3d, transparent 55%),
+                radial-gradient(circle at 100% 100%, ${activeAccent}26, transparent 60%)
               `,
             }}
-            animate={{ opacity: [0.5, 0.9, 0.6] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
           />
-          {/* diagonal stripes halus */}
+          {/* spotlight mouse */}
+          <motion.div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 rounded-[22px] opacity-100 mix-blend-screen"
+            style={{ backgroundImage: spotlightBG }}
+          />
+          {/* stripes */}
           <motion.div
             aria-hidden
             className="pointer-events-none absolute inset-0 opacity-[0.18]"
             style={{
               backgroundImage:
-                "linear-gradient(135deg, rgba(148,163,184,0.18) 0, transparent 40%, rgba(148,163,184,0.18) 60%, transparent 100%)",
+                "linear-gradient(135deg, rgba(148,163,184,0.18) 0, transparent 45%, rgba(148,163,184,0.16) 70%, transparent 100%)",
               backgroundSize: "220% 220%",
             }}
             animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
           />
-          {/* inner subtle vignette */}
-          <div className="pointer-events-none absolute inset-0 rounded-3xl bg-[radial-gradient(circle_at_50%_0%,rgba(15,23,42,0.65),transparent_60%)]" />
+          {/* vignette */}
+          <div className="pointer-events-none absolute inset-0 rounded-3xl bg-[radial-gradient(circle_at_50%_0%,rgba(15,23,42,0.7),transparent_60%)]" />
+
           {/* konten card */}
-          <div className="relative h-full w-full">
-            {content[activeCard]?.content ?? null}
-          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeCard}
+              className="relative h-full w-full"
+              initial={{ opacity: 0, y: 18, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -18, scale: 0.98 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+            >
+              {content[activeCard]?.content ?? null}
+            </motion.div>
+          </AnimatePresence>
         </div>
       </motion.div>
     </motion.div>
