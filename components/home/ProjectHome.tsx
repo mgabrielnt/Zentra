@@ -41,20 +41,20 @@ export default function ProjectHome() {
             transition={{ duration: 0.6 }}
           >
             {/* Label with dot */}
-            <div className="mb-4 flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-cyan-400" />
-              <span className="text-xs font-medium uppercase tracking-[0.2em] text-cyan-400">
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.22em] text-white/60">
+              <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
+      
                 Projects
-              </span>
+ 
             </div>
 
             {/* Title */}
-            <h2 className="mb-4 font-space-grotesk text-3xl font-bold leading-tight tracking-tight text-white md:text-4xl lg:text-5xl">
+            <h2 className="mt-3 text-xl md:text-2xl lg:text-3xl font-semibold text-white ">
               Work that moves the needle.
             </h2>
 
             {/* Description */}
-            <p className="text-sm leading-relaxed text-white/60 md:text-base">
+            <p className="mt-2 max-w-xl text-xs md:text-sm text-white/60 md:text-base">
               Kami bangun produk digital yang bukan cuma cantik, tapi beneran solve problems—real impact, real results.
             </p>
           </motion.div>

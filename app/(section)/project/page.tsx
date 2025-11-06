@@ -61,7 +61,7 @@ export default function ProjectPage() {
               <LayoutTextFlip
                 text="Our Project is"
                 words={[
-                  "Dashboard Analitics",
+                  "Dashboard Analytics",
                   "UI/UX Design",
                   "Education Website",
                   "Company Profile",
