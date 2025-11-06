@@ -108,8 +108,7 @@ export default function FeaturedArticles({
               Latest thoughts from the studio.
             </h2>
             <p className="mt-2 max-w-xl text-xs md:text-sm text-white/65">
-              Tiga insight terakhir yang menurut kami paling relevan buat
-              product, engineering, dan AI yang lagi kamu bangun.
+              We've identified three recent insights that are particularly pertinent to driving forward the product, engineering, and AI solutions you are building
             </p>
           </div>
 
@@ -178,7 +177,7 @@ export default function FeaturedArticles({
                   }}
                 >
                   {/* glow bawah tiap card */}
-                  <div className="pointer-events-none absolute inset-0 translate-y-5 rounded-[1.8rem] bg-gradient-to-b from-purple-500/20 via-transparent to-transparent blur-2xl opacity-70" />
+                  <div className="pointer-events-none absolute inset-0 translate-y-5 rounded-[1.8rem] bg-linear-to-b from-purple-500/20 via-transparent to-transparent blur-2xl opacity-70" />
                   <div className="relative">
                     <ArticleCard article={article} index={index} />
                   </div>

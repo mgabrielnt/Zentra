@@ -33,7 +33,7 @@ export default function ProjectPage() {
       {/* ====================== HERO SECTION ====================== */}
       <section className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-black">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,black_0%,black_60%,transparent_100%)] [mask-repeat:no-repeat] [mask-size:100%_100%]">
+          <div className="absolute inset-0 mask-image:linear-linear(to_bottom,black_0%,black_60%,transparent_100%) mask-repeat:no-repeat mask-size:100%_100%">
             <LiquidEther
               colors={['#5227FF', '#FF9FFC', '#B19EEF']}
               mouseForce={100}
@@ -42,7 +42,7 @@ export default function ProjectPage() {
             />
           </div>
           {/* Radial glow */}
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_80%_at_50%_0%,rgba(124,58,237,0.3)_0%,rgba(0,0,0,0)_60%)]" />
+          <div className="pointer-events-none absolute inset-0 bg-[radial-linear(120%_80%_at_50%_0%,rgba(124,58,237,0.3)_0%,rgba(0,0,0,0)_60%)]" />
         </div>
 
         <div
@@ -61,7 +61,7 @@ export default function ProjectPage() {
               <LayoutTextFlip
                 text="Our Project is"
                 words={[
-                  "Dashboard Analitics",
+                  "Dashboard Analytics",
                   "UI/UX Design",
                   "Education Website",
                   "Company Profile",
@@ -75,9 +75,9 @@ export default function ProjectPage() {
           </Reveal>
         </div>
 
-        {/* Gradient transition (HITAM → PUTIH) */}
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-18 bg-gradient-to-t from-white via-white/70 to-transparent z-30" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white/40 to-transparent z-30" />
+        {/* linear transition (HITAM → PUTIH) */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-18 bg-linear-to-t from-white via-white/70 to-transparent z-30" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-linear-to-t from-white/40 to-transparent z-30" />
       </section>
 
       {/* ====================== FILTER NAVIGATION ====================== */}
@@ -114,9 +114,9 @@ export default function ProjectPage() {
       {/* ====================== PROJECTS GRID ====================== */}
       <section className="relative bg-white px-0 pb-28 pt-2">
         {/* Ambient purple glows */}
-        <div className="pointer-events-none absolute top-32 left-1/4 h-80 w-[40rem] rounded-full bg-purple-500/4 blur-3xl" />
-        <div className="pointer-events-none absolute top-64 right-1/4 h-72 w-[36rem] rounded-full bg-fuchsia-500/3 blur-3xl" />
-        <div className="pointer-events-none absolute bottom-40 left-1/2 h-64 w-[32rem] -translate-x-1/2 rounded-full bg-violet-500/3 blur-3xl" />
+        <div className="pointer-events-none absolute top-32 left-1/4 h-80 w-40rem rounded-full bg-purple-500/4 blur-3xl" />
+        <div className="pointer-events-none absolute top-64 right-1/4 h-72 w-36rem rounded-full bg-fuchsia-500/3 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-40 left-1/2 h-64 w-32rem -translate-x-1/2 rounded-full bg-violet-500/3 blur-3xl" />
         
         <div className="w-full px-6 relative z-10">
           <motion.div

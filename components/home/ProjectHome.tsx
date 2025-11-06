@@ -25,9 +25,9 @@ export default function ProjectHome() {
 
   return (
     <section className="relative overflow-hidden bg-black py-16 md:py-24">
-      {/* Background gradient - subtle */}
+      {/* Background linear - subtle */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-radial from-purple-900/10 via-black to-black" />
+        <div className="absolute inset-0 bg-linear-radial from-purple-900/10 via-black to-black" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
@@ -55,13 +55,13 @@ export default function ProjectHome() {
 
             {/* Description */}
             <p className="text-sm leading-relaxed text-white/60 md:text-base">
-              Kami bangun produk digital yang bukan cuma cantik, tapi beneran solve problems—real impact, real results.
+              Our digital products are more than just beautiful. We architect functional solutions designed to tackle core problems—driving meaningful impact and proven results.
             </p>
           </motion.div>
 
           {/* Button */}
           <motion.div
-            className="flex-shrink-0"
+            className="shrink-0"
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -112,7 +112,7 @@ export default function ProjectHome() {
       </div>
 
       {/* Bottom fade */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-linear-to-t from-black to-transparent" />
     </section>
   );
 }
