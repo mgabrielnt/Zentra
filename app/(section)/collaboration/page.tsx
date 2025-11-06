@@ -55,10 +55,11 @@ const focusOptions = [
 
 const budgetOptions = [
   "Not fixed yet",
-  "< IDR 100.000.000",
-  "IDR 100.000.000 – 250.000.000",
-  "IDR 250.000.000 – 500.000.000",
-  "> IDR 500.000.000",
+  "< IDR 2.500.000",
+  "IDR 2.500.000 – 5.000.000",
+  "IDR 5.000.000 – 10.000.000",
+  "IDR 10.000.000 – 20.000.000",
+  "> IDR 20.000.000",
 ];
 
 const timelineOptions = [
@@ -310,7 +311,7 @@ export default function Page() {
                   <div className="grid gap-4 sm:gap-5 md:grid-cols-3">
                     <div className="md:col-span-2">
                       <label className="block text-xs font-medium uppercase tracking-[0.18em] text-white/60">
-                        Company / organisation *
+                        Company / organization *
                       </label>
                       <input
                         name="company"
