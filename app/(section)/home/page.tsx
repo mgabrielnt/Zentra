@@ -108,9 +108,9 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: "easeOut" }}
       >
-        {/* background gradient */}
+        {/* background linear */}
         <div className="pointer-events-none absolute inset-0 bg-black">
-          <div className="absolute inset-0 bg-gradient-radial from-purple-900/55 via-black to-black" />
+          <div className="absolute inset-0 bg-linear-radial from-purple-900/55 via-black to-black" />
         </div>
 
         {/* floating glows */}
@@ -192,8 +192,8 @@ export default function Home() {
               whileHover={{ rotateX: 6, rotateY: -8, scale: 1.03 }}
               transition={{ type: "spring", stiffness: 130, damping: 16 }}
             >
-              <div className="absolute -inset-1 rounded-3xl bg-gradient-to-br from-purple-500/70 via-fuchsia-400/40 to-cyan-400/60 opacity-40 blur-xl" />
-              <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-gradient-to-b from-white/10 via-black/75 to-black/95 p-5 shadow-[0_0_120px_rgba(124,58,237,0.5)] backdrop-blur-2xl">
+              <div className="absolute -inset-1 rounded-3xl bg-linear-to-br from-purple-500/70 via-fuchsia-400/40 to-cyan-400/60 opacity-40 blur-xl" />
+              <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-linear-to-b from-white/10 via-black/75 to-black/95 p-5 shadow-[0_0_120px_rgba(124,58,237,0.5)] backdrop-blur-2xl">
                 {/* top bar */}
                 <div className="mb-4 flex items-center justify-between">
                   <div className="flex gap-1.5">
@@ -257,8 +257,8 @@ export default function Home() {
                 </div>
 
                 {/* bottom graph */}
-                <div className="relative mt-6 h-20 overflow-hidden rounded-2xl border border-white/12 bg-gradient-to-r from-white/5 via-black/60 to-black/90 px-3 py-3">
-                  <div className="absolute left-3 right-3 top-1/2 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
+                <div className="relative mt-6 h-20 overflow-hidden rounded-2xl border border-white/12 bg-linear-to-r from-white/5 via-black/60 to-black/90 px-3 py-3">
+                  <div className="absolute left-3 right-3 top-1/2 h-px bg-linear-to-r from-transparent via-white/35 to-transparent" />
                   <motion.div
                     className="absolute left-6 top-3 h-2 w-2 rounded-full bg-purple-300 shadow-[0_0_18px_rgba(216,180,254,0.9)]"
                     animate={{ y: [0, 10, -4, 0] }}
@@ -276,10 +276,10 @@ export default function Home() {
                   />
 
                   <div className="absolute inset-0 opacity-60">
-                    <div className="absolute bottom-2 left-4 h-6 w-8 rounded-xl bg-gradient-to-t from-purple-400/50 to-transparent" />
-                    <div className="absolute bottom-1 left-20 h-8 w-9 rounded-xl bg-gradient-to-t from-fuchsia-400/40 to-transparent" />
-                    <div className="absolute bottom-3 left-36 h-5 w-7 rounded-xl bg-gradient-to-t from-sky-400/40 to-transparent" />
-                    <div className="absolute bottom-1 right-6 h-7 w-10 rounded-xl bg-gradient-to-t from-emerald-400/40 to-transparent" />
+                    <div className="absolute bottom-2 left-4 h-6 w-8 rounded-xl bg-linear-to-t from-purple-400/50 to-transparent" />
+                    <div className="absolute bottom-1 left-20 h-8 w-9 rounded-xl bg-linear-to-t from-fuchsia-400/40 to-transparent" />
+                    <div className="absolute bottom-3 left-36 h-5 w-7 rounded-xl bg-linear-to-t from-sky-400/40 to-transparent" />
+                    <div className="absolute bottom-1 right-6 h-7 w-10 rounded-xl bg-linear-to-t from-emerald-400/40 to-transparent" />
                   </div>
                 </div>
               </div>
@@ -300,7 +300,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-b from-transparent via-black/40 to-black" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-linear-to-b from-transparent via-black/40 to-black" />
       </motion.section>
 
       {/* ✅ PROJECTS - Ditambahkan di sini sebelum Services */}

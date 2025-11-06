@@ -55,7 +55,7 @@ export default function ProjectHome() {
 
             {/* Description */}
             <p className="text-sm leading-relaxed text-white/60 md:text-base">
-              Kami bangun produk digital yang bukan cuma cantik, tapi beneran solve problems—real impact, real results.
+              Our digital products are more than just beautiful. We architect functional solutions designed to tackle core problems—driving meaningful impact and proven results.
             </p>
           </motion.div>
 
