@@ -28,12 +28,14 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-sm leading-relaxed text-white/60">
-              This translation maintains the concise, modern tone while conveying the same key messages about outcome-focused consulting, clean architecture, digital product development, and practical data/AI implementation.
+              Outcome-driven IT consulting studio helping teams design, build,
+              and scale clean digital products, platforms, and data/AI
+              capabilities with pragmatic engineering.
             </p>
           </div>
 
           {/* Navigation columns */}
-          <div className="grid flex-1 grid-cols-2 gap-8 sm:grid-cols-3">
+          <div className="grid flex-1 grid-cols-1 gap-8 sm:grid-cols-3">
             <div className="space-y-3">
               <h4 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/50">
                 Services
@@ -73,7 +75,7 @@ export default function Footer() {
               <ul className="space-y-2 text-sm text-white/60">
                 <li>
                   <Link
-                    href="aboutus"
+                    href="/aboutus"
                     className="transition-colors hover:text-white"
                   >
                     About Zentra
@@ -102,31 +104,37 @@ export default function Footer() {
               <h4 className="text-[11px] font-semibold uppercase tracking-[0.2em] text-white/50">
                 Contact
               </h4>
-              <div className="space-y-2 text-sm text-white/60">
-                <p className="text-white">
-                  {/* ganti dengan email resmi kamu */}
-                  zentraconsultant@gmail.com
+              <div className="space-y-2 text-sm text-white/60 break-words">
+                <p className="text-white break-all">
+                  <a
+                    href="mailto:zentraconsultant@gmail.com"
+                    className="underline-offset-4 hover:underline"
+                  >
+                    zentraconsultant@gmail.com
+                  </a>
                 </p>
-                <p>
-                  {/* ganti dengan kota / negara base kamu */}
-                  Based in Indonesia · Remote-first
-                </p>
+                <p>Based in Indonesia · Remote-first</p>
                 <div className="flex flex-wrap gap-3 pt-2 text-xs text-white/60">
-                  {/* ganti href dengan link asli */}
                   <Link
                     href="https://www.linkedin.com/company/zentra-consultant"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="underline-offset-4 hover:text-white hover:underline"
                   >
                     LinkedIn
                   </Link>
                   <Link
                     href="https://github.com/zentraconsultant"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="underline-offset-4 hover:text-white hover:underline"
                   >
                     GitHub
                   </Link>
                   <Link
                     href="https://www.instagram.com/zentra.consultant/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="underline-offset-4 hover:text-white hover:underline"
                   >
                     Instagram
@@ -139,11 +147,8 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-2 flex flex-col gap-4 border-t border-white/10 pt-6 text-xs text-white/50 md:flex-row md:items-center md:justify-between">
-          <p>
-            © {year} Zentra. All rights reserved.
-          </p>
+          <p>© {year} Zentra. All rights reserved.</p>
           <div className="flex flex-wrap gap-4">
-            
             <span className="text-white/30">
               Vendor-neutral · Outcome-driven
             </span>
