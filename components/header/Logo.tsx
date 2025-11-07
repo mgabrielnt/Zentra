@@ -10,7 +10,7 @@ export default function Logo({ compact = false }: LogoProps) {
   return (
     <div className="flex items-center gap-2 sm:gap-3">
       <Image
-        src="/logo_zentra.png"
+        src="/zentralogoheader.png"
         alt="Zentra Logo"
         width={64}
         height={64}
