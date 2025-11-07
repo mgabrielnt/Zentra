@@ -59,7 +59,7 @@ export function ServiceStrip() {
       transition={{ duration: 0.8, ease: "easeOut" }}
     >
       {/* sambungan halus dari hero */}
-      <div className="pointer-events-none absolute inset-x-0 -top-10 h-16 bg-gradient-to-t from-black via-black/40 to-transparent" />
+      <div className="pointer-events-none absolute inset-x-0 -top-10 h-16 bg-linear-to-t from-black via-black/40 to-transparent" />
 
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6 py-14 md:py-18">
         {/* Header kecil, nggak makan tempat */}
@@ -100,10 +100,10 @@ export function ServiceStrip() {
           style={{ x: trackX }}
         >
           {/* garis halus sebagai track */}
-          <div className="pointer-events-none absolute left-1/2 top-3 h-[1px] w-[140%] -translate-x-1/2 bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-70" />
+          <div className="pointer-events-none absolute left-1/2 top-3 h-1px w-[140%] -translate-x-1/2 bg-linear-to-r from-transparent via-white/40 to-transparent opacity-70" />
 
           {/* glow yang lari-lari di track (GSAP) */}
-          <div className="service-track-glow pointer-events-none absolute left-0 top-3 h-1 w-24 -translate-y-1/2 rounded-full bg-gradient-to-r from-purple-400 via-fuchsia-400 to-sky-400 blur-md opacity-80" />
+          <div className="service-track-glow pointer-events-none absolute left-0 top-3 h-1 w-24 -translate-y-1/2 rounded-full bg-linear-to-r from-purple-400 via-fuchsia-400 to-sky-400 blur-md opacity-80" />
 
           {/* titik-titik service di atas track */}
           <div className="relative mx-auto flex max-w-5xl justify-between gap-3 overflow-x-auto pb-4 pt-4">
@@ -116,7 +116,7 @@ export function ServiceStrip() {
                   key={s.id}
                   type="button"
                   onClick={() => setActiveId(s.id)}
-                  className="group mr-4 flex min-w-[80px] flex-col items-center gap-1 last:mr-0 sm:min-w-[90px]"
+                  className="group mr-4 flex min-w-80px flex-col items-center gap-1 last:mr-0 sm:min-w-[90px]"
                 >
                   <motion.div
                     className="relative flex h-8 w-8 items-center justify-center rounded-full bg-black/80 shadow-[0_0_35px_rgba(15,23,42,0.9)]"
@@ -133,14 +133,14 @@ export function ServiceStrip() {
                     <span
                       className="pointer-events-none absolute inset-0 rounded-full opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-70"
                       style={{
-                        background: `radial-gradient(circle at 30% 20%, ${s.accent}50, transparent 70%)`,
+                        background: `radial-linear(circle at 30% 20%, ${s.accent}50, transparent 70%)`,
                       }}
                     />
                     {isActive && (
                       <span
                         className="pointer-events-none absolute inset-0 rounded-full opacity-80 blur-xl"
                         style={{
-                          background: `radial-gradient(circle at 50% 50%, ${s.accent}70, transparent 65%)`,
+                          background: `radial-linear(circle at 50% 50%, ${s.accent}70, transparent 65%)`,
                         }}
                       />
                     )}
@@ -195,7 +195,7 @@ export function ServiceStrip() {
 
               {/* kanan: visual kecil, bukan card gede */}
               <motion.div
-                className="relative mx-auto aspect-[4/3] w-full max-w-sm overflow-hidden rounded-3xl bg-gradient-to-br from-white/10 via-black/80 to-black/95 shadow-[0_0_60px_rgba(15,23,42,0.9)]"
+                className="relative mx-auto aspect-4/3 w-full max-w-sm overflow-hidden rounded-3xl bg-linear-to-br from-white/10 via-black/80 to-black/95 shadow-[0_0_60px_rgba(15,23,42,0.9)]"
                 initial={{ opacity: 0, scale: 0.96, y: 10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 transition={{ duration: 0.45, ease: "easeOut" }}
@@ -204,14 +204,14 @@ export function ServiceStrip() {
                 <div
                   className="pointer-events-none absolute -inset-10 opacity-40 blur-3xl"
                   style={{
-                    background: `radial-gradient(circle at 0% 0%, ${activeService.accent}70, transparent 65%)`,
+                    background: `radial-linear(circle at 0% 0%, ${activeService.accent}70, transparent 65%)`,
                   }}
                 />
 
                 {/* overlay garis halus */}
                 <div className="pointer-events-none absolute inset-0">
-                  <div className="absolute inset-x-6 top-6 h-[1px] bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-60" />
-                  <div className="absolute inset-y-6 left-10 w-[1px] bg-gradient-to-b from-transparent via-white/25 to-transparent opacity-50" />
+                  <div className="absolute inset-x-6 top-6 h-1px bg-linear-to-r from-transparent via-white/40 to-transparent opacity-60" />
+                  <div className="absolute inset-y-6 left-10 w-1px bg-linear-to-b from-transparent via-white/25 to-transparent opacity-50" />
                 </div>
 
                 {/* konten */}
@@ -228,7 +228,7 @@ export function ServiceStrip() {
 
                   <div className="flex flex-1 items-center justify-center">
                     <div className="relative h-full w-full max-w-[80%]">
-                      <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-tr from-white/20 via-transparent to-white/10 opacity-70" />
+                      <div className="absolute -inset-1px rounded-2xl bg-linear-to-tr from-white/20 via-transparent to-white/10 opacity-70" />
                       <div className="relative h-full w-full overflow-hidden rounded-2xl bg-black/70">
                         <img
                           src={activeService.image}
@@ -241,7 +241,7 @@ export function ServiceStrip() {
 
                   <div className="flex items-center justify-between gap-3 pt-2 text-[10px] text-white/55">
                     <span>Configured around your team rhythm</span>
-                    <span className="h-1 w-10 rounded-full bg-gradient-to-r from-purple-400 to-sky-400" />
+                    <span className="h-1 w-10 rounded-full bg-linear-to-r from-purple-400 to-sky-400" />
                   </div>
                 </div>
               </motion.div>
