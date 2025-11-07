@@ -79,8 +79,7 @@ export function ServiceStrip() {
               Lanes we actually ship in.
             </h2>
             <p className="mt-2 max-w-xl text-xs md:text-sm text-white/60">
-              Empat jalur utama yang paling sering kami kerjakan—detail scope
-              lengkap tinggal dibuka di halaman Services.
+              We've identified three recent insights that are particularly pertinent to driving forward the product, engineering, and AI solutions you are building.
             </p>
           </div>
 
