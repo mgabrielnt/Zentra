@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Zentra",
-  description: "Welcome to ThreemuskIteers",
+  description: "Welcome to Zenta",
   icons : "/logoZentraFix.png", 
 
 };
