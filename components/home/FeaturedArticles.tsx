@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { gsap } from "gsap";
@@ -21,6 +21,21 @@ export default function FeaturedArticles({
 
   const featuredArticles = articles.slice(0, limit);
   if (!featuredArticles || featuredArticles.length === 0) return null;
+
+  // Deteksi desktop (min-width: 768px)
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const mq = window.matchMedia("(min-width: 768px)");
+
+    const updateMatch = () => setIsDesktop(mq.matches);
+    updateMatch();
+
+    mq.addEventListener("change", updateMatch);
+    return () => mq.removeEventListener("change", updateMatch);
+  }, []);
 
   // Scroll-linked band (satu cluster)
   const { scrollYProgress } = useScroll({
@@ -108,7 +123,9 @@ export default function FeaturedArticles({
               Latest thoughts from the studio.
             </h2>
             <p className="mt-2 max-w-xl text-xs md:text-sm text-white/65">
-              We've identified three recent insights that are particularly pertinent to driving forward the product, engineering, and AI solutions you are building
+              We've identified three recent insights that are particularly
+              pertinent to driving forward the product, engineering, and AI
+              solutions you are building
             </p>
           </div>
 
@@ -127,23 +144,23 @@ export default function FeaturedArticles({
 
         {/* BAND 3 KARTU – diagonal + 3D scroll */}
         <motion.div
-          style={{
-            y: bandY,
-            rotateX: bandRotateX,
-            rotateZ: bandRotateZ,
-            scale: bandScale,
-          }}
-          className="relative mx-auto max-w-5xl perspective-[1400px]"
+          style={
+            isDesktop
+              ? {
+                  y: bandY,
+                  rotateX: bandRotateX,
+                  rotateZ: bandRotateZ,
+                  scale: bandScale,
+                }
+              : {}
+          }
+          className="relative mx-auto max-w-5xl md:perspective-[1400px]"
         >
           <div className="grid gap-5 md:grid-cols-3">
             {featuredArticles.map((article, index) => {
               // Posisi visual per kartu (kiri–tengah–kanan)
               const position =
-                index === 0
-                  ? "left"
-                  : index === 1
-                  ? "center"
-                  : "right";
+                index === 0 ? "left" : index === 1 ? "center" : "right";
 
               let extraClasses = "";
               if (position === "left") {
@@ -169,12 +186,21 @@ export default function FeaturedArticles({
                     duration: 0.5,
                     ease: "easeOut",
                   }}
-                  whileHover={{
-                    y: -10,
-                    rotateX: 6,
-                    rotateY: position === "left" ? -4 : position === "right" ? 4 : 0,
-                    scale: position === "center" ? 1.06 : 1.03,
-                  }}
+                  whileHover={
+                    isDesktop
+                      ? {
+                          y: -10,
+                          rotateX: 6,
+                          rotateY:
+                            position === "left"
+                              ? -4
+                              : position === "right"
+                              ? 4
+                              : 0,
+                          scale: position === "center" ? 1.06 : 1.03,
+                        }
+                      : {}
+                  }
                 >
                   {/* glow bawah tiap card */}
                   <div className="pointer-events-none absolute inset-0 translate-y-5 rounded-[1.8rem] bg-linear-to-b from-purple-500/20 via-transparent to-transparent blur-2xl opacity-70" />
