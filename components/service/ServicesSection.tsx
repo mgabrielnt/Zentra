@@ -1,16 +1,27 @@
-﻿"use client";
+﻿// D:\zentra\components\service\ServicesSection.tsx
+"use client";
 
-import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
+import Image from "next/image";
 import { services } from "./data";
-import { ServiceCard } from "./ServiceCard";
 import Reveal from "./Reveal";
+import { StickyScroll } from "@/components/ui/sticky-scroll-reveal";
 
-export function ServicesSection() {
+export default function ServicesSection() {
   const content = services.map((s) => ({
     title: s.title,
     description: s.description,
-    content: <ServiceCard s={s} />,
     accent: s.accent,
+    // ⬇️ Full image, isi seluruh card. Tidak ada teks overlay.
+    content: (
+      <Image
+        src={s.image}
+        alt={s.imageAlt}       // alt tetap untuk aksesibilitas/SEO gambar
+        fill                   // isi penuh frame card
+        priority               // boleh ganti jadi `false` untuk non-LCP
+        sizes="(min-width:1024px) 384px, 100vw"
+        className="object-cover"
+      />
+    ),
   }));
 
   return (
@@ -22,8 +33,8 @@ export function ServicesSection() {
       <div className="pointer-events-none absolute inset-x-0 -top-10 h-10 bg-gradient-to-t from-[#0B0B0B] to-transparent" />
       <div className="pointer-events-none absolute -top-24 left-1/2 h-64 w-[42rem] -translate-x-1/2 rounded-full bg-purple-500/10 blur-3xl" />
 
-      {/* Intro text */}
-      <div className="relative mx-auto max-w-5xl px-6">
+      {/* Intro text (kiri atas) */}
+      <div className="relative mx-auto max-w-6xl px-6">
         <Reveal>
           <p className="font-inter text-xs sm:text-sm uppercase tracking-[0.2em] text-white/50">
             What We Do
@@ -43,7 +54,7 @@ export function ServicesSection() {
         </Reveal>
       </div>
 
-      {/* StickyScroll */}
+      {/* StickyScroll lama: kiri teks, kanan card (kini = gambar) */}
       <div className="relative mx-auto mt-10 max-w-6xl px-4 sm:px-6">
         <StickyScroll content={content} />
       </div>

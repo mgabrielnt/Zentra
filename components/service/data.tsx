@@ -1,47 +1,69 @@
 ﻿export type ServiceItem = {
-  id: string;
+  slug: "dev" | "ux" | "commerce" | "ai" | (string & {});
   title: string;
-  label: string;
+  name: string;
   description: string;
-  accent: string;
-  image: string;
+  points: string[];
+  accent?: string;
+  image: string;     // /public path
+  imageAlt: string;
 };
 
 export const services: ServiceItem[] = [
   {
-    id: "dev",
+    slug: "dev",
     title: "Web & Mobile Development",
-    label: "Product engineering",
+    name: "Web & Mobile Development",
     description:
-      "We design, build, and operate web & mobile apps with clean architecture, CI/CD, and observability baked in—ready for the next feature wave.",
-    accent: "#38bdf8", // cyan
-    image: "/images/services/dev.png",
+      "Full-stack web & mobile development with modern stacks, performance budgets, and CI/CD.",
+    points: [
+      "Next.js / React / Node / PostgreSQL",
+      "Native/Hybrid mobile (Expo/React Native)",
+      "CI/CD, observability, error budgets",
+    ],
+    accent: "#7c4dff",
+    image: "/images/services/dev.png",       // ⬅️ kembali ke PNG yang ada
+    imageAlt: "High-performance web and mobile apps",
   },
   {
-    id: "ux",
+    slug: "ux",
     title: "Product Design (UI/UX)",
-    label: "Design systems",
+    name: "Product Design (UI/UX)",
     description:
-      "We turn fuzzy requirements into clear journeys, components, and prototypes that ship smoothly and move your product metrics.",
-    accent: "#f97316", // orange
+      "User research, information architecture, design systems, and prototyping to drive conversion.",
+    points: [
+      "Design systems & accessibility",
+      "Prototyping & usability testing",
+      "Conversion-focused UI patterns",
+    ],
+    accent: "#ff9ffc",
     image: "/images/services/ux.png",
+    imageAlt: "Design system and clean UI components",
   },
   {
-    id: "commerce",
+    slug: "commerce",
     title: "Headless Commerce",
-    label: "Revenue engines",
+    name: "Headless Commerce",
     description:
-      "We build headless commerce stacks tuned for conversion, page speed, and operations so growth and merchandising can iterate safely.",
-    accent: "#22c55e", // green
+      "Headless storefronts built for speed, SEO, and conversion with modern commerce APIs.",
+    points: [
+      "Headless storefront (Next.js)",
+      "Payment & OMS integrations",
+      "SEO & Core Web Vitals first",
+    ],
+    accent: "#b19eef",
     image: "/images/services/commerce.png",
+    imageAlt: "Headless commerce storefront preview",
   },
   {
-    id: "ai",
+    slug: "ai",
     title: "Machine Learning & AI",
-    label: "Applied AI",
+    name: "Machine Learning & AI",
     description:
-      "We add pragmatic AI—recommendations, copilots, fraud detection—into your existing products with governance and MLOps in place.",
-    accent: "#a855f7", // purple
+      "Pragmatic ML/AI: data pipelines, model training, evaluation, and productionization with clear ROI.",
+    points: ["Pipelines & feature store", "Training & evaluation", "Deploy & monitor"],
+    accent: "#22d3ee",
     image: "/images/services/ai.png",
+    imageAlt: "AI pipelines and monitoring dashboards",
   },
 ];

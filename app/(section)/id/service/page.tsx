@@ -22,11 +22,11 @@ const BASE = "https://www.zentratech.id";
 export async function generateMetadata(): Promise<Metadata> {
   return {
     title:
-      "Zentra Services – Web & Mobile Development, UI/UX, Headless Commerce, ML & AI",
+      "Layanan Zentra  Pengembangan Web & Mobile, UI/UX, Headless Commerce, ML & AI",
     description:
-      "Zentra builds modern digital productshigh-performance websites, mobile apps, headless commerce, and pragmatic ML/AI with strong SEO and Core Web Vitals.",
+      "Zentra membangun produk digital modernwebsite cepat, aplikasi mobile, headless commerce, serta ML/AI yang pragmatis dengan SEO & Core Web Vitals yang kuat.",
     alternates: {
-      canonical: `${BASE}/service`,
+      canonical: `${BASE}/id/service`,
       languages: {
         en: `${BASE}/service`,
         id: `${BASE}/id/service`,
@@ -34,24 +34,24 @@ export async function generateMetadata(): Promise<Metadata> {
       },
     },
     openGraph: {
-      url: `${BASE}/service`,
+      url: `${BASE}/id/service`,
       type: "website",
       title:
-        "Zentra Services  Web & Mobile Development, UI/UX, Headless Commerce, ML & AI",
-      description: "From idea to impact  fast, secure, and measurable.",
+        "Layanan Zentra  Pengembangan Web & Mobile, UI/UX, Headless Commerce, ML & AI",
+      description: "Dari ide ke dampak  cepat, aman, dan terukur.",
       images: [`${BASE}/og/services-og.png`],
     },
     twitter: {
       card: "summary_large_image",
       title:
-        "Zentra Services  Web & Mobile Development, UI/UX, Headless Commerce, ML & AI",
-      description: "From idea to impact  fast, secure, and measurable.",
+        "Layanan Zentra  Pengembangan Web & Mobile, UI/UX, Headless Commerce, ML & AI",
+      description: "Dari ide ke dampak  cepat, aman, dan terukur.",
       images: [`${BASE}/og/services-og.png`],
     },
   };
 }
 
-export default function ServicePage() {
+export default function ServicePageID() {
   return (
     <>
       <JsonLd />

@@ -1,5 +1,4 @@
-﻿// D:\zentra\components\service\JsonLd.tsx
-"use client";
+﻿"use client";
 
 export default function JsonLd() {
   const services = [
@@ -9,14 +8,14 @@ export default function JsonLd() {
     { name: "Machine Learning & AI", slug: "ai" },
   ] as const;
 
-  const baseUrl = "https://www.zentra.tech";
+  const baseUrl = "https://www.zentratech.id";
 
   const webpage = {
     "@context": "https://schema.org",
     "@type": "WebPage",
     inLanguage: "en",
     name:
-      "Zentra Services – Web & Mobile Development, UI/UX Design, Headless Commerce, Machine Learning & AI",
+      "Zentra Services  Web & Mobile Development, UI/UX Design, Headless Commerce, Machine Learning & AI",
     description:
       "Zentra designs and builds modern digital products: high-performance websites, mobile apps, conversion-focused headless commerce, and pragmatic machine learning with strong SEO and Core Web Vitals.",
     url: `${baseUrl}/service`,
@@ -42,14 +41,8 @@ export default function JsonLd() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webpage) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webpage) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
     </>
   );
 }
