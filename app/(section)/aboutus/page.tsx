@@ -165,7 +165,7 @@ export default function AboutUsPage() {
           <Reveal delay={0.18}>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Link
-                href="/contact"
+                href="/collaboration"
                 className="rounded-full bg-white px-6 py-3 text-sm font-medium text-black transition hover:scale-105 hover:shadow-[0_0_20px_rgba(255,255,255,0.3)]"
               >
                 Start a project
