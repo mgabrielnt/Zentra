@@ -66,4 +66,4 @@ export const services: ServiceItem[] = [
     image: "/images/services/ai.png",
     imageAlt: "AI pipelines and monitoring dashboards",
   },
-];
+]satisfies ReadonlyArray<ServiceItem>;
