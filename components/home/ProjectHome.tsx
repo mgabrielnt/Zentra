@@ -6,16 +6,20 @@ import CircularGallery from "@/components/home/CircularGallery";
 export default function ProjectHome() {
   const projectItems = [
     {
+      image: '/project/astra/PosterAstraDenganTulisan.png',
+      text: "Astra Internasional",
+    },
+    {
+      image: '/project/bki/PosterBKIDenganTulisani.png',
+      text: "Biro Klasifikasi Indonesia",
+    },
+    {
       image: '/project/waskita/PosterStophivaDenganTulisana.png',
       text: "Waskita by STOPHIVA",
     },
     {
       image: '/project/pkpri/PosterPKPRIDenganTulisan.png',
       text: "PKPRI",
-    },
-    {
-      image: '/project/bki/PosterBKIDenganTulisani.png',
-      text: "Biro Klasifikasi Indonesia",
     },
     {
       image: '/project/mlokomanis/PosterMlokomanisDenganTulisan.png',

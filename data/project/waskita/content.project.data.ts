@@ -19,73 +19,37 @@ export interface ContentProject {
   client?: string;
 }
 
-// --- PROYEK PERTAMA (Waskita) ---
-// --- PROYEK PERTAMA (Waskita) ---
 export const ContentProjectData: ContentProject = {
   id: '1',
-  title: 'Waskita Project',
-  category: 'EDUCATION',
+  title: 'Astra Monitoring',
+  category: 'DASHBOARD',
   description:
-    'An interactive and educational web platform that focuses on HIV/AIDS awareness and prevention. Waskita provides users with engaging learning materials such as quizzes, informative articles, and educational videos to increase public understanding about health, stigma, and support networks. The project aims to create a digital learning environment that promotes empathy, inclusivity, and accurate health information through interactive design and accessible user experience.',
-  backgroundImage: '/project/waskita/PosterStophivaTanpaTulisana.png',
-  image: '/project/waskita/PosterStophivaTanpaTulisana.png',
+    'A visually captivating landing page designed for Mlokomanis Village to promote its tourism, culture, and local economic potential. The platform acts as a digital introduction to the village, showcasing its natural beauty, traditional values, and community initiatives. Through modern design and responsive layout, the website aims to support local empowerment and sustainable tourism growth.',
+  backgroundImage: '/project/astra/PosterAstraTanpaTulisan.png',
+  image: '/project/astra/PosterAstraTanpaTulisan.png',
   overview: {
     title: 'Project Overview',
     paragraphs: [
-      'Waskita is a digital education platform created to raise awareness and understanding of HIV & AIDS in Indonesia. The project addresses the lack of accessible and accurate information by providing interactive learning experiences for the general public.',
-      'The system features multiple modules including quizzes for self-evaluation, article libraries with reliable sources, and video learning sessions designed to make health education engaging and inclusive.',
-      'In addition to being user-oriented, Waskita also includes an administrative dashboard where content managers can easily update quizzes, manage learning materials, and oversee user engagement analytics. This makes Waskita both a public educational tool and a professional management system for long-term sustainability.',
+      'The Mlokomanis Village Landing Page is a community-based digital initiative to introduce the charm, traditions, and development potential of the village to a wider audience. It serves as an official online presence for both local residents and visitors.',
+      'The website highlights various aspects of the village, including its scenic landscapes, local crafts, culinary specialties, and cultural heritage. Its storytelling design helps visitors connect emotionally with the village and encourages tourism participation.',
+      'Built with accessibility and aesthetics in mind, the website features smooth animations, modern typography, and mobile-friendly responsiveness to ensure an immersive browsing experience while maintaining focus on local empowerment and sustainability.',
     ],
   },
   gallery: [
-    { id: 1, image: '/project/waskita/sswaskita/Login.jpg', alt: 'Login Page' },
-    { id: 2, image: '/project/waskita/sswaskita/Asissten.jpg', alt: 'AI Assistant Feature' },
-    { id: 3, image: '/project/waskita/sswaskita/KelolaQuiz.jpg', alt: 'Quiz Management Dashboard' },
-    { id: 4, image: '/project/waskita/sswaskita/EvaluasiQuiz.jpg', alt: 'Quiz Evaluation' },
-    { id: 5, image: '/project/waskita/sswaskita/QuizUser.jpg', alt: 'User Quiz Interface' },
-    { id: 6, image: '/project/waskita/sswaskita/TambahMateri.jpg', alt: 'Add Material Page' },
+    { id: 1, image: '/project/astra/ssastra/astra1.jpg', alt: 'astra dashboard Section 1' },
+    { id: 2, image: '/project/astra/ssastra/astra2.jpg', alt: 'astra dashboard Section 1' },
+    { id: 3, image: '/project/astra/ssastra/astra3.jpg', alt: 'astra dashboard Section 1' },
+    // { id: 4, image: '/project/astra/ssastra/astra4.jpg', alt: 'astra dashboard Section 1' },
+    { id: 5, image: '/project/astra/ssastra/astra5.jpg', alt: 'astra dashboard Section 1' },
+    // { id: 6, image: '/project/astra/ssastra/astra6.jpg', alt: 'astra dashboard Section 1' },
+    { id: 7, image: '/project/astra/ssastra/astra7.jpg', alt: 'astra dashboard Section 1' },
+    // { id: 8, image: '/project/astra/ssastra/astra8.jpg', alt: 'astra dashboard Section 1' },
+    { id: 9, image: '/project/astra/ssastra/astra9.jpg', alt: 'astra dashboard Section 1' },
   ],
-  technologies: [
-    'Next.js',
-    'TypeScript',
-    'Tailwind CSS',
-    'Prisma',
-    'PostgreSQL',
-    'NextAuth.js',
-  ],
+  technologies: ['Next.js', 'Tailwind CSS', 'Framer Motion', 'Vercel'],
 };
-
-// --- PROYEK KEDUA (PKPRI) ---
-export const ContentProjectData2: ContentProject = {
+  export const ContentProjectData2: ContentProject = {
   id: '2',
-  title: 'PKPRI',
-  category: 'COMPANY PROFILE',
-  description:
-    'A professional and informative company profile website built for PKPRI (Pusat Koperasi Pegawai Republik Indonesia). This platform highlights the organization’s vision, structure, and services while presenting its long-standing contribution to Indonesian cooperative development. Designed with modern UI/UX principles, the website serves as an official digital identity and communication channel for members and partners across regions.',
-  backgroundImage: '/project/pkpri/PosterPKPRITanpaTulisan.png',
-  image: '/project/pkpri/PosterPKPRITanpaTulisan.png',
-  overview: {
-    title: 'Project Overview',
-    paragraphs: [
-      'The PKPRI website is a digital transformation initiative aimed at modernizing how cooperatives present and communicate their activities. It centralizes essential information about organizational structure, services, events, and cooperative programs into one cohesive platform.',
-      'The website provides visitors with a clear navigation experience, offering sections for history, achievements, board members, and cooperative events, allowing users to understand PKPRI’s contributions to Indonesia’s economic and social sectors.',
-      'Additionally, the platform supports transparency and credibility by including regularly updated content such as announcements, photo galleries, and contact information, ensuring effective engagement between the organization and the community.',
-    ],
-  },
-  gallery: [
-    { id: 1, image: '/project/pkpri/sspkpri/Beranda1.jpg', alt: 'Homepage Section 1' },
-    { id: 2, image: '/project/pkpri/sspkpri/Beranda3.jpg', alt: 'Homepage Section 3' },
-    { id: 3, image: '/project/pkpri/sspkpri/Beranda2.jpg', alt: 'Homepage Section 2' },
-    { id: 4, image: '/project/pkpri/sspkpri/Pengurus.jpg', alt: 'Management/Board Page' },
-    { id: 5, image: '/project/pkpri/sspkpri/Foto.jpg', alt: 'Photo Gallery' },
-    { id: 6, image: '/project/pkpri/sspkpri/Kontak.jpg', alt: 'Contact Page' },
-  ],
-  technologies: ['Next.js', 'React.js', 'Tailwind CSS', 'Vercel'],
-};
-
-// --- PROYEK KETIGA (BKI) ---
-export const ContentProjectData3: ContentProject = {
-  id: '3',
   title: 'BKI Dashboard',
   category: 'DASHBOARD',
   description:
@@ -119,9 +83,74 @@ export const ContentProjectData3: ContentProject = {
   client: 'Biro Klasifikasi Indonesia',
 };
 
-// --- PROYEK KEEMPAT (Mlokomanis) ---
+// --- PROYEK PERTAMA (Waskita) ---
+export const ContentProjectData3: ContentProject = {
+  id: '3',
+  title: 'Waskita Project',
+  category: 'EDUCATION',
+  description:
+    'An interactive and educational web platform that focuses on HIV/AIDS awareness and prevention. Waskita provides users with engaging learning materials such as quizzes, informative articles, and educational videos to increase public understanding about health, stigma, and support networks. The project aims to create a digital learning environment that promotes empathy, inclusivity, and accurate health information through interactive design and accessible user experience.',
+  backgroundImage: '/project/waskita/PosterStophivaTanpaTulisana.png',
+  image: '/project/waskita/PosterStophivaTanpaTulisana.png',
+  overview: {
+    title: 'Project Overview',
+    paragraphs: [
+      'Waskita is a digital education platform created to raise awareness and understanding of HIV & AIDS in Indonesia. The project addresses the lack of accessible and accurate information by providing interactive learning experiences for the general public.',
+      'The system features multiple modules including quizzes for self-evaluation, article libraries with reliable sources, and video learning sessions designed to make health education engaging and inclusive.',
+      'In addition to being user-oriented, Waskita also includes an administrative dashboard where content managers can easily update quizzes, manage learning materials, and oversee user engagement analytics. This makes Waskita both a public educational tool and a professional management system for long-term sustainability.',
+    ],
+  },
+  gallery: [
+    { id: 1, image: '/project/waskita/sswaskita/Login.jpg', alt: 'Login Page' },
+    { id: 2, image: '/project/waskita/sswaskita/Asissten.jpg', alt: 'AI Assistant Feature' },
+    { id: 3, image: '/project/waskita/sswaskita/KelolaQuiz.jpg', alt: 'Quiz Management Dashboard' },
+    { id: 4, image: '/project/waskita/sswaskita/EvaluasiQuiz.jpg', alt: 'Quiz Evaluation' },
+    { id: 5, image: '/project/waskita/sswaskita/QuizUser.jpg', alt: 'User Quiz Interface' },
+    { id: 6, image: '/project/waskita/sswaskita/TambahMateri.jpg', alt: 'Add Material Page' },
+  ],
+  technologies: [
+    'Next.js',
+    'TypeScript',
+    'Tailwind CSS',
+    'Prisma',
+    'PostgreSQL',
+    'NextAuth.js',
+  ],
+};
+
+// --- PROYEK KEDUA (PKPRI) ---
 export const ContentProjectData4: ContentProject = {
   id: '4',
+  title: 'PKPRI',
+  category: 'COMPANY PROFILE',
+  description:
+    'A professional and informative company profile website built for PKPRI (Pusat Koperasi Pegawai Republik Indonesia). This platform highlights the organization’s vision, structure, and services while presenting its long-standing contribution to Indonesian cooperative development. Designed with modern UI/UX principles, the website serves as an official digital identity and communication channel for members and partners across regions.',
+  backgroundImage: '/project/pkpri/PosterPKPRITanpaTulisan.png',
+  image: '/project/pkpri/PosterPKPRITanpaTulisan.png',
+  overview: {
+    title: 'Project Overview',
+    paragraphs: [
+      'The PKPRI website is a digital transformation initiative aimed at modernizing how cooperatives present and communicate their activities. It centralizes essential information about organizational structure, services, events, and cooperative programs into one cohesive platform.',
+      'The website provides visitors with a clear navigation experience, offering sections for history, achievements, board members, and cooperative events, allowing users to understand PKPRI’s contributions to Indonesia’s economic and social sectors.',
+      'Additionally, the platform supports transparency and credibility by including regularly updated content such as announcements, photo galleries, and contact information, ensuring effective engagement between the organization and the community.',
+    ],
+  },
+  gallery: [
+    { id: 1, image: '/project/pkpri/sspkpri/Beranda1.jpg', alt: 'Homepage Section 1' },
+    { id: 2, image: '/project/pkpri/sspkpri/Beranda3.jpg', alt: 'Homepage Section 3' },
+    { id: 3, image: '/project/pkpri/sspkpri/Beranda2.jpg', alt: 'Homepage Section 2' },
+    { id: 4, image: '/project/pkpri/sspkpri/Pengurus.jpg', alt: 'Management/Board Page' },
+    { id: 5, image: '/project/pkpri/sspkpri/Foto.jpg', alt: 'Photo Gallery' },
+    { id: 6, image: '/project/pkpri/sspkpri/Kontak.jpg', alt: 'Contact Page' },
+  ],
+  technologies: ['Next.js', 'React.js', 'Tailwind CSS', 'Vercel'],
+};
+
+// --- PROYEK KETIGA (BKI) ---
+
+// --- PROYEK KEEMPAT (Mlokomanis) ---
+export const ContentProjectData5: ContentProject = {
+  id: '5',
   title: 'Mlokomanis Village Landing Page',
   category: 'LANDING PAGES',
   description:
@@ -147,13 +176,13 @@ export const ContentProjectData4: ContentProject = {
   technologies: ['Next.js', 'Tailwind CSS', 'Framer Motion', 'Vercel'],
 };
 
-
 // --- Array semua proyek ---
 const projects: ContentProject[] = [
   ContentProjectData,
   ContentProjectData2,
   ContentProjectData3,
   ContentProjectData4,
+  ContentProjectData5,
 ];
 
 // Export function to get project by ID

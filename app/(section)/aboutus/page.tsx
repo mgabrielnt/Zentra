@@ -198,7 +198,7 @@ export default function AboutUsPage() {
           <Reveal delay={0.12}>
             <p className="mt-6 font-space-grotesk text-lg text-white/70">
               We believe every business deserves products built with the same rigor as the tech
-              giants—fast, secure, accessible, and data-driven. We're here to close that gap.
+              giants—fast, secure, accessible, and data-driven. Were here to close that gap.
             </p>
           </Reveal>
         </div>
