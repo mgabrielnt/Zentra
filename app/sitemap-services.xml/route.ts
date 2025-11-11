@@ -1,64 +1,18 @@
-﻿// D:\zentra\app\sitemap-services.xml\route.ts
-import { NextResponse } from "next/server";
-import { services } from "@/components/service/data";
+﻿import { NextResponse } from "next/server";
 
-const BASE = "https://zentratech.id"; // ✅ samakan dengan robots/layout
+const BASE = "https://www.zentratech.id";
 
 export async function GET() {
-  const lastmod = new Date().toISOString();
+  const body = [
+    "User-agent: *",
+    "Allow: /",
+    "",
+    `Sitemap: ${BASE}/sitemap.xml`,
+    `Sitemap: ${BASE}/sitemap-services.xml`,
+    "",
+  ].join("\n");
 
-  const urls = [
-    {
-      loc: `${BASE}/service`,
-      hreflang: {
-        en: `${BASE}/service`,
-        id: `${BASE}/id/service`,
-      },
-    },
-    {
-      loc: `${BASE}/id/service`,
-      hreflang: {
-        en: `${BASE}/service`,
-        id: `${BASE}/id/service`,
-      },
-    },
-    // Optional: expose topical CTA for discovery
-    ...services.map((s) => ({
-      loc: `${BASE}/collaboration?topic=${encodeURIComponent(s.slug)}`,
-      hreflang: null,
-    })),
-  ];
-
-  const xml = `
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  ${urls
-    .map(
-      (u: any) => `
-    <url>
-      <loc>${u.loc}</loc>
-      <lastmod>${lastmod}</lastmod>
-      ${
-        u.hreflang
-          ? `
-      <xhtml:link rel="alternate" hreflang="en" href="${u.hreflang.en}" />
-      <xhtml:link rel="alternate" hreflang="id" href="${u.hreflang.id}" />
-      <xhtml:link rel="alternate" hreflang="x-default" href="${u.hreflang.en}" />
-      `
-          : ""
-      }
-      <changefreq>weekly</changefreq>
-      <priority>0.8</priority>
-    </url>`
-    )
-    .join("")}
-</urlset>`.trim();
-
-  return new NextResponse(xml, {
-    headers: {
-      "Content-Type": "application/xml; charset=utf-8",
-      "Cache-Control": "public, max-age=3600",
-    },
+  return new NextResponse(body, {
+    headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" },
   });
 }
