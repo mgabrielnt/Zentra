@@ -22,42 +22,103 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-// JSON-LD: Organization
+// JSON-LD & SEO helpers
+const SITE_URL = "https://zentratech.id";
+
 function JsonLd() {
+  // ✅ Organization schema
   const organization = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Zentra",
+    "@id": `${SITE_URL}#organization`,
+    name: "Zentratech",
+    legalName: "Zentratech",
+    url: SITE_URL,
     description:
-      "Zentra designs and builds modern digital products with focus on performance, accessibility, and measurable business outcomes.",
-    url: "https://example.com",
-    logo: "https://example.com/logo_zentra.png",
-    foundingDate: "2020",
-    contactPoint: {
-      "@type": "ContactPoint",
-      contactType: "Customer Service",
-      url: "https://example.com/contact",
-    },
+      "Zentratech adalah studio pengembang produk digital modern yang fokus pada performa, aksesibilitas, dan hasil bisnis yang terukur.",
+    logo: `${SITE_URL}/logo_zentra.png`, // TODO: sesuaikan path/logo final kamu
+    foundingDate: "2022",
     sameAs: [
-      "https://linkedin.com/company/zentra",
-      "https://twitter.com/zentra",
+      // TODO: jika punya sosmed, isi di sini
+      // "https://www.linkedin.com/company/zentratech",
+      // "https://www.instagram.com/zentratech",
+    ],
+    contactPoint: [
+      {
+        "@type": "ContactPoint",
+        contactType: "customer support",
+        url: `${SITE_URL}/contact`,
+        areaServed: "ID",
+        availableLanguage: ["id", "en"],
+      },
     ],
   } as const;
 
+  // ✅ Website schema
+  const website = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE_URL}#website`,
+    url: SITE_URL,
+    name: "Zentratech",
+    inLanguage: "id-ID",
+    potentialAction: [
+      {
+        "@type": "SearchAction",
+        target: `${SITE_URL}/search?q={search_term_string}`,
+        "query-input": "required name=search_term_string",
+      },
+    ],
+  } as const;
+
+  // ✅ About page schema (WebPage)
   const webpage = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
-    name: "About Zentra — Modern Digital Product Studio",
+    "@id": `${SITE_URL}/aboutus#webpage`,
+    url: `${SITE_URL}/aboutus`,
+    inLanguage: "id-ID",
+    isPartOf: {
+      "@id": `${SITE_URL}#website`,
+    },
+    name: "Tentang Zentratech — Studio Produk Digital Modern",
     description:
-      "Learn about Zentra's mission to build fast, secure, and measurable digital products. Meet our team and discover our values.",
-    url: "https://example.com/aboutus",
+      "Pelajari lebih jauh tentang Zentratech, studio pengembang website dan aplikasi modern dari Indonesia yang fokus pada performa, keamanan, dan hasil bisnis.",
     breadcrumb: {
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: "https://example.com" },
-        { "@type": "ListItem", position: 2, name: "About Us", item: "https://example.com/aboutus" },
+        { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Tentang Kami",
+          item: `${SITE_URL}/aboutus`,
+        },
       ],
     },
+  } as const;
+
+  // ✅ Local / service business schema (geo & lokal signal)
+  const service = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": `${SITE_URL}#service`,
+    name: "Zentratech",
+    url: SITE_URL,
+    description:
+      "Jasa pembuatan website, aplikasi web, dan produk digital modern oleh Zentratech untuk bisnis di Indonesia.",
+    areaServed: {
+      "@type": "Country",
+      name: "Indonesia",
+    },
+    // Kalau punya alamat fisik jelas, boleh ditambah:
+    // address: {
+    //   "@type": "PostalAddress",
+    //   addressCountry: "ID",
+    //   addressLocality: "Semarang",
+    //   addressRegion: "Jawa Tengah",
+    //   streetAddress: "Tuliskan alamat lengkap di sini",
+    // },
   } as const;
 
   return (
@@ -68,7 +129,15 @@ function JsonLd() {
       />
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(website) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(webpage) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(service) }}
       />
     </>
   );
@@ -90,7 +159,11 @@ function Reveal({ children, delay = 0 }: { children: ReactNode; delay?: number }
 
 export default function AboutUsPage() {
   const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 220, damping: 18, mass: 0.2 });
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 220,
+    damping: 18,
+    mass: 0.2,
+  });
 
   const stats = [
     { number: "20+", label: "Projects Delivered" },
@@ -102,7 +175,7 @@ export default function AboutUsPage() {
   return (
     <main
       className={`min-h-screen bg-black ${inter.variable} ${spaceGrotesk.variable}`}
-      aria-label="About Zentra"
+      aria-label="Tentang Zentratech - Studio Produk Digital Modern dari Indonesia"
     >
       {/* Top progress bar */}
       <motion.div
@@ -142,8 +215,10 @@ export default function AboutUsPage() {
                text-center"
         >
           <Reveal>
+            {/* ✅ H1 tetap ada (bagus untuk SEO), sekalian mention brand dan jasa */}
             <h1 className="sr-only">
-              About Zentra: We are innovators, craftspeople, and problem solvers building digital products that drive real results
+              Tentang Zentratech – studio pengembang website dan aplikasi modern
+              untuk bisnis di Indonesia, fokus pada performa, keamanan, dan hasil bisnis.
             </h1>
             <div aria-hidden="true" className="flex flex-col items-center gap-3">
               <LayoutTextFlip
@@ -160,6 +235,15 @@ export default function AboutUsPage() {
                 Building digital products that drive real results.
               </p>
             </div>
+          </Reveal>
+
+          {/* ✅ Paragraf singkat yang eksplisit menyebut Zentratech & Indonesia */}
+          <Reveal delay={0.08}>
+            <p className="mt-5 text-sm text-white/70 max-w-2xl mx-auto font-space-grotesk">
+              Zentratech adalah studio produk digital yang membantu bisnis di Indonesia
+              membangun website dan aplikasi modern dengan fokus pada performa,
+              experience, dan metrik bisnis yang jelas.
+            </p>
           </Reveal>
 
           <Reveal delay={0.18}>
@@ -188,7 +272,9 @@ export default function AboutUsPage() {
 
         <div className="mx-auto max-w-4xl text-center">
           <Reveal>
-            <p className="font-inter text-sm uppercase tracking-[0.2em] text-white/50">Our Mission</p>
+            <p className="font-inter text-sm uppercase tracking-[0.2em] text-white/50">
+              Our Mission
+            </p>
           </Reveal>
           <Reveal delay={0.06}>
             <h2 className="mt-4 bg-gradient-to-b from-white to-white/70 bg-clip-text font-inter text-3xl md:text-5xl font-semibold text-transparent">
@@ -198,7 +284,8 @@ export default function AboutUsPage() {
           <Reveal delay={0.12}>
             <p className="mt-6 font-space-grotesk text-lg text-white/70">
               We believe every business deserves products built with the same rigor as the tech
-              giants—fast, secure, accessible, and data-driven. Were here to close that gap.
+              giants—fast, secure, accessible, and data-driven. We are here to close that gap
+              for brands across Indonesia and beyond.
             </p>
           </Reveal>
         </div>
@@ -220,7 +307,7 @@ export default function AboutUsPage() {
           </Reveal>
           <Reveal delay={0.06}>
             <p className="mx-auto mt-4 max-w-2xl text-center font-space-grotesk text-white/70">
-              From concept to execution—moments that shaped who we are today.
+              From concept to execution—moments that shaped who we are today at Zentratech.
             </p>
           </Reveal>
         </div>
@@ -259,7 +346,7 @@ export default function AboutUsPage() {
                   <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100">
                     <div className="absolute inset-0 bg-gradient-to-b from-purple-500/10 to-transparent" />
                   </div>
-                  
+
                   <div className="relative">
                     <div className="bg-gradient-to-b from-white to-purple-200 bg-clip-text font-inter text-5xl md:text-6xl font-bold text-transparent">
                       {stat.number}

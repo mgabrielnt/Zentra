@@ -32,46 +32,47 @@ type ItemDef = {
   sizeY: number;
 };
 
+// ✅ ALT lebih deskriptif & mengandung brand secara natural
 const DEFAULT_IMAGES: ImageItem[] = [
   {
     src: '/aboutus/aboutus1.jpg',
-    alt: 'Abstract art'
+    alt: 'Tim Zentratech berdiskusi strategi produk digital'
   },
   {
     src: '/aboutus/aboutus2.jpg',
-    alt: 'Abstract art'
+    alt: 'Proses desain UI UX di studio Zentratech'
   },
   {
     src: '/aboutus/aboutus3.jpg',
-    alt: 'Abstract art'
+    alt: 'Engineer Zentratech mengembangkan aplikasi web'
   },
   {
     src: '/aboutus/aboutus4.jpg',
-    alt: 'Abstract art'
+    alt: 'Kolaborasi tim Zentratech dalam sprint planning'
   },
   {
     src: '/aboutus/aboutus5.jpg',
-    alt: 'Abstract art'
+    alt: 'Review performa website klien oleh Zentratech'
   },
   {
     src: '/aboutus/aboutus6.jpg',
-    alt: 'Abstract art'
+    alt: 'Workshop internal teknologi di Zentratech'
   },
   {
     src: '/aboutus/aboutus7.jpg',
-    alt: 'Abstract art'
+    alt: 'Suasana kerja di studio pengembangan Zentratech'
   },
   {
     src: '/aboutus/aboutus8.jpg',
-    alt: 'Abstract art'
+    alt: 'Tim Zentratech mengevaluasi hasil proyek digital'
   },
   {
     src: '/aboutus/aboutus9.jpg',
-    alt: 'Abstract art'
+    alt: 'Presentasi solusi digital dari Zentratech'
   },
   {
     src: '/aboutus/aboutus10.jpg',
-    alt: 'Abstract art'
+    alt: 'Detail antarmuka produk digital buatan Zentratech'
   }
 ];
 
@@ -752,17 +753,7 @@ export default function DomeGallery({
         width: 100% !important;
       }
     }
-    
-    // body.dg-scroll-lock {
-    //   position: fixed !important;
-    //   top: 0;
-    //   left: 0;
-    //   width: 100% !important;
-    //   height: 100% !important;
-    //   overflow: hidden !important;
-    //   touch-action: none !important;
-    //   overscroll-behavior: contain !important;
-    // }
+
     .item__image {
       position: absolute;
       inset: 10px;
@@ -863,6 +854,7 @@ export default function DomeGallery({
                       src={it.src}
                       draggable={false}
                       alt={it.alt}
+                      loading="lazy"
                       className="w-full h-full object-cover pointer-events-none"
                       style={{
                         backfaceVisibility: 'hidden',
