@@ -4,12 +4,9 @@ import { useEffect, useRef } from 'react';
 type GL = Renderer['gl'];
 
 function debounce<T extends (...args: unknown[]) => void>(func: T, wait: number) {
-  // Use the cross-environment `setTimeout` return type so the util works in SSR-aware builds.
-  let timeout: ReturnType<typeof setTimeout> | undefined;
+  let timeout: ReturnType<typeof window.setTimeout>;
   return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
-    if (timeout !== undefined) {
-      clearTimeout(timeout);
-    }
+    window.clearTimeout(timeout);
     timeout = window.setTimeout(() => func.apply(this, args), wait);
   };
 }
