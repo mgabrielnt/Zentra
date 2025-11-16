@@ -29,7 +29,7 @@ export default function ProjectPage() {
       : projects.filter((project) => project.category === activeCategory);
 
   return (
-    <div className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white" aria-label="Portofolio proyek Zentratech">
       {/* ====================== HERO SECTION ====================== */}
       <section className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-black">
         <div className="absolute inset-0 z-0">
@@ -53,24 +53,25 @@ export default function ProjectPage() {
                text-center"
         >
           <Reveal mode="mount">
-            <h1 className="sr-only">
-              Zentra Services: Web & Mobile Development, UI/UX Design, Headless
-              Commerce, Machine Learning & AI
-            </h1>
-            <div aria-hidden="true" className="flex flex-col items-center gap-3">
-              <LayoutTextFlip
-                text="Our Project is"
-                words={[
-                  "Dashboard Analytics",
-                  "UI/UX Design",
-                  "Education Website",
-                  "Company Profile",
-                ]}
-                duration={2600}
-              />
+            <div className="flex flex-col items-center gap-4 text-center">
+              <h1 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+                Portofolio Proyek Digital & AI Zentratech
+              </h1>
               <p className="font-inter text-base text-white/80 drop-shadow-[0_1px_0_rgba(0,0,0,0.35)]">
                 From idea to impact — fast, secure, and measurable.
               </p>
+              <div className="flex flex-col items-center gap-3" aria-label="Kategori proyek">
+                <LayoutTextFlip
+                  text="Our projects span"
+                  words={[
+                    "Dashboard Analytics",
+                    "UI/UX Design",
+                    "Education Website",
+                    "Company Profile",
+                  ]}
+                  duration={2600}
+                />
+              </div>
             </div>
           </Reveal>
         </div>
@@ -138,6 +139,6 @@ export default function ProjectPage() {
           </motion.div>
         </div>
       </section>
-    </div>
+    </main>
   );
 }

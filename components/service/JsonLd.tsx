@@ -1,4 +1,6 @@
-﻿"use client";
+"use client";
+
+import { siteConfig } from "@/lib/seo/siteMetadata";
 
 export default function JsonLd() {
   const services = [
@@ -8,12 +10,12 @@ export default function JsonLd() {
     { name: "Machine Learning & AI", slug: "ai" },
   ] as const;
 
-  const baseUrl = "https://www.zentratech.id";
+  const baseUrl = siteConfig.url;
 
   const webpage = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    inLanguage: "en",
+    inLanguage: siteConfig.defaultLocale,
     name:
       "Zentra Services  Web & Mobile Development, UI/UX Design, Headless Commerce, Machine Learning & AI",
     description:
@@ -41,8 +43,16 @@ export default function JsonLd() {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webpage) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webpage) }}
+      />
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }}
+      />
     </>
   );
 }

@@ -45,25 +45,27 @@ export default function InsightHero() {
 
       <div className="relative z-10 mx-auto max-w-5xl px-6 pb-24 sm:pb-32 md:pb-40 lg:pb-56 pt-24 md:pt-32 mt-6 md:mt-10 text-center">
         <Reveal>
-          <h1 className="sr-only">
-            Zentra Insights: Latest Technology Trends, AI, Web Development, and Innovation Articles
-          </h1>
-          <div aria-hidden="true" className="flex flex-col items-center gap-3">
-            <LayoutTextFlip
-              text="Insights on"
-              words={[
-                "AI & Automation",
-                "Web Development",
-                "Cloud & Edge",
-                "Sustainability",
-                "Blockchain",
-                "Quantum Computing"
-              ]}
-              duration={2600}
-            />
+          <div className="flex flex-col items-center gap-4 text-center">
+            <h1 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+              Zentra Insights: Teknologi, AI, dan Praktik Pengembangan Modern
+            </h1>
             <p className={`${inter.className} text-base text-white/80 drop-shadow-[0_1px_0_rgba(0,0,0,0.35)]`}>
               Deep dives into emerging tech, best practices, and innovation.
             </p>
+            <div className="flex flex-col items-center gap-3" aria-label="Topik unggulan">
+              <LayoutTextFlip
+                text="Insights on"
+                words={[
+                  "AI & Automation",
+                  "Web Development",
+                  "Cloud & Edge",
+                  "Sustainability",
+                  "Blockchain",
+                  "Quantum Computing"
+                ]}
+                duration={2600}
+              />
+            </div>
           </div>
         </Reveal>
       </div>
