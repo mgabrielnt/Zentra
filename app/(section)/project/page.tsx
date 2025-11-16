@@ -1,11 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useState } from "react";
 import { motion } from "framer-motion";
-import LiquidEther from '@/components/LiquidEther';
-import ProjectCard from '@/components/project/ProjectCard';
-import { projects, categories } from '@/data/project/mockup.projects.data';
+import LiquidEther from "@/components/LiquidEther";
+import ProjectCard from "@/components/project/ProjectCard";
+import { projects, categories } from "@/data/project/mockup.projects.data";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
+import { BRAND_NAME, SITE_URL } from "@/lib/seo/config";
 
 // Komponen Reveal untuk animasi fade-in
 const Reveal = ({ children, mode = "mount" }: { children: React.ReactNode; mode?: string }) => {
@@ -27,6 +28,28 @@ export default function ProjectPage() {
     activeCategory === 'SHOW ALL'
       ? projects
       : projects.filter((project) => project.category === activeCategory);
+
+  const pageUrl = `${SITE_URL}/project`;
+  const projectCollectionSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: `Portofolio Proyek IT & AI ${BRAND_NAME}`,
+    url: pageUrl,
+    inLanguage: "id-ID",
+    description:
+      "Kumpulan studi kasus pengembangan aplikasi, dashboard, dan solusi AI yang dibangun Zentratech untuk klien di Indonesia.",
+    isPartOf: { "@id": `${SITE_URL}#website` },
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: projects.map((project, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: project.title,
+        url: `${pageUrl}#project-${project.id}`,
+        description: project.description,
+      })),
+    },
+  } as const;
 
   return (
     <div className="min-h-screen bg-white">
@@ -53,11 +76,10 @@ export default function ProjectPage() {
                text-center"
         >
           <Reveal mode="mount">
-            <h1 className="sr-only">
-              Zentra Services: Web & Mobile Development, UI/UX Design, Headless
-              Commerce, Machine Learning & AI
+            <h1 className="bg-gradient-to-b from-white to-white/80 bg-clip-text text-3xl font-semibold text-transparent md:text-4xl lg:text-5xl">
+              Portofolio Proyek IT & AI {BRAND_NAME} di Semarang
             </h1>
-            <div aria-hidden="true" className="flex flex-col items-center gap-3">
+            <div className="mt-4 flex flex-col items-center gap-3">
               <LayoutTextFlip
                 text="Our Project is"
                 words={[
@@ -69,7 +91,8 @@ export default function ProjectPage() {
                 duration={2600}
               />
               <p className="font-inter text-base text-white/80 drop-shadow-[0_1px_0_rgba(0,0,0,0.35)]">
-                From idea to impact — fast, secure, and measurable.
+                Studi kasus nyata untuk perusahaan Indonesia yang ingin
+                meningkatkan operasi dengan solusi digital dan AI.
               </p>
             </div>
           </Reveal>
@@ -126,6 +149,7 @@ export default function ProjectPage() {
             {filteredProjects.map((project, index) => (
               <motion.div
                 key={project.id}
+                id={`project-${project.id}`}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.9 }}
@@ -138,6 +162,11 @@ export default function ProjectPage() {
           </motion.div>
         </div>
       </section>
+      <script
+        type="application/ld+json"
+        suppressHydrationWarning
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectCollectionSchema) }}
+      />
     </div>
   );
 }

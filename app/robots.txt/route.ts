@@ -1,6 +1,7 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import { SITE_URL } from "@/lib/seo/config";
 
-const BASE = "https://www.zentratech.id";
+const BASE = SITE_URL;
 
 export async function GET() {
   const body = [
@@ -13,6 +14,9 @@ export async function GET() {
   ].join("\n");
 
   return new NextResponse(body, {
-    headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "public, max-age=3600" },
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "public, max-age=3600",
+    },
   });
 }

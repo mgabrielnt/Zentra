@@ -60,19 +60,21 @@ export function HeroSection() {
 
       {/* ===== Headline ===== */}
       <div
-        className="relative z-10 mx-auto max-w-5xl px-6 
+        className="relative z-10 mx-auto max-w-5xl px-6
              pb-24 sm:pb-32 md:pb-40 lg:pb-56
              pt-24 md:pt-32
-             mt-6 md:mt-10 
+             mt-6 md:mt-10
              text-center"
       >
         <Reveal mode="mount">
-          <h1 id="services-heading" className="sr-only">
-            Zentra Services: Web & Mobile Development, UI/UX Design, Headless
-            Commerce, Machine Learning & AI
+          <h1
+            id="services-heading"
+            className="bg-gradient-to-b from-white to-white/80 bg-clip-text font-inter text-3xl font-semibold text-transparent md:text-4xl lg:text-5xl"
+          >
+            Konsultan IT & AI Semarang untuk Produk Digital dan Headless Commerce
           </h1>
 
-          <div aria-hidden="true" className="flex flex-col items-center gap-3">
+          <div className="mt-4 flex flex-col items-center gap-3">
             {/* Fallback kalau LayoutTextFlip bermasalah */}
             {LayoutTextFlip ? (
               <LayoutTextFlip
@@ -90,7 +92,8 @@ export function HeroSection() {
             )}
 
             <p className="font-inter text-base text-white/80 drop-shadow-[0_1px_0_rgba(0,0,0,0.35)]">
-              From idea to impact — fast, secure, and measurable.
+              Menggabungkan konsultasi IT, AI, dan pengembangan produk di
+              Semarang untuk deliverable yang cepat, aman, dan terukur.
             </p>
 
           

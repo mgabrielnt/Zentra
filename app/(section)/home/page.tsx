@@ -155,10 +155,15 @@ export default function Home() {
               Digital product & AI studio
             </div>
 
-            <div className="mb-6">
+            <div className="mb-6 space-y-3">
+              <h1 className="font-inter text-4xl font-semibold tracking-tight text-white md:text-5xl lg:text-6xl">
+                Konsultan IT & AI Semarang untuk Bisnis Digital
+              </h1>
               <TextType
-                as="h1"
-                className="inline-block font-inter text-4xl font-bold tracking-tight text-white md:text-5xl lg:text-6xl"
+                as="p"
+                aria-hidden="true"
+                role="presentation"
+                className="inline-block font-inter text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl"
                 text="You imagine. We build."
                 typingSpeed={80}
                 deletingSpeed={50}
@@ -175,8 +180,9 @@ export default function Home() {
             </p>
 
             <p className="mb-8 max-w-xl text-sm text-white/70 md:text-base">
-              We embed with your team to design, build, and evolve web, product,
-              and AI experiences—without the usual agency baggage.
+              Berbasis di Semarang, kami menyatu dengan tim Anda untuk
+              merancang, membangun, dan mengembangkan pengalaman web, produk,
+              dan AI yang cepat, aman, serta berorientasi pada hasil bisnis.
             </p>
           </motion.div>
 

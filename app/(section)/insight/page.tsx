@@ -6,6 +6,7 @@ import InsightHero from "@/components/insight/InsightHero";
 import ArticleCard from "@/components/insight/ArticleCard";
 import NewsletterCTA from "@/components/insight/NewsLetterCTA";
 import { articles } from "@/components/insight/articlesData";
+import { BRAND_NAME, SITE_URL } from "@/lib/seo/config";
 
 // Fonts
 const spaceGrotesk = Space_Grotesk({
@@ -22,23 +23,40 @@ const inter = Inter({
 
 // JSON-LD for SEO
 function JsonLd() {
-  const webpage = {
+  const pageUrl = `${SITE_URL}/insight`;
+  const blogSchema = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: "Zentra Insights — Tech Articles & Trends",
-    description: "Latest articles about technology trends, AI, web development, and digital innovation.",
-    url: "https://example.com/insight",
+    name: `${BRAND_NAME} Insights — IT & AI Semarang`,
+    description:
+      "Artikel dan kurasi wawasan seputar konsultasi IT, AI, dan transformasi digital untuk bisnis Indonesia.",
+    inLanguage: "en",
+    url: pageUrl,
     publisher: {
       "@type": "Organization",
-      name: "Zentra",
-      logo: "https://example.com/logo_zentra.png"
-    }
+      name: BRAND_NAME,
+      url: SITE_URL,
+      logo: {
+        "@type": "ImageObject",
+        url: `${SITE_URL}/logoZentraFix.png`,
+      },
+    },
+    blogPost: articles.map((article) => ({
+      "@type": "BlogPosting",
+      headline: article.title,
+      datePublished: article.date,
+      dateModified: article.date,
+      description: article.excerpt,
+      image: `${SITE_URL}${article.image}`,
+      url: `${pageUrl}/${article.slug}`,
+    })),
   } as const;
 
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(webpage) }}
+      suppressHydrationWarning
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
     />
   );
 }
