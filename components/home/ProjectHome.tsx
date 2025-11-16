@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import CircularGallery from "@/components/home/CircularGallery";
 
@@ -71,7 +72,7 @@ export default function ProjectHome() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <a
+            <Link
               href="/project"
               className="group inline-flex items-center gap-3 rounded-lg bg-white/5 px-6 py-3 text-sm font-medium uppercase tracking-wider text-white transition-all duration-300 hover:bg-white/10"
             >
@@ -89,7 +90,7 @@ export default function ProjectHome() {
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 />
               </svg>
-            </a>
+            </Link>
           </motion.div>
         </div>
 

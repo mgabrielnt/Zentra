@@ -9,7 +9,7 @@ import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { BRAND_NAME, SITE_URL } from "@/lib/seo/config";
 
 // Komponen Reveal untuk animasi fade-in
-const Reveal = ({ children, mode = "mount" }: { children: React.ReactNode; mode?: string }) => {
+const Reveal = ({ children }: { children: React.ReactNode }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

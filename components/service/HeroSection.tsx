@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import LiquidEther from "@/components/LiquidEther";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import Reveal from "./Reveal";
-import { services } from "./data";
 import Link from "next/link";
 
 export function HeroSection() {

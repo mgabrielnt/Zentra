@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import Link from "next/link";
 import { Space_Grotesk, Inter } from "next/font/google";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";

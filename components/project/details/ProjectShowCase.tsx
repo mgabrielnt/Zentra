@@ -25,7 +25,7 @@ export default function ProjectShowcaseGallery({ gallery }: ProjectShowcaseGalle
             Project Showcase
           </h2>
           <p className="text-gray-600 text-sm sm:text-base md:text-lg max-w-3xl mx-auto">
-            Explore the comprehensive work we've done for this project
+            Explore the comprehensive work we&apos;ve done for this project
           </p>
         </div>
 

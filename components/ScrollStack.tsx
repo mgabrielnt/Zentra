@@ -20,8 +20,7 @@ export const StickyScroll = ({
 }) => {
   const [activeCard, setActiveCard] = useState(0);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  if (!content || content.length === 0) return null;
+  const hasContent = content.length > 0;
 
   // Tentukan card aktif dari teks yang SUDAH melewati garis trigger (40% viewport)
   useEffect(() => {
@@ -64,6 +63,10 @@ export const StickyScroll = ({
       window.removeEventListener("scroll", handleScroll);
     };
   }, [content.length]);
+
+  if (!hasContent) {
+    return null;
+  }
 
   const activeAccent = content[activeCard]?.accent ?? "#5227FF";
 

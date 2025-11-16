@@ -1,6 +1,3 @@
-/// <reference types="react" />
-/// <reference types="react-dom" />
-
 "use client";
 import React, {
   useEffect,
@@ -8,6 +5,7 @@ import React, {
   useState,
   createContext,
   useContext,
+  useCallback,
 } from "react";
 import {
   IconArrowNarrowLeft,
@@ -18,10 +16,8 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion"; // ganti dari motion/react
 import Image, { ImageProps } from "next/image";
 import { useOutsideClick } from "@/hooks/use-outside-click";
-import { JSX } from "react/jsx-dev-runtime";
-
 interface CarouselProps {
-  items: JSX.Element[];
+  items: React.ReactElement[];
   initialScroll?: number;
 }
 
@@ -34,32 +30,29 @@ type Card = {
 
 export const CarouselContext = createContext<{
   onCardClose: (index: number) => void;
-  currentIndex: number;
 }>({
   onCardClose: () => {},
-  currentIndex: 0,
 });
 
 export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
   const carouselRef = React.useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = React.useState(false);
   const [canScrollRight, setCanScrollRight] = React.useState(true);
-  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const checkScrollability = useCallback(() => {
+    if (carouselRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth);
+    }
+  }, []);
 
   useEffect(() => {
     if (carouselRef.current) {
       carouselRef.current.scrollLeft = initialScroll;
       checkScrollability();
     }
-  }, [initialScroll]);
-
-  const checkScrollability = () => {
-    if (carouselRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = carouselRef.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth);
-    }
-  };
+  }, [initialScroll, checkScrollability]);
 
   const scrollLeft = () => {
     if (carouselRef.current) {
@@ -73,6 +66,8 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
     }
   };
 
+  const isMobile = () => typeof window !== "undefined" && window.innerWidth < 768;
+
   const handleCardClose = (index: number) => {
     if (carouselRef.current) {
       const cardWidth = isMobile() ? 230 : 384;
@@ -82,18 +77,11 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
         left: scrollPosition,
         behavior: "smooth",
       });
-      setCurrentIndex(index);
     }
   };
 
-  const isMobile = () => {
-    return window && window.innerWidth < 768;
-  };
-
   return (
-    <CarouselContext.Provider
-      value={{ onCardClose: handleCardClose, currentIndex }}
-    >
+    <CarouselContext.Provider value={{ onCardClose: handleCardClose }}>
       <div className="relative w-full">
         <div
           className="flex w-full overflow-x-scroll overscroll-x-auto scroll-smooth py-10 [scrollbar-width:none] md:py-20"
@@ -167,7 +155,12 @@ export const Card = ({
 }) => {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { onCardClose, currentIndex } = useContext(CarouselContext);
+  const { onCardClose } = useContext(CarouselContext);
+
+  const handleClose = useCallback(() => {
+    setOpen(false);
+    onCardClose(index);
+  }, [index, onCardClose]);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
@@ -176,25 +169,19 @@ export const Card = ({
       }
     }
 
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
+    document.body.style.overflow = open ? "hidden" : "auto";
 
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open]);
+    return () => {
+      document.body.style.overflow = "auto";
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [handleClose, open]);
 
-  useOutsideClick(containerRef, () => handleClose());
+  useOutsideClick(containerRef, handleClose);
 
   const handleOpen = () => {
     setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    onCardClose(index);
   };
 
   return (
