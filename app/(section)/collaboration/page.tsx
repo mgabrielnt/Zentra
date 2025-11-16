@@ -298,7 +298,20 @@ export default function Page() {
                   </div>
                 )}
 
-                <form onSubmit={handleSubmit} noValidate className="space-y-7">
+                {/*
+                  UX: beberapa ekstensi browser/password-manager (mis. Form
+                  Data Manager) menyuntikkan atribut acak seperti
+                  `fdprocessedid` ke elemen form sebelum React melakukan
+                  hydration sehingga Next.js mengeluarkan error mismatch.
+                  `suppressHydrationWarning` memastikan React mengabaikan
+                  perbedaan kecil yang bukan berasal dari kode kami.
+                */}
+                <form
+                  onSubmit={handleSubmit}
+                  noValidate
+                  suppressHydrationWarning
+                  className="space-y-7"
+                >
                   <div className="grid gap-4 sm:gap-5 md:grid-cols-2">
                     <div>
                       <label className="block text-xs font-medium uppercase tracking-[0.18em] text-white/60">
