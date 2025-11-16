@@ -9,6 +9,7 @@ import {
   useMotionValue,
   useMotionTemplate,
   AnimatePresence,
+  MotionValue,
 } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -126,7 +127,7 @@ export function StickyScroll({
   }, [cardCount, svgHeight]);
 
   // Orb highlight
-  const yHighlight = useSpring(40, {
+  const yHighlight: MotionValue<number> = useSpring(40, {
     stiffness: 260,
     damping: 32,
     mass: 0.4,
@@ -371,13 +372,13 @@ export function StickyScroll({
                 cx={24}
                 r={7}
                 fill={activeAccent}
-                cy={yHighlight as any}
+                cy={yHighlight}
               />
               <motion.circle
                 cx={24}
                 r={18}
                 fill="url(#beam-orb-glow)"
-                cy={yHighlight as any}
+                cy={yHighlight}
               />
             </g>
           </svg>

@@ -20,7 +20,7 @@ export default function FeaturedArticles({
   const orbitRef = useRef<HTMLDivElement | null>(null);
 
   const featuredArticles = articles.slice(0, limit);
-  if (!featuredArticles || featuredArticles.length === 0) return null;
+  const hasArticles = featuredArticles.length > 0;
 
   // Deteksi desktop (min-width: 768px)
   const [isDesktop, setIsDesktop] = useState(false);
@@ -76,6 +76,10 @@ export default function FeaturedArticles({
     return () => ctx.revert();
   }, []);
 
+  if (!hasArticles) {
+    return null;
+  }
+
   return (
     <motion.section
       ref={sectionRef}
@@ -123,7 +127,7 @@ export default function FeaturedArticles({
               Latest thoughts from the studio.
             </h2>
             <p className="mt-2 max-w-xl text-xs md:text-sm text-white/65">
-              We've identified three recent insights that are particularly
+              We&apos;ve identified three recent insights that are particularly
               pertinent to driving forward the product, engineering, and AI
               solutions you are building
             </p>

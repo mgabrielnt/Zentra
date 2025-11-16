@@ -113,7 +113,7 @@ export default function Footer() {
                     zentraconsultant@gmail.com
                   </a>
                 </p>
-                <p>Based in Indonesia · Remote-first</p>
+                <p>Remote-first studio embedded with your teams</p>
                 <div className="flex flex-wrap gap-3 pt-2 text-xs text-white/60">
                   <Link
                     href="https://www.linkedin.com/company/zentra-consultant"

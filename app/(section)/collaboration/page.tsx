@@ -6,7 +6,7 @@ import LiquidEther from "@/components/LiquidEther";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import Reveal from "@/components/service/Reveal";
 import { TracingBeam } from "@/components/ui/tracing-beam";
-import { BRAND_NAME, PRIMARY_LOCATION, SITE_URL } from "@/lib/seo/config";
+import { BRAND_NAME, SITE_URL } from "@/lib/seo/config";
 
 type FormValues = {
   name: string;
@@ -179,20 +179,15 @@ export default function Page() {
     () => ({
       "@context": "https://schema.org",
       "@type": "ContactPage",
-      name: `Kolaborasi dengan ${BRAND_NAME}`,
-      inLanguage: "id-ID",
+      name: `Collaborate with ${BRAND_NAME}`,
+      inLanguage: "en",
       url: `${SITE_URL}/collaboration`,
       description:
-        "Form kolaborasi resmi Zentratech untuk menjadwalkan konsultasi IT, AI, dan pengembangan produk di Semarang.",
+        "Official Zentratech collaboration form for IT consulting, software delivery, and AI initiatives.",
       about: {
         "@type": "ProfessionalService",
         name: `${BRAND_NAME} IT & AI Consulting`,
-        areaServed: {
-          "@type": "City",
-          name: PRIMARY_LOCATION.city,
-          addressRegion: PRIMARY_LOCATION.region,
-          addressCountry: PRIMARY_LOCATION.countryCode,
-        },
+        areaServed: "Worldwide",
       },
       potentialAction: {
         "@type": "CommunicateAction",
@@ -201,7 +196,7 @@ export default function Page() {
           urlTemplate: `${SITE_URL}/collaboration`,
           actionPlatform: ["https://schema.org/WebApplication"],
         },
-        description: "Kirim brief proyek atau minta sesi konsultasi pertama.",
+        description: "Share a brief to schedule the first consultation session.",
       },
     }),
     []
@@ -237,7 +232,7 @@ export default function Page() {
         >
           <Reveal>
             <h1 className="bg-gradient-to-b from-white to-white/80 bg-clip-text text-3xl font-semibold text-transparent md:text-4xl">
-              Kolaborasi dengan Konsultan IT & AI {BRAND_NAME}
+              Collaborate with {BRAND_NAME} IT & AI consultants
             </h1>
             <div className="mt-4 flex flex-col items-center gap-3">
               <LayoutTextFlip
@@ -251,8 +246,8 @@ export default function Page() {
                 duration={2600}
               />
               <p className="max-w-2xl font-inter text-base text-white/80 drop-shadow-[0_1px_0_rgba(0,0,0,0.35)]">
-                Ceritakan konteks bisnis Anda sehingga kami dapat menyiapkan
-                sesi konsultasi yang fokus dan rekomendasi langkah berikutnya.
+                Share the business context so we can prepare a focused consultation
+                session and outline the next practical steps.
               </p>
             </div>
           </Reveal>
@@ -299,12 +294,11 @@ export default function Page() {
                 )}
 
                 {/*
-                  UX: beberapa ekstensi browser/password-manager (mis. Form
-                  Data Manager) menyuntikkan atribut acak seperti
-                  `fdprocessedid` ke elemen form sebelum React melakukan
-                  hydration sehingga Next.js mengeluarkan error mismatch.
-                  `suppressHydrationWarning` memastikan React mengabaikan
-                  perbedaan kecil yang bukan berasal dari kode kami.
+                  UX: some browser/password-manager extensions (e.g. Form Data
+                  Manager) inject random attributes such as `fdprocessedid`
+                  before React hydrates, which would otherwise trigger a
+                  hydration mismatch. `suppressHydrationWarning` ensures React
+                  ignores those harmless differences.
                 */}
                 <form
                   onSubmit={handleSubmit}
