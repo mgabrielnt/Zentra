@@ -2,6 +2,12 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Space_Grotesk } from "next/font/google";  // ← Tambahkan ini
+
+const spaceGrotesk = Space_Grotesk({  // ← Tambahkan ini
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export default function AboutCTASection() {
   return (

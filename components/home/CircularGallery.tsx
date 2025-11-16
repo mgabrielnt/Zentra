@@ -4,9 +4,11 @@ import { useEffect, useRef } from 'react';
 type GL = Renderer['gl'];
 
 function debounce<T extends (...args: unknown[]) => void>(func: T, wait: number) {
-  let timeout: ReturnType<typeof window.setTimeout>;
+  let timeout: number | undefined;
   return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
-    window.clearTimeout(timeout);
+    if (timeout !== undefined) {
+      window.clearTimeout(timeout);
+    }
     timeout = window.setTimeout(() => func.apply(this, args), wait);
   };
 }
@@ -15,15 +17,15 @@ function lerp(p1: number, p2: number, t: number): number {
   return p1 + (p2 - p1) * t;
 }
 
-type BindableInstance = Record<string, unknown>;
 
-function autoBind<T extends BindableInstance>(instance: T): void {
+
+function autoBind<T extends object>(instance: T): void {
   const proto = Object.getPrototypeOf(instance);
   Object.getOwnPropertyNames(proto).forEach(key => {
     if (key !== 'constructor') {
-      const value = (instance as BindableInstance)[key];
+      const value = (instance as any)[key];
       if (typeof value === 'function') {
-        (instance as BindableInstance)[key] = value.bind(instance);
+        (instance as any)[key] = value.bind(instance);
       }
     }
   });

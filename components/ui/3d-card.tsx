@@ -161,7 +161,7 @@ export const CardItem = <T extends React.ElementType = "div">({
 
   return (
     <Component
-      ref={ref as React.Ref<Element>}
+      ref={ref as any}
       className={cn("w-fit transition duration-200 ease-linear", className)}
       {...rest}
     >

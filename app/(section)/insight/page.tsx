@@ -6,6 +6,19 @@ import ArticleCard from "@/components/insight/ArticleCard";
 import NewsletterCTA from "@/components/insight/NewsLetterCTA";
 import { articles } from "@/components/insight/articlesData";
 import { BRAND_NAME, SITE_URL } from "@/lib/seo/config";
+import { Space_Grotesk, Inter } from "next/font/google";  // ← Tambahkan ini
+// Fonts
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-space-grotesk",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
+});
 
 // JSON-LD for SEO
 function JsonLd() {

@@ -2,6 +2,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import Header from "@/components/header";
+import { Inter } from "next/font/google"; 
 import Footer from "@/components/footer/Footer";
 import { LanguageProvider } from "@/components/LanguageContext";
 import GlobalJsonLd from "@/components/seo/GlobalJsonLd";

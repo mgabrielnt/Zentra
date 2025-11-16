@@ -7,6 +7,8 @@ import LiquidEther from "@/components/LiquidEther";
 import DomeGallery from "@/components/aboutus/DomeGallery";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { BRAND_NAME, PRIMARY_LOCATION, SITE_URL } from "@/lib/seo/config";
+import { Space_Grotesk, Inter } from "next/font/google";  // ← Tambahkan ini
+
 
 // Fonts
 const spaceGrotesk = Space_Grotesk({
