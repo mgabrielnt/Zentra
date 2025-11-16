@@ -4,7 +4,10 @@ import Reveal from "./Reveal";
 export function WhySection() {
   const blocks = [
     { h: "Outcome-first", p: "Roadmaps tied to KPIs—speed, conversion, uptime, and cost. We ship measurable value." },
-    { h: "Senior craftsmanship", p: "Design systems, clean architectures, and tests that scaleno demo-only code." },
+    {
+      h: "Senior craftsmanship",
+      p: "Design systems, clean architectures, and tests that scale—not demo-only code.",
+    },
     { h: "Performance & SEO", p: "Core Web Vitals targets, structured content, edge caching, and crawlability by design." },
   ] as const;
 

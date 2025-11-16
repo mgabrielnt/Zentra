@@ -1,12 +1,6 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Inter } from "next/font/google";
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
 
 interface ArticleHeaderProps {
   title: string;
@@ -53,7 +47,7 @@ export default function ArticleHeader({
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className={`mt-6 bg-gradient-to-b from-white to-white/80 bg-clip-text ${inter.className} text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-transparent`}
+          className="mt-6 bg-gradient-to-b from-white to-white/80 bg-clip-text text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-transparent"
         >
           {title}
         </motion.h1>

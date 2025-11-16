@@ -1,6 +1,6 @@
 "use client";
 
-import { BRAND_NAME, PRIMARY_LOCATION, SITE_URL } from "@/lib/seo/config";
+import { BRAND_NAME, SITE_URL } from "@/lib/seo/config";
 
 export default function JsonLd() {
   const services = [
@@ -46,17 +46,8 @@ export default function JsonLd() {
     "@type": "ProfessionalService",
     name: `${BRAND_NAME} IT & AI Consulting`,
     url: baseUrl,
-    areaServed: [
-      {
-        "@type": "City",
-        name: PRIMARY_LOCATION.city,
-        addressRegion: PRIMARY_LOCATION.region,
-        addressCountry: PRIMARY_LOCATION.countryCode,
-      },
-      { "@type": "Country", name: "Indonesia" },
-    ],
     serviceType: services.map((service) => service.name),
-    availableLanguage: ["en", "id"],
+    availableLanguage: ["en"],
   } as const;
 
   return (

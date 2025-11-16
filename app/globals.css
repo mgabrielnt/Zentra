@@ -136,6 +136,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: "Inter", "Space Grotesk", "Helvetica Neue", "Segoe UI", sans-serif;
   }
 }
 

@@ -3,7 +3,6 @@ import { SITE_URL } from "@/lib/seo/config";
 
 const SERVICES = [
   { path: "/service", changefreq: "monthly", priority: "0.95" },
-  { path: "/id/service", changefreq: "monthly", priority: "0.9" },
 ] as const;
 
 export async function GET() {

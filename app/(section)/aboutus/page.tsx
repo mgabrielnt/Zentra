@@ -1,67 +1,56 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Space_Grotesk, Inter } from "next/font/google";
 import { motion, useScroll, useSpring } from "motion/react";
 import LiquidEther from "@/components/LiquidEther";
 import DomeGallery from "@/components/aboutus/DomeGallery";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
-
-// Fonts
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-space-grotesk",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-inter",
-});
-
-// JSON-LD & SEO helpers
-const SITE_URL = "https://zentratech.id";
+import { BRAND_NAME, PRIMARY_LOCATION, SITE_URL } from "@/lib/seo/config";
 
 function JsonLd() {
-  // ✅ Organization schema
+  const address = {
+    "@type": "PostalAddress",
+    addressLocality: PRIMARY_LOCATION.city,
+    addressRegion: PRIMARY_LOCATION.region,
+    addressCountry: PRIMARY_LOCATION.countryCode,
+  } as const;
+
   const organization = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": `${SITE_URL}#organization`,
-    name: "Zentratech",
-    legalName: "Zentratech",
+    name: BRAND_NAME,
+    legalName: BRAND_NAME,
     url: SITE_URL,
     description:
-      "Zentratech adalah studio pengembang produk digital modern yang fokus pada performa, aksesibilitas, dan hasil bisnis yang terukur.",
-    logo: `${SITE_URL}/logo_zentra.png`, // TODO: sesuaikan path/logo final kamu
+      "Zentratech is a digital product, IT consulting, and AI studio focused on performant, accessible, and measurable outcomes.",
+    logo: `${SITE_URL}/logoZentraFix.png`,
     foundingDate: "2022",
     sameAs: [
-      // TODO: jika punya sosmed, isi di sini
-      // "https://www.linkedin.com/company/zentratech",
-      // "https://www.instagram.com/zentratech",
+      "https://www.linkedin.com/company/zentra-consultant",
+      "https://github.com/zentraconsultant",
+      "https://www.instagram.com/zentra.consultant/",
     ],
+    address,
     contactPoint: [
       {
         "@type": "ContactPoint",
         contactType: "customer support",
-        url: `${SITE_URL}/contact`,
-        areaServed: "ID",
-        availableLanguage: ["id", "en"],
+        url: `${SITE_URL}/collaboration`,
+        areaServed: "Worldwide",
+        availableLanguage: ["en"],
       },
     ],
   } as const;
 
-  // ✅ Website schema
   const website = {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "@id": `${SITE_URL}#website`,
     url: SITE_URL,
-    name: "Zentratech",
-    inLanguage: "id-ID",
+    name: BRAND_NAME,
+    inLanguage: "en",
     potentialAction: [
       {
         "@type": "SearchAction",
@@ -71,19 +60,18 @@ function JsonLd() {
     ],
   } as const;
 
-  // ✅ About page schema (WebPage)
   const webpage = {
     "@context": "https://schema.org",
     "@type": "AboutPage",
     "@id": `${SITE_URL}/aboutus#webpage`,
     url: `${SITE_URL}/aboutus`,
-    inLanguage: "id-ID",
+    inLanguage: "en",
     isPartOf: {
       "@id": `${SITE_URL}#website`,
     },
-    name: "Tentang Zentratech — Studio Produk Digital Modern",
+    name: "About Zentratech — Digital Product & AI Consulting Studio",
     description:
-      "Pelajari lebih jauh tentang Zentratech, studio pengembang website dan aplikasi modern dari Indonesia yang fokus pada performa, keamanan, dan hasil bisnis.",
+      "Learn about Zentratech, a Semarang, Indonesia-based studio helping teams launch high-performance digital products and AI solutions.",
     breadcrumb: {
       "@type": "BreadcrumbList",
       itemListElement: [
@@ -91,34 +79,31 @@ function JsonLd() {
         {
           "@type": "ListItem",
           position: 2,
-          name: "Tentang Kami",
+          name: "About",
           item: `${SITE_URL}/aboutus`,
         },
       ],
     },
   } as const;
 
-  // ✅ Local / service business schema (geo & lokal signal)
   const service = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     "@id": `${SITE_URL}#service`,
-    name: "Zentratech",
+    name: BRAND_NAME,
     url: SITE_URL,
     description:
-      "Jasa pembuatan website, aplikasi web, dan produk digital modern oleh Zentratech untuk bisnis di Indonesia.",
-    areaServed: {
-      "@type": "Country",
-      name: "Indonesia",
-    },
-    // Kalau punya alamat fisik jelas, boleh ditambah:
-    // address: {
-    //   "@type": "PostalAddress",
-    //   addressCountry: "ID",
-    //   addressLocality: "Semarang",
-    //   addressRegion: "Jawa Tengah",
-    //   streetAddress: "Tuliskan alamat lengkap di sini",
-    // },
+      "IT consulting, AI engineering, and digital product development services delivered by Zentratech.",
+    areaServed: [
+      {
+        "@type": "City",
+        name: PRIMARY_LOCATION.city,
+        addressRegion: PRIMARY_LOCATION.region,
+        addressCountry: PRIMARY_LOCATION.countryCode,
+      },
+      { "@type": "Country", name: PRIMARY_LOCATION.countryName },
+    ],
+    address,
   } as const;
 
   return (
@@ -174,8 +159,8 @@ export default function AboutUsPage() {
 
   return (
     <main
-      className={`min-h-screen bg-black ${inter.variable} ${spaceGrotesk.variable}`}
-      aria-label="Tentang Zentratech - Studio Produk Digital Modern dari Indonesia"
+      className="min-h-screen bg-black"
+      aria-label="About Zentratech – Digital Product and AI Consulting Studio"
     >
       {/* Top progress bar */}
       <motion.div
@@ -208,27 +193,18 @@ export default function AboutUsPage() {
 
         {/* Headline */}
         <div
-          className="relative z-10 mx-auto max-w-5xl px-6 
-               pb-16 sm:pb-20 md:pb-24 lg:pb-32
-               pt-24 md:pt-32
-               mt-6 md:mt-10 
-               text-center"
+          className="relative z-10 mx-auto mt-6 max-w-5xl px-6 pt-24 pb-16 text-center sm:pb-20 md:mt-10 md:pt-32 md:pb-24 lg:pb-32"
         >
           <Reveal>
-            {/* ✅ H1 tetap ada (bagus untuk SEO), sekalian mention brand dan jasa */}
-            <h1 className="sr-only">
-              Tentang Zentratech – studio pengembang website dan aplikasi modern
-              untuk bisnis di Indonesia, fokus pada performa, keamanan, dan hasil bisnis.
+            <h1 className="font-inter text-4xl font-semibold tracking-tight text-white md:text-5xl">
+              About Zentratech
             </h1>
-            <div aria-hidden="true" className="flex flex-col items-center gap-3">
+          </Reveal>
+          <Reveal delay={0.04}>
+            <div aria-hidden="true" className="mt-4 flex flex-col items-center gap-3">
               <LayoutTextFlip
                 text="We are"
-                words={[
-                  "Innovators",
-                  "Craftspeople",
-                  "Problem Solvers",
-                  "Dream Builders",
-                ]}
+                words={["Innovators", "Craftspeople", "Problem solvers", "Dream builders"]}
                 duration={2600}
               />
               <p className="font-inter text-base text-white/80 drop-shadow-[0_1px_0_rgba(0,0,0,0.35)]">
@@ -237,12 +213,16 @@ export default function AboutUsPage() {
             </div>
           </Reveal>
 
-          {/* ✅ Paragraf singkat yang eksplisit menyebut Zentratech & Indonesia */}
           <Reveal delay={0.08}>
-            <p className="mt-5 text-sm text-white/70 max-w-2xl mx-auto font-space-grotesk">
-              Zentratech adalah studio produk digital yang membantu bisnis di Indonesia
-              membangun website dan aplikasi modern dengan fokus pada performa,
-              experience, dan metrik bisnis yang jelas.
+            <p className="mx-auto mt-5 max-w-2xl font-space-grotesk text-sm text-white/70">
+              Zentratech is a digital product, IT consulting, and AI studio that partners
+              with ambitious teams to ship performant experiences, resilient platforms,
+              and measurable business outcomes.
+            </p>
+          </Reveal>
+          <Reveal delay={0.12}>
+            <p className="mx-auto mt-3 max-w-2xl font-space-grotesk text-sm text-white/70">
+              We are based in {PRIMARY_LOCATION.city}, {PRIMARY_LOCATION.countryName} and work with clients remotely worldwide.
             </p>
           </Reveal>
 
@@ -285,7 +265,7 @@ export default function AboutUsPage() {
             <p className="mt-6 font-space-grotesk text-lg text-white/70">
               We believe every business deserves products built with the same rigor as the tech
               giants—fast, secure, accessible, and data-driven. We are here to close that gap
-              for brands across Indonesia and beyond.
+              for ambitious brands everywhere.
             </p>
           </Reveal>
         </div>

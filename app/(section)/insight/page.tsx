@@ -1,6 +1,5 @@
 "use client";
 
-import { Space_Grotesk, Inter } from "next/font/google";
 import ProgressBar from "@/components/insight/ProgressBar";
 import InsightHero from "@/components/insight/InsightHero";
 import ArticleCard from "@/components/insight/ArticleCard";
@@ -8,28 +7,15 @@ import NewsletterCTA from "@/components/insight/NewsLetterCTA";
 import { articles } from "@/components/insight/articlesData";
 import { BRAND_NAME, SITE_URL } from "@/lib/seo/config";
 
-// Fonts
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-space-grotesk",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-inter",
-});
-
 // JSON-LD for SEO
 function JsonLd() {
   const pageUrl = `${SITE_URL}/insight`;
   const blogSchema = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: `${BRAND_NAME} Insights — IT & AI Semarang`,
+    name: `${BRAND_NAME} Insights — IT & AI Consulting`,
     description:
-      "Artikel dan kurasi wawasan seputar konsultasi IT, AI, dan transformasi digital untuk bisnis Indonesia.",
+      "Curated thoughts on IT consulting, software engineering, AI, and digital transformation from the Zentratech team.",
     inLanguage: "en",
     url: pageUrl,
     publisher: {
@@ -63,10 +49,7 @@ function JsonLd() {
 
 export default function InsightPage() {
   return (
-    <main
-      className={`min-h-screen bg-black ${inter.variable} ${spaceGrotesk.variable}`}
-      aria-label="Zentra Insights"
-    >
+    <main className="min-h-screen bg-black" aria-label="Zentratech insights">
       <ProgressBar />
       <InsightHero />
 

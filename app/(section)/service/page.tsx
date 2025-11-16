@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter } from "next/font/google";
 import { HeroSection } from "@/components/service/HeroSection";
 import ServicesSection from "@/components/service/ServicesSection";
 import { WhySection } from "@/components/service/WhySection";
@@ -7,29 +6,18 @@ import { ProcessSection } from "@/components/service/ProcessSection";
 import JsonLd from "@/components/service/JsonLd";
 import { BRAND_NAME, DEFAULT_OG_IMAGE, SITE_URL } from "@/lib/seo/config";
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-space-grotesk",
-});
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-inter",
-});
-
 const BASE = SITE_URL;
 const ogImage = `${SITE_URL}${DEFAULT_OG_IMAGE}`;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: `${BRAND_NAME} IT & AI Consulting Services in Semarang`,
+    title: `${BRAND_NAME} IT Consulting & AI Services for Digital Platforms`,
     description:
-      "Zentratech helps Indonesian companies ship high-performance web apps, headless commerce, and pragmatic AI projects from Semarang.",
+      "Zentratech helps product teams plan, design, and ship performant web apps, headless commerce builds, and pragmatic AI programs.",
     keywords: [
-      "IT consultant Semarang",
-      "AI consultant Indonesia",
-      "web development Semarang",
+      "IT consulting services",
+      "AI consulting",
+      "web application development",
     ],
     alternates: {
       canonical: `${BASE}/service`,
@@ -42,14 +30,14 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       url: `${BASE}/service`,
       type: "website",
-      title: `${BRAND_NAME} IT & AI Consulting Services in Semarang`,
-      description: "From discovery to delivery — secure, measurable, and tailored for Indonesian teams.",
+      title: `${BRAND_NAME} IT Consulting & AI Services for Digital Platforms`,
+      description: "From discovery to delivery—secure, measurable, and embedded with your team.",
       images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${BRAND_NAME} IT & AI Consulting Services in Semarang`,
-      description: "From idea to impact — fast, secure, and measurable.",
+      title: `${BRAND_NAME} IT Consulting & AI Services for Digital Platforms`,
+      description: "From idea to impact—fast, secure, and measurable.",
       images: [ogImage],
     },
   };
@@ -59,7 +47,7 @@ export default function ServicePage() {
   return (
     <>
       <JsonLd />
-      <main className={`${spaceGrotesk.variable} ${inter.variable} min-h-screen bg-black text-white`}>
+      <main className="min-h-screen bg-black text-white">
         <HeroSection />
         <ServicesSection />
         <WhySection />
