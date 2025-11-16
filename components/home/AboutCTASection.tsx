@@ -2,17 +2,6 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Inter, Space_Grotesk } from "next/font/google";
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
 
 export default function AboutCTASection() {
   return (
@@ -43,9 +32,7 @@ export default function AboutCTASection() {
                   Studio & collaboration
                 </div>
 
-                <h2
-                  className={`${inter.className} mt-4 text-2xl md:text-3xl lg:text-4xl font-semibold text-white`}
-                >
+                <h2 className="mt-4 text-2xl md:text-3xl lg:text-4xl font-semibold text-white">
                   Curious who&apos;s behind{" "}
                   <span className="bg-gradient-to-r from-purple-400 via-fuchsia-400 to-sky-400 bg-clip-text text-transparent">
                     the pixels & prompts

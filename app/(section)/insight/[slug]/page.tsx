@@ -3,25 +3,11 @@
 import Link from "next/link";
 import { use } from "react";
 import { motion } from "motion/react";
-import { Space_Grotesk, Inter } from "next/font/google";
 import ProgressBar from "@/components/insight/ProgressBar";
 import BackButton from "@/components/insight/BackButton";
 import ArticleHeader from "@/components/insight/ArticleHeader";
 import ArticleShare from "@/components/insight/ArticleShare";
 import { articlesData } from "@/components/insight/articlesData";
-
-// Fonts
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-space-grotesk",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-inter",
-});
 
 export default function ArticleDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = use(params);
@@ -42,10 +28,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ slug: 
   }
 
   return (
-    <main
-      className={`min-h-screen bg-black ${inter.variable} ${spaceGrotesk.variable}`}
-      aria-label={article.title}
-    >
+    <main className="min-h-screen bg-black" aria-label={article.title}>
       <ProgressBar />
       <BackButton />
 
@@ -95,7 +78,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ slug: 
         .article-content p {
           margin-bottom: 1.5rem;
           line-height: 1.8;
-          font-family: var(--font-space-grotesk);
+          font-family: "Space Grotesk", "Inter", "Helvetica Neue", "Segoe UI", sans-serif;
         }
         .article-content h2 {
           margin-top: 3rem;
@@ -103,7 +86,7 @@ export default function ArticleDetailPage({ params }: { params: Promise<{ slug: 
           font-size: 1.875rem;
           font-weight: 600;
           color: white;
-          font-family: var(--font-inter);
+          font-family: "Inter", "Space Grotesk", "Helvetica Neue", "Segoe UI", sans-serif;
         }
         .article-content ul {
           margin-bottom: 1.5rem;

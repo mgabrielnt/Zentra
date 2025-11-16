@@ -3,12 +3,6 @@
 import { motion } from "motion/react";
 import LiquidEther from "@/components/LiquidEther";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
-import { Inter } from "next/font/google";
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
 
 function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   return (

@@ -3,17 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
-import { Inter, Space_Grotesk } from "next/font/google";
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-});
 
 interface Article {
   id: number;
@@ -94,11 +83,11 @@ export default function ArticleCard({ article, index }: ArticleCardProps) {
               <span>{article.readTime}</span>
             </div>
 
-            <h3 className={`mt-3 ${inter.className} text-xl font-semibold text-white transition-colors group-hover:text-purple-300`}>
+            <h3 className="mt-3 text-xl font-semibold text-white transition-colors group-hover:text-purple-300">
               {article.title}
             </h3>
 
-            <p className={`mt-2 ${spaceGrotesk.className} text-sm leading-relaxed text-white/70`}>
+            <p className="mt-2 text-sm leading-relaxed text-white/70">
               {article.excerpt}
             </p>
 

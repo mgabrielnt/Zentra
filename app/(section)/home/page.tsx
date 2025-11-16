@@ -11,18 +11,6 @@ import FeaturedArticles from "@/components/home/FeaturedArticles";
 import AboutCTASection from "@/components/home/AboutCTASection";
 import ProjectHome from "@/components/home/ProjectHome";
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-space-grotesk",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-inter",
-});
-
 export default function Home() {
   const [isMobile, setIsMobile] = useState(false);
   const ctaRef = useRef<HTMLDivElement | null>(null);
@@ -98,7 +86,7 @@ export default function Home() {
 
   return (
     <main
-      className={`min-h-screen bg-black ${inter.variable} ${spaceGrotesk.variable}`}
+      className="min-h-screen bg-black"
     >
       {/* HERO */}
       <motion.section

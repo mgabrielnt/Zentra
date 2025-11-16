@@ -1,6 +1,5 @@
 // D:\zentra\app\layout.tsx
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/header";
 import Footer from "@/components/footer/Footer";
@@ -115,9 +114,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className="scroll-smooth w-full max-w-full overflow-x-hidden"
     >
-      <body
-        className={`${inter.variable} font-sans w-full max-w-full overflow-x-hidden bg-black text-white`}
-      >
+      <body className="font-sans w-full max-w-full overflow-x-hidden bg-black text-white">
         <LanguageProvider>
           <GlobalJsonLd />
           <div className="flex min-h-screen w-full max-w-full flex-col overflow-x-hidden">

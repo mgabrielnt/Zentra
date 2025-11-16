@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { Space_Grotesk, Inter } from "next/font/google";
 import { motion, useScroll, useSpring } from "motion/react";
 import LiquidEther from "@/components/LiquidEther";
 import DomeGallery from "@/components/aboutus/DomeGallery";
