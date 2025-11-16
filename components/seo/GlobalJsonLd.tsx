@@ -1,25 +1,28 @@
 // D:\zentra\components\seo\GlobalJsonLd.tsx
-const baseUrl = "https://www.zentratech.id";
+import { absoluteUrl, siteConfig } from "@/lib/seo/siteMetadata";
+
+const baseUrl = siteConfig.url;
 
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
-  name: "Zentra",
+  name: siteConfig.name,
+  legalName: siteConfig.legalName,
   url: baseUrl,
-  logo: `${baseUrl}/logoZentraFix.png`,
+  logo: absoluteUrl(siteConfig.logoPath),
   sameAs: [
-    "https://www.linkedin.com/company/zentra-consultant",
-    "https://github.com/zentraconsultant",
-    "https://www.instagram.com/zentra.consultant/"
-  ]
+    siteConfig.socials.linkedin,
+    siteConfig.socials.github,
+    siteConfig.socials.instagram,
+  ].filter(Boolean),
 } as const;
 
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Zentra Digital Product & AI Studio",
+  name: `${siteConfig.name} ${siteConfig.tagline}`,
   url: baseUrl,
-  inLanguage: "en",
+  inLanguage: siteConfig.defaultLocale,
   potentialAction: {
     "@type": "SearchAction",
     target: `${baseUrl}/search?q={search_term_string}`,

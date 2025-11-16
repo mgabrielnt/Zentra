@@ -6,6 +6,7 @@ import InsightHero from "@/components/insight/InsightHero";
 import ArticleCard from "@/components/insight/ArticleCard";
 import NewsletterCTA from "@/components/insight/NewsLetterCTA";
 import { articles } from "@/components/insight/articlesData";
+import { absoluteUrl, siteConfig } from "@/lib/seo/siteMetadata";
 
 // Fonts
 const spaceGrotesk = Space_Grotesk({
@@ -22,23 +23,28 @@ const inter = Inter({
 
 // JSON-LD for SEO
 function JsonLd() {
-  const webpage = {
+  const baseUrl = siteConfig.url;
+  const blogSchema = {
     "@context": "https://schema.org",
     "@type": "Blog",
     name: "Zentra Insights — Tech Articles & Trends",
-    description: "Latest articles about technology trends, AI, web development, and digital innovation.",
-    url: "https://example.com/insight",
+    description:
+      "Latest articles about technology trends, AI, web development, and digital innovation.",
+    url: absoluteUrl("/insight"),
+    inLanguage: siteConfig.defaultLocale,
     publisher: {
       "@type": "Organization",
-      name: "Zentra",
-      logo: "https://example.com/logo_zentra.png"
-    }
+      name: siteConfig.name,
+      url: baseUrl,
+      logo: absoluteUrl(siteConfig.logoPath),
+    },
   } as const;
 
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(webpage) }}
+      suppressHydrationWarning
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(blogSchema) }}
     />
   );
 }

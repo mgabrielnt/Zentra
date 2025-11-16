@@ -6,6 +6,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer/Footer";
 import { LanguageProvider } from "@/components/LanguageContext";
 import GlobalJsonLd from "@/components/seo/GlobalJsonLd";
+import { metadataBaseUrl, siteConfig } from "@/lib/seo/siteMetadata";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,15 +15,14 @@ const inter = Inter({
 });
 
 // ✅ gunakan domain kanonik tanpa www
-const siteUrl = new URL("https://zentratech.id");
-const siteName = "Zentratech";
+const siteUrl = metadataBaseUrl;
+const siteName = siteConfig.siteName;
 
 // ✅ default title jelas + geo
-const defaultTitle = `${siteName} – Digital Product & AI Studio Indonesia`;
+const defaultTitle = `${siteName} – ${siteConfig.tagline}`;
 
 // ✅ sebut kedua nama: Zentratech & Zentra (supaya kedua keyword kebaca)
-const description =
-  "Zentratech (Zentra) is a digital product and AI studio from Indonesia that designs high-performance web and mobile experiences, headless commerce platforms, and pragmatic machine learning solutions.";
+const description = siteConfig.description;
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -40,20 +40,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteName} Digital Studio`,
   },
   description,
-  keywords: [
-    "Zentratech",
-    "Zentra",
-    "Zentratech Indonesia",
-    "digital product studio",
-    "digital product studio Indonesia",
-    "AI development Indonesia",
-    "web development agency",
-    "web development Indonesia",
-    "mobile app development",
-    "UI UX design",
-    "headless commerce",
-    "machine learning consulting",
-  ],
+  keywords: siteConfig.keywords,
   authors: [{ name: siteName, url: siteUrl }],
   creator: siteName,
   publisher: siteName,
@@ -67,18 +54,18 @@ export const metadata: Metadata = {
   },
 
   // favicon / logo
-  icons: "/logoZentraFix.png",
+  icons: siteConfig.logoPath,
 
   openGraph: {
     type: "website",
-    locale: "en_US", // kalau nanti mayoritas konten bahasa Indonesia bisa diganti "id_ID"
+    locale: siteConfig.defaultLocale === "id-ID" ? "id_ID" : "en_US", // update saat konten full Indonesia
     url: siteUrl.href,
     title: defaultTitle,
     description,
     siteName,
     images: [
       {
-        url: "/logoZentraFix.png",
+        url: siteConfig.logoPath,
         width: 1200,
         height: 630,
         alt: "Zentratech digital product and AI studio logo",
@@ -90,7 +77,7 @@ export const metadata: Metadata = {
     title: defaultTitle,
     description,
     creator: "@zentratech", // pastikan handle ini ada
-    images: ["/logoZentraFix.png"],
+    images: [siteConfig.logoPath],
   },
   robots: {
     index: true,

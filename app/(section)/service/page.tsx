@@ -1,10 +1,11 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 import { HeroSection } from "@/components/service/HeroSection";
 import ServicesSection from "@/components/service/ServicesSection";
 import { WhySection } from "@/components/service/WhySection";
 import { ProcessSection } from "@/components/service/ProcessSection";
 import JsonLd from "@/components/service/JsonLd";
+import { absoluteUrl, siteConfig } from "@/lib/seo/siteMetadata";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -17,36 +18,35 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const BASE = "https://www.zentratech.id";
-
 export async function generateMetadata(): Promise<Metadata> {
+  const title =
+    "Zentra Services – Web & Mobile Development, UI/UX, Headless Commerce, ML & AI";
+  const description =
+    "Zentra builds modern digital products: high-performance websites, mobile apps, headless commerce, and pragmatic ML/AI with strong SEO and Core Web Vitals.";
+
   return {
-    title:
-      "Zentra Services – Web & Mobile Development, UI/UX, Headless Commerce, ML & AI",
-    description:
-      "Zentra builds modern digital productshigh-performance websites, mobile apps, headless commerce, and pragmatic ML/AI with strong SEO and Core Web Vitals.",
+    title,
+    description,
     alternates: {
-      canonical: `${BASE}/service`,
+      canonical: absoluteUrl("/service"),
       languages: {
-        en: `${BASE}/service`,
-        id: `${BASE}/id/service`,
-        "x-default": `${BASE}/service`,
+        en: absoluteUrl("/service"),
+        id: absoluteUrl("/id/service"),
+        "x-default": absoluteUrl("/service"),
       },
     },
     openGraph: {
-      url: `${BASE}/service`,
+      url: absoluteUrl("/service"),
       type: "website",
-      title:
-        "Zentra Services  Web & Mobile Development, UI/UX, Headless Commerce, ML & AI",
-      description: "From idea to impact  fast, secure, and measurable.",
-      images: [`${BASE}/og/services-og.png`],
+      title,
+      description: "From idea to impact — fast, secure, and measurable.",
+      images: [absoluteUrl(siteConfig.logoPath)],
     },
     twitter: {
       card: "summary_large_image",
-      title:
-        "Zentra Services  Web & Mobile Development, UI/UX, Headless Commerce, ML & AI",
-      description: "From idea to impact  fast, secure, and measurable.",
-      images: [`${BASE}/og/services-og.png`],
+      title,
+      description: "From idea to impact — fast, secure, and measurable.",
+      images: [absoluteUrl(siteConfig.logoPath)],
     },
   };
 }

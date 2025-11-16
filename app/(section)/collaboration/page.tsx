@@ -203,28 +203,26 @@ export default function Page() {
              text-center"
         >
           <Reveal>
-            <h1 className="sr-only">
-              Collaboration request for IT consulting: discovery, roadmap, and
-              delivery together with your team.
-            </h1>
-            <div
-              aria-hidden="true"
-              className="flex flex-col items-center gap-3"
-            >
-              <LayoutTextFlip
-                text="Let’s plan your next"
-                words={[
-                  "digital product",
-                  "AI initiative",
-                  "cloud journey",
-                  "data platform",
-                ]}
-                duration={2600}
-              />
+            <div className="flex flex-col items-center gap-4 text-center">
+              <h1 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+                Ajukan Kolaborasi dengan Tim Produk Digital & AI Zentratech
+              </h1>
               <p className="max-w-2xl font-inter text-base text-white/80 drop-shadow-[0_1px_0_rgba(0,0,0,0.35)]">
                 Share a few details so we can prepare a focused conversation and
                 suggest concrete next steps for your team.
               </p>
+              <div className="flex flex-col items-center gap-3" aria-label="Tipe kolaborasi">
+                <LayoutTextFlip
+                  text="Let’s plan your next"
+                  words={[
+                    "digital product",
+                    "AI initiative",
+                    "cloud journey",
+                    "data platform",
+                  ]}
+                  duration={2600}
+                />
+              </div>
             </div>
           </Reveal>
         </div>
