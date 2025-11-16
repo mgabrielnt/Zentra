@@ -2,17 +2,17 @@ import type { Metadata } from "next";
 import { BRAND_NAME, DEFAULT_OG_IMAGE, SITE_URL } from "@/lib/seo/config";
 
 const pageUrl = `${SITE_URL}/collaboration`;
-const title = "Hubungi Konsultan IT & AI Zentratech Semarang";
+const title = "Contact Zentratech | Start an IT & AI Consulting Project";
 const description =
-  "Isi formulir kolaborasi untuk menjadwalkan sesi konsultasi IT, pengembangan software, atau inisiatif AI bersama tim Zentratech.";
+  "Fill out the collaboration form to plan IT consulting, software delivery, or applied AI initiatives with the Zentratech team.";
 
 export const metadata: Metadata = {
   title,
   description,
   keywords: [
-    "hubungi Zentratech",
-    "kolaborasi IT Semarang",
-    "konsultan AI Semarang",
+    "contact Zentratech",
+    "IT consulting inquiry",
+    "AI consulting contact",
   ],
   alternates: { canonical: pageUrl },
   openGraph: {
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         url: `${SITE_URL}${DEFAULT_OG_IMAGE}`,
         width: 1200,
         height: 630,
-        alt: "Form kolaborasi Zentratech",
+        alt: "Zentratech collaboration form",
       },
     ],
   },

@@ -9,7 +9,7 @@ import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { BRAND_NAME, SITE_URL } from "@/lib/seo/config";
 
 // Komponen Reveal untuk animasi fade-in
-const Reveal = ({ children, mode = "mount" }: { children: React.ReactNode; mode?: string }) => {
+const Reveal = ({ children }: { children: React.ReactNode }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -33,11 +33,11 @@ export default function ProjectPage() {
   const projectCollectionSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    name: `Portofolio Proyek IT & AI ${BRAND_NAME}`,
+    name: `${BRAND_NAME} Digital Product & AI Projects`,
     url: pageUrl,
-    inLanguage: "id-ID",
+    inLanguage: "en",
     description:
-      "Kumpulan studi kasus pengembangan aplikasi, dashboard, dan solusi AI yang dibangun Zentratech untuk klien di Indonesia.",
+      "Case studies covering dashboards, applications, and AI initiatives delivered by Zentratech for enterprise and growth-stage teams.",
     isPartOf: { "@id": `${SITE_URL}#website` },
     mainEntity: {
       "@type": "ItemList",
@@ -52,7 +52,10 @@ export default function ProjectPage() {
   } as const;
 
   return (
-    <div className="min-h-screen bg-white">
+    <main
+      className="min-h-screen bg-white"
+      aria-label="Zentratech digital product and AI project portfolio"
+    >
       {/* ====================== HERO SECTION ====================== */}
       <section className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-black">
         <div className="absolute inset-0 z-0">
@@ -77,11 +80,11 @@ export default function ProjectPage() {
         >
           <Reveal mode="mount">
             <h1 className="bg-gradient-to-b from-white to-white/80 bg-clip-text text-3xl font-semibold text-transparent md:text-4xl lg:text-5xl">
-              Portofolio Proyek IT & AI {BRAND_NAME} di Semarang
+              {BRAND_NAME} digital product & AI project portfolio
             </h1>
             <div className="mt-4 flex flex-col items-center gap-3">
               <LayoutTextFlip
-                text="Our Project is"
+                text="Our projects cover"
                 words={[
                   "Dashboard Analytics",
                   "UI/UX Design",
@@ -91,8 +94,8 @@ export default function ProjectPage() {
                 duration={2600}
               />
               <p className="font-inter text-base text-white/80 drop-shadow-[0_1px_0_rgba(0,0,0,0.35)]">
-                Studi kasus nyata untuk perusahaan Indonesia yang ingin
-                meningkatkan operasi dengan solusi digital dan AI.
+                Real-world case studies for teams that want to modernise operations
+                with resilient digital products and applied AI.
               </p>
             </div>
           </Reveal>
@@ -167,6 +170,6 @@ export default function ProjectPage() {
         suppressHydrationWarning
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectCollectionSchema) }}
       />
-    </div>
+    </main>
   );
 }

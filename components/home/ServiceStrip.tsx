@@ -44,11 +44,11 @@ export function ServiceStrip() {
     return deduped;
   }, []);
 
-  const [activeId, setActiveId] = useState(services.length ? services[0].id : "");
-  if (!services.length) return null;
-
-  const activeService =
-    services.find((s) => s.id === activeId) ?? services[0];
+  const [activeId, setActiveId] = useState(() => services[0]?.id ?? "");
+  const hasServices = services.length > 0;
+  const activeService = hasServices
+    ? services.find((s) => s.id === activeId) ?? services[0]
+    : null;
 
   // Scroll-linked parallax
   const { scrollYProgress } = useScroll({
@@ -72,6 +72,10 @@ export function ServiceStrip() {
     }, trackRef);
     return () => ctx.revert();
   }, []);
+
+  if (!hasServices || !activeService) {
+    return null;
+  }
 
   return (
     <motion.section
@@ -103,9 +107,8 @@ export function ServiceStrip() {
               Lanes we actually ship in.
             </h2>
             <p className="mt-2 max-w-xl text-xs md:text-sm text-white/60">
-              We've identified three recent insights that are particularly
-              pertinent to driving forward the product, engineering, and AI
-              solutions you are building.
+              Product, engineering, and AI programs we lead end-to-end—from
+              strategy and design to build, launch, and growth.
             </p>
           </div>
 

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import Link from "next/link";
 import { Space_Grotesk, Inter } from "next/font/google";
 import { motion } from "framer-motion";
 import { gsap } from "gsap";
@@ -157,7 +156,7 @@ export default function Home() {
 
             <div className="mb-6 space-y-3">
               <h1 className="font-inter text-4xl font-semibold tracking-tight text-white md:text-5xl lg:text-6xl">
-                Konsultan IT & AI Semarang untuk Bisnis Digital
+                IT consulting & AI studio for modern teams
               </h1>
               <TextType
                 as="p"
@@ -180,9 +179,9 @@ export default function Home() {
             </p>
 
             <p className="mb-8 max-w-xl text-sm text-white/70 md:text-base">
-              Berbasis di Semarang, kami menyatu dengan tim Anda untuk
-              merancang, membangun, dan mengembangkan pengalaman web, produk,
-              dan AI yang cepat, aman, serta berorientasi pada hasil bisnis.
+              We embed with your product, design, and engineering leaders to
+              architect, build, and scale web, product, and AI experiences that
+              stay fast, secure, and tied to business metrics.
             </p>
           </motion.div>
 

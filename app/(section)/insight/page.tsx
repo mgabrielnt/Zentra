@@ -27,9 +27,9 @@ function JsonLd() {
   const blogSchema = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: `${BRAND_NAME} Insights — IT & AI Semarang`,
+    name: `${BRAND_NAME} Insights — IT & AI Consulting`,
     description:
-      "Artikel dan kurasi wawasan seputar konsultasi IT, AI, dan transformasi digital untuk bisnis Indonesia.",
+      "Curated thoughts on IT consulting, software engineering, AI, and digital transformation from the Zentratech team.",
     inLanguage: "en",
     url: pageUrl,
     publisher: {
@@ -65,7 +65,7 @@ export default function InsightPage() {
   return (
     <main
       className={`min-h-screen bg-black ${inter.variable} ${spaceGrotesk.variable}`}
-      aria-label="Zentra Insights"
+      aria-label="Zentratech insights"
     >
       <ProgressBar />
       <InsightHero />
