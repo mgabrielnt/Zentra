@@ -1,4 +1,6 @@
-﻿"use client";
+"use client";
+
+import { BRAND_NAME, PRIMARY_LOCATION, SITE_URL } from "@/lib/seo/config";
 
 export default function JsonLd() {
   const services = [
@@ -8,7 +10,7 @@ export default function JsonLd() {
     { name: "Machine Learning & AI", slug: "ai" },
   ] as const;
 
-  const baseUrl = "https://www.zentratech.id";
+  const baseUrl = SITE_URL;
 
   const webpage = {
     "@context": "https://schema.org",
@@ -39,10 +41,32 @@ export default function JsonLd() {
     })),
   } as const;
 
+  const professionalService = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: `${BRAND_NAME} IT & AI Consulting`,
+    url: baseUrl,
+    areaServed: [
+      {
+        "@type": "City",
+        name: PRIMARY_LOCATION.city,
+        addressRegion: PRIMARY_LOCATION.region,
+        addressCountry: PRIMARY_LOCATION.countryCode,
+      },
+      { "@type": "Country", name: "Indonesia" },
+    ],
+    serviceType: services.map((service) => service.name),
+    availableLanguage: ["en", "id"],
+  } as const;
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(webpage) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemList) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalService) }}
+      />
     </>
   );
 }

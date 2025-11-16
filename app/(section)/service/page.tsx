@@ -1,10 +1,11 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 import { HeroSection } from "@/components/service/HeroSection";
 import ServicesSection from "@/components/service/ServicesSection";
 import { WhySection } from "@/components/service/WhySection";
 import { ProcessSection } from "@/components/service/ProcessSection";
 import JsonLd from "@/components/service/JsonLd";
+import { BRAND_NAME, DEFAULT_OG_IMAGE, SITE_URL } from "@/lib/seo/config";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -17,14 +18,19 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const BASE = "https://www.zentratech.id";
+const BASE = SITE_URL;
+const ogImage = `${SITE_URL}${DEFAULT_OG_IMAGE}`;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title:
-      "Zentra Services – Web & Mobile Development, UI/UX, Headless Commerce, ML & AI",
+    title: `${BRAND_NAME} IT & AI Consulting Services in Semarang`,
     description:
-      "Zentra builds modern digital productshigh-performance websites, mobile apps, headless commerce, and pragmatic ML/AI with strong SEO and Core Web Vitals.",
+      "Zentratech helps Indonesian companies ship high-performance web apps, headless commerce, and pragmatic AI projects from Semarang.",
+    keywords: [
+      "IT consultant Semarang",
+      "AI consultant Indonesia",
+      "web development Semarang",
+    ],
     alternates: {
       canonical: `${BASE}/service`,
       languages: {
@@ -36,17 +42,15 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       url: `${BASE}/service`,
       type: "website",
-      title:
-        "Zentra Services  Web & Mobile Development, UI/UX, Headless Commerce, ML & AI",
-      description: "From idea to impact  fast, secure, and measurable.",
-      images: [`${BASE}/og/services-og.png`],
+      title: `${BRAND_NAME} IT & AI Consulting Services in Semarang`,
+      description: "From discovery to delivery — secure, measurable, and tailored for Indonesian teams.",
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
-      title:
-        "Zentra Services  Web & Mobile Development, UI/UX, Headless Commerce, ML & AI",
-      description: "From idea to impact  fast, secure, and measurable.",
-      images: [`${BASE}/og/services-og.png`],
+      title: `${BRAND_NAME} IT & AI Consulting Services in Semarang`,
+      description: "From idea to impact — fast, secure, and measurable.",
+      images: [ogImage],
     },
   };
 }

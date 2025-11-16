@@ -6,6 +6,12 @@ import Header from "@/components/header";
 import Footer from "@/components/footer/Footer";
 import { LanguageProvider } from "@/components/LanguageContext";
 import GlobalJsonLd from "@/components/seo/GlobalJsonLd";
+import {
+  BRAND_NAME,
+  DEFAULT_LOCALE,
+  DEFAULT_OG_IMAGE,
+  SITE_URL,
+} from "@/lib/seo/config";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -14,15 +20,15 @@ const inter = Inter({
 });
 
 // ✅ gunakan domain kanonik tanpa www
-const siteUrl = new URL("https://zentratech.id");
-const siteName = "Zentratech";
+const siteUrl = new URL(SITE_URL);
+const siteName = BRAND_NAME;
 
 // ✅ default title jelas + geo
-const defaultTitle = `${siteName} – Digital Product & AI Studio Indonesia`;
+const defaultTitle = `${siteName} – Konsultan IT & AI Semarang`;
 
-// ✅ sebut kedua nama: Zentratech & Zentra (supaya kedua keyword kebaca)
+// ✅ sebut kedua nama + lokasi untuk sinyal brand + lokal
 const description =
-  "Zentratech (Zentra) is a digital product and AI studio from Indonesia that designs high-performance web and mobile experiences, headless commerce platforms, and pragmatic machine learning solutions.";
+  "Zentratech (Zentra) adalah konsultan IT dan studio AI dari Semarang, Indonesia yang merancang website, aplikasi, headless commerce, dan solusi machine learning dengan fokus pada performa dan hasil bisnis.";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -43,12 +49,13 @@ export const metadata: Metadata = {
   keywords: [
     "Zentratech",
     "Zentra",
-    "Zentratech Indonesia",
-    "digital product studio",
+    "konsultan IT Semarang",
+    "konsultan AI Semarang",
+    "software house Semarang",
+    "jasa pengembangan aplikasi",
     "digital product studio Indonesia",
     "AI development Indonesia",
     "web development agency",
-    "web development Indonesia",
     "mobile app development",
     "UI UX design",
     "headless commerce",
@@ -60,10 +67,6 @@ export const metadata: Metadata = {
   category: "technology",
   alternates: {
     canonical: "/", // ✅ akan di-resolve jadi https://zentratech.id/
-    languages: {
-      "en-US": "/",
-      "id-ID": "/id",
-    },
   },
 
   // favicon / logo
@@ -71,14 +74,14 @@ export const metadata: Metadata = {
 
   openGraph: {
     type: "website",
-    locale: "en_US", // kalau nanti mayoritas konten bahasa Indonesia bisa diganti "id_ID"
+    locale: DEFAULT_LOCALE,
     url: siteUrl.href,
     title: defaultTitle,
     description,
     siteName,
     images: [
       {
-        url: "/logoZentraFix.png",
+        url: new URL(DEFAULT_OG_IMAGE, siteUrl).href,
         width: 1200,
         height: 630,
         alt: "Zentratech digital product and AI studio logo",
@@ -90,7 +93,7 @@ export const metadata: Metadata = {
     title: defaultTitle,
     description,
     creator: "@zentratech", // pastikan handle ini ada
-    images: ["/logoZentraFix.png"],
+    images: [new URL(DEFAULT_OG_IMAGE, siteUrl).href],
   },
   robots: {
     index: true,
