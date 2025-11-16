@@ -23,13 +23,13 @@ const ogImage = `${SITE_URL}${DEFAULT_OG_IMAGE}`;
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: `Layanan ${BRAND_NAME} – Konsultan IT & AI Semarang`,
+    title: `${BRAND_NAME} Services (Bahasa Version)`,
     description:
-      "Zentratech membangun website, aplikasi, headless commerce, dan solusi AI pragmatis dengan fokus bisnis untuk perusahaan Indonesia.",
+      "A placeholder for the Bahasa-language service overview. Please refer to the English services page while localisation is prepared.",
     keywords: [
-      "konsultan IT Semarang",
-      "konsultan AI Indonesia",
-      "jasa pengembangan aplikasi",
+      "Zentratech services",
+      "IT consulting overview",
+      "AI consulting studio",
     ],
     alternates: {
       canonical: `${BASE}/id/service`,
@@ -39,19 +39,23 @@ export async function generateMetadata(): Promise<Metadata> {
         "x-default": `${BASE}/service`,
       },
     },
+    robots: {
+      index: false,
+      follow: false,
+    },
     openGraph: {
       url: `${BASE}/id/service`,
       type: "website",
-      title: `Layanan ${BRAND_NAME} – Konsultan IT & AI Semarang`,
+      title: `${BRAND_NAME} Services (Bahasa Version)`,
       description:
-        "Dari ide ke dampak — kami siap membantu discovery, delivery, dan optimalisasi produk digital Anda.",
+        "Bahasa-language service overview will be published soon. Explore the English version for full details.",
       images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
-      title: `Layanan ${BRAND_NAME} – Konsultan IT & AI Semarang`,
+      title: `${BRAND_NAME} Services (Bahasa Version)`,
       description:
-        "Dari ide ke dampak — cepat, aman, dan terukur untuk tim bisnis Anda.",
+        "Bahasa-language service overview will be published soon. Explore the English version for full details.",
       images: [ogImage],
     },
   };

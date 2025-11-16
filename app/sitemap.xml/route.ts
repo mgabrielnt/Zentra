@@ -4,7 +4,6 @@ import { SITE_URL } from "@/lib/seo/config";
 const PAGES = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/service", changefreq: "monthly", priority: "0.9" },
-  { path: "/id/service", changefreq: "monthly", priority: "0.9" },
   { path: "/project", changefreq: "monthly", priority: "0.8" },
   { path: "/insight", changefreq: "weekly", priority: "0.7" },
   { path: "/aboutus", changefreq: "yearly", priority: "0.6" },

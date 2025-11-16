@@ -2,18 +2,14 @@ import type { Metadata } from "next";
 import { BRAND_NAME, DEFAULT_OG_IMAGE, SITE_URL } from "@/lib/seo/config";
 
 const pageUrl = `${SITE_URL}/insight`;
-const title = "Insight Transformasi Digital & AI | Zentratech Semarang";
+const title = "Digital Transformation & AI Insights | Zentratech";
 const description =
-  "Wawasan seputar konsultasi IT, pengembangan software, dan AI dari tim Zentratech untuk membantu bisnis Indonesia.";
+  "Articles on IT consulting, software engineering, and applied AI from the Zentratech team.";
 
 export const metadata: Metadata = {
   title,
   description,
-  keywords: [
-    "insight IT Semarang",
-    "blog AI Indonesia",
-    "transformasi digital",
-  ],
+  keywords: ["IT consulting insights", "AI consulting blog", "digital transformation"],
   alternates: { canonical: pageUrl },
   openGraph: {
     type: "website",
@@ -26,7 +22,7 @@ export const metadata: Metadata = {
         url: `${SITE_URL}${DEFAULT_OG_IMAGE}`,
         width: 1200,
         height: 630,
-        alt: "Zentratech insight IT & AI Semarang",
+        alt: "Zentratech IT and AI insights",
       },
     ],
   },

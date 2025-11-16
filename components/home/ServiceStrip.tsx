@@ -103,9 +103,8 @@ export function ServiceStrip() {
               Lanes we actually ship in.
             </h2>
             <p className="mt-2 max-w-xl text-xs md:text-sm text-white/60">
-              We've identified three recent insights that are particularly
-              pertinent to driving forward the product, engineering, and AI
-              solutions you are building.
+              Product, engineering, and AI programs we lead end-to-end—from
+              strategy and design to build, launch, and growth.
             </p>
           </div>
 
