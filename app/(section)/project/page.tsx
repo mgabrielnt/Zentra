@@ -78,7 +78,7 @@ export default function ProjectPage() {
                mt-6 md:mt-10 
                text-center"
         >
-          <Reveal mode="mount">
+          <Reveal>
             <h1 className="bg-gradient-to-b from-white to-white/80 bg-clip-text text-3xl font-semibold text-transparent md:text-4xl lg:text-5xl">
               {BRAND_NAME} digital product & AI project portfolio
             </h1>
