@@ -53,7 +53,7 @@ export const ContentProjectData: ContentProject = {
   title: 'BKI Dashboard',
   category: 'DASHBOARD',
   description:
-    'An advanced administrative dashboard developed for Biro Klasifikasi Indonesia (BKI) to centralize data management, monitor organizational performance, and enhance decision-making processes. The platform provides real-time insights into financial reports, staff activities, and operational efficiency through an integrated visual dashboard and management tools.',
+    'An advanced administrative dashboard developed for Biro Klasifikasi (BKI) to centralize data management, monitor organizational performance, and enhance decision-making processes. The platform provides real-time insights into financial reports, staff activities, and operational efficiency through an integrated visual dashboard and management tools.',
   backgroundImage: '/project/bki/PosterBKITanpaTulisan.png',
   image: '/project/bki/PosterBKITanpaTulisan.png',
   overview: {
@@ -80,10 +80,10 @@ export const ContentProjectData: ContentProject = {
     'MySQL',
     'Tailwind CSS',
   ],
-  client: 'Biro Klasifikasi Indonesia',
+  client: 'Biro Klasifikasi (BKI)',
 };
 
-// --- PROYEK PERTAMA (Waskita) ---
+// --- PROJECT ONE (Waskita) ---
 export const ContentProjectData3: ContentProject = {
   id: '3',
   title: 'Waskita Project',
@@ -95,7 +95,7 @@ export const ContentProjectData3: ContentProject = {
   overview: {
     title: 'Project Overview',
     paragraphs: [
-      'Waskita is a digital education platform created to raise awareness and understanding of HIV & AIDS in Indonesia. The project addresses the lack of accessible and accurate information by providing interactive learning experiences for the general public.',
+      'Waskita is a digital education platform created to raise awareness and understanding of HIV & AIDS for communities that lack accessible and accurate information. The project addresses the need for trustworthy guidance by providing interactive learning experiences for the general public.',
       'The system features multiple modules including quizzes for self-evaluation, article libraries with reliable sources, and video learning sessions designed to make health education engaging and inclusive.',
       'In addition to being user-oriented, Waskita also includes an administrative dashboard where content managers can easily update quizzes, manage learning materials, and oversee user engagement analytics. This makes Waskita both a public educational tool and a professional management system for long-term sustainability.',
     ],
@@ -118,20 +118,20 @@ export const ContentProjectData3: ContentProject = {
   ],
 };
 
-// --- PROYEK KEDUA (PKPRI) ---
+// --- PROJECT TWO (PKPRI) ---
 export const ContentProjectData4: ContentProject = {
   id: '4',
   title: 'PKPRI',
   category: 'COMPANY PROFILE',
   description:
-    'A professional and informative company profile website built for PKPRI (Pusat Koperasi Pegawai Republik Indonesia). This platform highlights the organization’s vision, structure, and services while presenting its long-standing contribution to Indonesian cooperative development. Designed with modern UI/UX principles, the website serves as an official digital identity and communication channel for members and partners across regions.',
+    'A professional and informative company profile website built for PKPRI (National Civil Servant Cooperative Center). This platform highlights the organization’s vision, structure, and services while presenting its long-standing contribution to cooperative development nationwide. Designed with modern UI/UX principles, the website serves as an official digital identity and communication channel for members and partners across regions.',
   backgroundImage: '/project/pkpri/PosterPKPRITanpaTulisan.png',
   image: '/project/pkpri/PosterPKPRITanpaTulisan.png',
   overview: {
     title: 'Project Overview',
     paragraphs: [
       'The PKPRI website is a digital transformation initiative aimed at modernizing how cooperatives present and communicate their activities. It centralizes essential information about organizational structure, services, events, and cooperative programs into one cohesive platform.',
-      'The website provides visitors with a clear navigation experience, offering sections for history, achievements, board members, and cooperative events, allowing users to understand PKPRI’s contributions to Indonesia’s economic and social sectors.',
+      'The website provides visitors with a clear navigation experience, offering sections for history, achievements, board members, and cooperative events, allowing users to understand PKPRI’s contributions to national economic and social sectors.',
       'Additionally, the platform supports transparency and credibility by including regularly updated content such as announcements, photo galleries, and contact information, ensuring effective engagement between the organization and the community.',
     ],
   },
@@ -146,9 +146,9 @@ export const ContentProjectData4: ContentProject = {
   technologies: ['Next.js', 'React.js', 'Tailwind CSS', 'Vercel'],
 };
 
-// --- PROYEK KETIGA (BKI) ---
+// --- PROJECT THREE (BKI) ---
 
-// --- PROYEK KEEMPAT (Mlokomanis) ---
+// --- PROJECT FOUR (Mlokomanis) ---
 export const ContentProjectData5: ContentProject = {
   id: '5',
   title: 'Mlokomanis Village Landing Page',
@@ -176,7 +176,7 @@ export const ContentProjectData5: ContentProject = {
   technologies: ['Next.js', 'Tailwind CSS', 'Framer Motion', 'Vercel'],
 };
 
-// --- Array semua proyek ---
+// --- Aggregate all projects ---
 const projects: ContentProject[] = [
   ContentProjectData,
   ContentProjectData2,
@@ -185,17 +185,17 @@ const projects: ContentProject[] = [
   ContentProjectData5,
 ];
 
-// Export function to get project by ID
+// Export helper to get project by ID
 export function getProjectContentById(id: string): ContentProject | undefined {
   return projects.find(project => project.id.toString() === id);
 }
 
-// Export function to get all projects
+// Export helper to get all projects
 export function getAllProjects(): ContentProject[] {
   return projects;
 }
 
-// Export function to get specific project data (mungkin ini tidak perlu lagi)
+// Export helper to get the default project data (legacy helper for backward compatibility)
 export function getContentProjectData(): ContentProject {
   return ContentProjectData;
 }

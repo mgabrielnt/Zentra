@@ -46,7 +46,7 @@ export default function InsightHero() {
       <div className="relative z-10 mx-auto max-w-5xl px-6 pb-24 sm:pb-32 md:pb-40 lg:pb-56 pt-24 md:pt-32 mt-6 md:mt-10 text-center">
         <Reveal>
           <h1 className="bg-gradient-to-b from-white to-white/80 bg-clip-text text-3xl font-semibold text-transparent md:text-4xl lg:text-5xl">
-            Insight Transformasi Digital & AI dari Zentratech Semarang
+            Digital transformation & AI insights from Zentratech
           </h1>
           <div className="mt-4 flex flex-col items-center gap-3">
             <LayoutTextFlip
@@ -62,8 +62,8 @@ export default function InsightHero() {
               duration={2600}
             />
             <p className={`${inter.className} text-base text-white/80 drop-shadow-[0_1px_0_rgba(0,0,0,0.35)]`}>
-              Perspektif lokal tentang AI, data, cloud, dan praktik pengembangan
-              yang relevan untuk bisnis di Indonesia.
+              Practical takes on AI, data, cloud, and engineering practices that
+              help leaders ship better digital products.
             </p>
           </div>
         </Reveal>

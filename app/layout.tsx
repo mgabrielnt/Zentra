@@ -19,16 +19,15 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-// ✅ gunakan domain kanonik tanpa www
+// SEO: always reference the canonical domain without prefixes.
 const siteUrl = new URL(SITE_URL);
 const siteName = BRAND_NAME;
 
-// ✅ default title jelas + geo
-const defaultTitle = `${siteName} – Konsultan IT & AI Semarang`;
+// SEO: brand-forward default metadata in English (geo handled on About page only).
+const defaultTitle = `${siteName} – Digital Product, IT & AI Consulting Studio`;
 
-// ✅ sebut kedua nama + lokasi untuk sinyal brand + lokal
 const description =
-  "Zentratech (Zentra) adalah konsultan IT dan studio AI dari Semarang, Indonesia yang merancang website, aplikasi, headless commerce, dan solusi machine learning dengan fokus pada performa dan hasil bisnis.";
+  "Zentratech is an IT consulting and AI studio helping teams plan, design, and ship fast web apps, headless commerce builds, and pragmatic machine-learning systems.";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -43,23 +42,21 @@ export const metadata: Metadata = {
   metadataBase: siteUrl,
   title: {
     default: defaultTitle,
-    template: `%s | ${siteName} Digital Studio`,
+    template: `%s | ${siteName}`,
   },
   description,
   keywords: [
     "Zentratech",
     "Zentra",
-    "konsultan IT Semarang",
-    "konsultan AI Semarang",
-    "software house Semarang",
-    "jasa pengembangan aplikasi",
-    "digital product studio Indonesia",
-    "AI development Indonesia",
-    "web development agency",
-    "mobile app development",
-    "UI UX design",
-    "headless commerce",
+    "IT consulting services",
+    "AI consulting company",
+    "digital product studio",
+    "software development services",
+    "headless commerce development",
     "machine learning consulting",
+    "custom web applications",
+    "cloud migration consulting",
+    "product engineering team",
   ],
   authors: [{ name: siteName, url: siteUrl }],
   creator: siteName,
@@ -92,7 +89,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: defaultTitle,
     description,
-    creator: "@zentratech", // pastikan handle ini ada
+    creator: "@zentratech", // Ensure this handle exists once social accounts are finalised.
     images: [new URL(DEFAULT_OG_IMAGE, siteUrl).href],
   },
   robots: {
