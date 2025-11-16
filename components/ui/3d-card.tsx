@@ -100,7 +100,8 @@ export const CardBody = ({
   );
 };
 
-type CardItemProps = React.HTMLAttributes<HTMLDivElement> & {
+type CardItemBaseProps<T extends React.ElementType> = {
+  as?: T;
   children: React.ReactNode;
   className?: string;
   translateX?: number | string;
@@ -111,7 +112,11 @@ type CardItemProps = React.HTMLAttributes<HTMLDivElement> & {
   rotateZ?: number | string;
 };
 
-export const CardItem = ({
+type CardItemProps<T extends React.ElementType> = CardItemBaseProps<T> &
+  Omit<React.ComponentPropsWithoutRef<T>, keyof CardItemBaseProps<T>>;
+
+export const CardItem = <T extends React.ElementType = "div">({
+  as,
   children,
   className,
   translateX = 0,
@@ -121,8 +126,9 @@ export const CardItem = ({
   rotateY = 0,
   rotateZ = 0,
   ...rest
-}: CardItemProps) => {
-  const ref = useRef<HTMLDivElement | null>(null);
+}: CardItemProps<T>) => {
+  const Component = as ?? "div";
+  const ref = useRef<HTMLElement | null>(null);
   const [isMouseEntered] = useMouseEnter();
 
   const handleAnimations = useCallback(() => {
@@ -154,13 +160,13 @@ export const CardItem = ({
   }, [handleAnimations]);
 
   return (
-    <div
-      ref={ref}
+    <Component
+      ref={ref as React.Ref<Element>}
       className={cn("w-fit transition duration-200 ease-linear", className)}
       {...rest}
     >
       {children}
-    </div>
+    </Component>
   );
 };
 

@@ -12,6 +12,12 @@ import {
   SITE_URL,
 } from "@/lib/seo/config";
 
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
 // SEO: always reference the canonical domain without prefixes.
 const siteUrl = new URL(SITE_URL);
 const siteName = BRAND_NAME;

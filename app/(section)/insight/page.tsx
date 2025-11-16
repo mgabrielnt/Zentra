@@ -49,7 +49,10 @@ function JsonLd() {
 
 export default function InsightPage() {
   return (
-    <main className="min-h-screen bg-black" aria-label="Zentratech insights">
+    <main
+      className={`min-h-screen bg-black ${inter.variable} ${spaceGrotesk.variable}`}
+      aria-label="Zentratech insights"
+    >
       <ProgressBar />
       <InsightHero />
 

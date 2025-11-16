@@ -4,13 +4,10 @@ import { useEffect, useRef } from 'react';
 type GL = Renderer['gl'];
 
 function debounce<T extends (...args: unknown[]) => void>(func: T, wait: number) {
-  // SEO/Perf: rely on the ambient setTimeout typing so the helper works in Node + browser runtimes.
-  let timeout: ReturnType<typeof setTimeout> | undefined;
+  let timeout: ReturnType<typeof window.setTimeout>;
   return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
-    if (timeout !== undefined) {
-      clearTimeout(timeout);
-    }
-    timeout = setTimeout(() => func.apply(this, args), wait);
+    window.clearTimeout(timeout);
+    timeout = window.setTimeout(() => func.apply(this, args), wait);
   };
 }
 
@@ -18,15 +15,15 @@ function lerp(p1: number, p2: number, t: number): number {
   return p1 + (p2 - p1) * t;
 }
 
-type BindableTarget = Record<string, unknown>;
+type BindableInstance = Record<string, unknown>;
 
-function autoBind<T extends object>(instance: T): void {
+function autoBind<T extends BindableInstance>(instance: T): void {
   const proto = Object.getPrototypeOf(instance);
   Object.getOwnPropertyNames(proto).forEach(key => {
     if (key !== 'constructor') {
-      const value = (instance as BindableTarget)[key];
+      const value = (instance as BindableInstance)[key];
       if (typeof value === 'function') {
-        (instance as BindableTarget)[key] = value.bind(instance);
+        (instance as BindableInstance)[key] = value.bind(instance);
       }
     }
   });

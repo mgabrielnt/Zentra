@@ -40,7 +40,9 @@ export default function AboutCTASection() {
                   ?
                 </h2>
 
-                <p className="mt-4 text-sm md:text-base leading-relaxed text-white/70">
+                <p
+                  className={`${spaceGrotesk.className} mt-4 text-sm md:text-base leading-relaxed text-white/70`}
+                >
                   We&apos;re a product, design, and AI studio that plugs directly
                   into your roadmap. No layers, no fluff—just people who ship
                   and care about the details.

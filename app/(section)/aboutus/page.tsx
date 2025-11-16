@@ -8,6 +8,19 @@ import DomeGallery from "@/components/aboutus/DomeGallery";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { BRAND_NAME, PRIMARY_LOCATION, SITE_URL } from "@/lib/seo/config";
 
+// Fonts
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-space-grotesk",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
+});
+
 function JsonLd() {
   const address = {
     "@type": "PostalAddress",
@@ -159,7 +172,7 @@ export default function AboutUsPage() {
 
   return (
     <main
-      className="min-h-screen bg-black"
+      className={`min-h-screen bg-black ${inter.variable} ${spaceGrotesk.variable}`}
       aria-label="About Zentratech – Digital Product and AI Consulting Studio"
     >
       {/* Top progress bar */}

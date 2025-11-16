@@ -55,7 +55,7 @@ export default function InsightHero() {
               ]}
               duration={2600}
             />
-            <p className="text-base text-white/80 drop-shadow-[0_1px_0_rgba(0,0,0,0.35)]">
+            <p className={`${inter.className} text-base text-white/80 drop-shadow-[0_1px_0_rgba(0,0,0,0.35)]`}>
               Practical takes on AI, data, cloud, and engineering practices that
               help leaders ship better digital products.
             </p>
