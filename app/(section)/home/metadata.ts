@@ -2,18 +2,18 @@ import type { Metadata } from "next";
 import { BRAND_NAME, DEFAULT_OG_IMAGE, SITE_URL } from "@/lib/seo/config";
 
 const pageUrl = SITE_URL;
-const title = "Konsultan IT & AI Semarang untuk Bisnis | Zentratech";
+const title = "IT Consulting, AI Engineering & Product Studio | Zentratech";
 const description =
-  "Zentratech membantu perusahaan di Semarang dan Indonesia merancang website, aplikasi, serta solusi AI yang cepat dan terukur.";
+  "Zentratech helps digital teams ship resilient web platforms, applied AI solutions, and headless commerce builds with measurable impact.";
 
-// SEO: Home metadata menegaskan kombinasi brand + keyword lokasi.
+// SEO: homepage stakes the brand on core consulting and delivery themes.
 export const metadata: Metadata = {
   title,
   description,
   keywords: [
-    "konsultan IT Semarang",
-    "konsultan AI Semarang",
-    "software house Semarang",
+    "IT consulting services",
+    "AI consulting company",
+    "custom software development",
     "Zentratech",
   ],
   alternates: { canonical: pageUrl },
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         url: `${SITE_URL}${DEFAULT_OG_IMAGE}`,
         width: 1200,
         height: 630,
-        alt: "Zentratech IT & AI consultant Semarang",
+        alt: "Zentratech IT and AI consulting studio",
       },
     ],
   },

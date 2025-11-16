@@ -11,7 +11,7 @@ export default function ProjectHome() {
     },
     {
       image: '/project/bki/PosterBKIDenganTulisani.png',
-      text: "Biro Klasifikasi Indonesia",
+      text: "Biro Klasifikasi (BKI)",
     },
     {
       image: '/project/waskita/PosterStophivaDenganTulisana.png',
@@ -59,7 +59,7 @@ export default function ProjectHome() {
 
             {/* Description */}
             <p className="text-sm leading-relaxed text-white/60 md:text-base">
-              Our digital products are more than just beautiful. We architect functional solutions designed to tackle core problems—driving meaningful impact and proven results.
+              Our digital products are more than just beautiful. We architect functional solutions designed to tackle core problems—driving meaningful impact and proven results for ambitious brands.
             </p>
           </motion.div>
 

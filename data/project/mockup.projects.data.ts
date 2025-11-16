@@ -6,7 +6,7 @@ export const projects: ProjectCard[] = [
     title: 'Astra Internasional',
     price: '$0',
     description:
-      'This website for monitoring performance AI', // 👈 Diperbarui
+      'This website for monitoring performance AI', // 👈 Updated
     image: '/project/astra/PosterAstraDenganTulisan.png',
     category: 'DASHBOARD',
     logoText: 'D',
@@ -18,10 +18,10 @@ export const projects: ProjectCard[] = [
   },
   {
     id: 2,
-    title: 'Biro Klasifikasi Indonesia',
+    title: 'Biro Klasifikasi (BKI)',
     price: '$0',
     description:
-      'Admin dashboard for tracking financial performance and staff metrics.', // 👈 Diperbarui
+      'Admin dashboard for tracking financial performance and staff metrics.', // 👈 Updated
     image: '/project/bki/PosterBKIDenganTulisani.png',
     category: 'DASHBOARD',
     logoText: 'D',
@@ -36,7 +36,7 @@ export const projects: ProjectCard[] = [
     title: 'Waskita Project',
     price: '$0',
     description:
-      'An educational platform for HIV/AIDS awareness with quizzes and articles.', // 👈 Diperbarui
+      'An educational platform for HIV/AIDS awareness with quizzes and articles.', // 👈 Updated
     image: '/project/waskita/PosterStophivaDenganTulisana.png',
     category: 'EDUCATION',
     logoText: 'E',
@@ -51,7 +51,7 @@ export const projects: ProjectCard[] = [
     title: 'PKPRI',
     price: '$0',
     description:
-      'Comprehensive company profile for Indonesian Cooperatives (PKPRI).', // 👈 Diperbarui
+      'Comprehensive company profile for the PKPRI cooperative network.', // 👈 Updated
     image: '/project/pkpri/PosterPKPRIDenganTulisan.png',
     category: 'COMPANY PROFILE',
     logoText: 'C',
@@ -66,7 +66,7 @@ export const projects: ProjectCard[] = [
     title: 'Landing Page Mlokomanis',
     price: '$0',
     description:
-      'A landing page designed to showcase the potential of Mlokomanis Village.', // 👈 Diperbarui
+      'A landing page designed to showcase the potential of Mlokomanis Village.', // 👈 Updated
     image: '/project/mlokomanis/PosterMlokomanisDenganTulisan.png',
     category: 'LANDING PAGES',
     logoText: 'L',
