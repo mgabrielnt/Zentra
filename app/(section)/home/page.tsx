@@ -139,12 +139,12 @@ export default function Home() {
           >
             <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/40 px-4 py-1 text-[11px] font-medium uppercase tracking-[0.24em] text-white/65 backdrop-blur">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-              Digital product & AI studio
+              IT Consulting and Solutions
             </div>
 
             <div className="mb-6 space-y-3">
               <h1 className="font-inter text-4xl font-semibold tracking-tight text-white md:text-5xl lg:text-6xl">
-                IT consulting & AI studio for modern teams
+                {/* IT consulting & AI studio for modern teams */}
               </h1>
               <TextType
                 as="p"

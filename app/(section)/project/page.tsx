@@ -80,11 +80,11 @@ export default function ProjectPage() {
         >
           <Reveal>
             <h1 className="bg-gradient-to-b from-white to-white/80 bg-clip-text text-3xl font-semibold text-transparent md:text-4xl lg:text-5xl">
-              {BRAND_NAME} digital product & AI project portfolio
+              {BRAND_NAME}  Project Portfolio
             </h1>
             <div className="mt-4 flex flex-col items-center gap-3">
               <LayoutTextFlip
-                text="Our projects cover"
+                text="We Made"
                 words={[
                   "Dashboard Analytics",
                   "UI/UX Design",
