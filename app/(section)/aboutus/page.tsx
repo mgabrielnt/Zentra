@@ -9,7 +9,6 @@ import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { BRAND_NAME, PRIMARY_LOCATION, SITE_URL } from "@/lib/seo/config";
 import { Space_Grotesk, Inter } from "next/font/google";  // ← Tambahkan ini
 
-
 // Fonts
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -39,7 +38,7 @@ function JsonLd() {
     legalName: BRAND_NAME,
     url: SITE_URL,
     description:
-      "Zentratech is a digital product, IT consulting, and AI studio focused on performant, accessible, and measurable outcomes.",
+      "Zentratech is a digital product, IT consulting, and AI studio focused on performant, accessible, and measurable outcomes. Zentratech combines expertise in AI engineering, web development, and IT consulting to help teams prototype and scale modern software.",
     logo: `${SITE_URL}/logoZentraFix.png`,
     foundingDate: "2022",
     sameAs: [
@@ -86,7 +85,7 @@ function JsonLd() {
     },
     name: "About Zentratech — Digital Product & AI Consulting Studio",
     description:
-      "Learn about Zentratech, a Semarang, Indonesia-based studio helping teams launch high-performance digital products and AI solutions.",
+      "Learn about Zentratech, a Semarang, Indonesia-based studio helping teams launch high-performance digital products and AI solutions. Keywords: Zentratech, IT consultant, jasa pembuatan AI, jasa pembuatan web, digital product, AI engineering.",
     breadcrumb: {
       "@type": "BreadcrumbList",
       itemListElement: [
@@ -241,6 +240,18 @@ export default function AboutUsPage() {
             </p>
           </Reveal>
 
+          {/* Tambahan SEO-friendly tanpa mengarah ke halaman layanan */}
+          <Reveal delay={0.14}>
+            <p className="mx-auto mt-4 max-w-2xl font-space-grotesk text-sm text-white/70">
+              As an IT consultant and product studio, Zentratech blends software engineering,
+              product design, and applied AI research to help teams explore new ideas. Our
+              portfolio emphasizes practical outcomes — from prototype experiments in AI
+              to scalable web platforms and integrations. Keywords we commonly align with
+              include: Zentratech, IT consultant, jasa pembuatan AI, jasa pembuatan web,
+              AI engineering, and web development.
+            </p>
+          </Reveal>
+
           <Reveal delay={0.18}>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <Link
@@ -283,10 +294,74 @@ export default function AboutUsPage() {
               for ambitious brands everywhere.
             </p>
           </Reveal>
+
+          <Reveal delay={0.16}>
+            <p className="mx-auto mt-6 max-w-2xl font-space-grotesk text-base text-white/70">
+              Our approach is research-driven and pragmatic. As an IT consultant and studio
+              focused on both AI and web, we invest in clear engineering practices, observability,
+              and user-centered design. That means combining experimentation in machine learning
+              and AI with strong foundations in web architecture and platform engineering. This
+              positioning lets Zentratech support discovery, prototyping, and long-term product
+              craft without duplicating the detail found on our services pages.
+            </p>
+          </Reveal>
         </div>
 
         {/* bottom seam */}
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-black" />
+      </section>
+
+      {/* ====================== EXPERTISE (SEO-RICH, NON-SERVICE) ====================== */}
+      <section className="relative bg-black px-6 py-16">
+        <div className="mx-auto max-w-6xl text-center">
+          <Reveal>
+            <h3 className="text-center bg-gradient-to-b from-white to-white/70 bg-clip-text font-inter text-2xl md:text-3xl font-semibold text-transparent">
+              Expertise & Focus
+            </h3>
+          </Reveal>
+          <Reveal delay={0.06}>
+            <p className="mx-auto mt-4 max-w-3xl text-center font-space-grotesk text-white/70">
+              Zentratech's work spans several domains that frequently overlap: applied AI
+              research and prototyping (jasa pembuatan AI), modern web engineering and progressive
+              web apps (jasa pembuatan web), platform reliability, and product strategy. We often
+              act as technical partners or IT consultants during discovery and early product
+              phases—helping teams make informed technical decisions while keeping product
+              outcomes central.
+            </p>
+          </Reveal>
+
+          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3">
+            <Reveal delay={0.12}>
+              <div className="rounded-2xl border border-white/10 p-6 text-left backdrop-blur-sm">
+                <h4 className="font-inter text-lg font-semibold text-white">AI & Research</h4>
+                <p className="mt-2 font-space-grotesk text-sm text-white/60">
+                  Experimentation in models, data pipelines, and applied ML that lead to tangible
+                  product improvements.
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.16}>
+              <div className="rounded-2xl border border-white/10 p-6 text-left backdrop-blur-sm">
+                <h4 className="font-inter text-lg font-semibold text-white">Web & Platforms</h4>
+                <p className="mt-2 font-space-grotesk text-sm text-white/60">
+                  Modern web apps, performance engineering, and long-running platform
+                  architecture — built for scale and maintainability.
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.20}>
+              <div className="rounded-2xl border border-white/10 p-6 text-left backdrop-blur-sm">
+                <h4 className="font-inter text-lg font-semibold text-white">Consulting & Strategy</h4>
+                <p className="mt-2 font-space-grotesk text-sm text-white/60">
+                  Practical IT consulting and technical leadership focused on prioritization,
+                  technical debt, and measurable outcomes.
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </div>
       </section>
 
       {/* ====================== DOME GALLERY ====================== */}
