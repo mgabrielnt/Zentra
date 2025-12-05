@@ -1,15 +1,30 @@
+// metadata.ts
 import type { Metadata } from "next";
 import { BRAND_NAME, DEFAULT_OG_IMAGE, SITE_URL } from "@/lib/seo/config";
 
 const pageUrl = `${SITE_URL}/aboutus`;
-const title = "About Zentratech – IT & AI Consulting Studio in Semarang, Indonesia";
+const title =
+  "Zentratech — Jasa IT Consultant, Pembuatan Website & AI Engineering | Semarang";
 const description =
-  "Meet Zentratech, an IT consulting and AI studio from Semarang, Indonesia focused on performant digital products, AI delivery, and measurable results.";
+  "Zentratech (Semarang) — Jasa IT consultant, pembuatan website, dan layanan AI engineering untuk startup & enterprise. Bangun produk digital yang cepat, aman, dan terukur.";
 
 export const metadata: Metadata = {
   title,
   description,
-  keywords: ["about Zentratech", "IT consulting studio", "AI consulting"],
+  // keywords membantu beberapa search engine; fokus pada longtail + lokasi
+  keywords: [
+    "Zentratech",
+    "jasa it consultant",
+    "jasa it consultant semarang",
+    "konsultan IT",
+    "jasa pembuatan website",
+    "pembuatan website semarang",
+    "jasa pembuatan AI",
+    "AI engineering",
+    "jasa pengembangan perangkat lunak",
+    "digital product studio",
+    "software development",
+  ],
   alternates: { canonical: pageUrl },
   openGraph: {
     type: "website",
