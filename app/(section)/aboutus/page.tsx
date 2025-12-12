@@ -7,37 +7,8 @@ import LiquidEther from "@/components/LiquidEther";
 import DomeGallery from "@/components/aboutus/DomeGallery";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { BRAND_NAME, PRIMARY_LOCATION, SITE_URL } from "@/lib/seo/config";
-import * as NextFonts from "next/font/google";
 
-/**
- * Font factory: try multiple possible export names so this file works with
- * different Next.js / @next/font typings across environments (spaceGrotesk, Space_Grotesk, etc).
- */
-function getFontFactory(...names: string[]) {
-  for (const n of names) {
-    // runtime lookup on imported module
-    const fn = (NextFonts as any)[n];
-    if (typeof fn === "function") return fn as (...args: any[]) => any;
-  }
-  // fallback: return a no-op that returns a shape with `.variable` to avoid runtime crash
-  return (_: any) => ({ variable: "" });
-}
-
-const SpaceGroteskFactory = getFontFactory("spaceGrotesk", "Space_Grotesk", "SpaceGrotesk");
-const InterFactory = getFontFactory("inter", "Inter");
-
-// Fonts
-const spaceGroteskFont = SpaceGroteskFactory({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-space-grotesk",
-});
-
-const interFont = InterFactory({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-inter",
-});
+// NOTE: we intentionally DO NOT import next/font/google here to avoid loader/type mismatch.
 
 function JsonLd() {
   const address = {
@@ -190,8 +161,14 @@ export default function AboutUsPage() {
 
   return (
     <main
-      className={`min-h-screen bg-black ${interFont.variable} ${spaceGroteskFont.variable}`}
+      // Use CSS variables (set in globals.css) to apply fonts site-wide.
+      className="min-h-screen bg-black"
       aria-label="About Zentratech – Digital Product and AI Consulting Studio"
+      style={{
+        // primary family fallback order: Inter then Space Grotesk then system fallbacks
+        fontFamily:
+          "var(--font-inter), var(--font-space-grotesk), system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial",
+      }}
     >
       {/* Top progress bar */}
       <motion.div
