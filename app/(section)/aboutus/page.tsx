@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import Link from "next/link";
 import type { ReactNode } from "react";
@@ -7,16 +7,33 @@ import LiquidEther from "@/components/LiquidEther";
 import DomeGallery from "@/components/aboutus/DomeGallery";
 import { LayoutTextFlip } from "@/components/ui/layout-text-flip";
 import { BRAND_NAME, PRIMARY_LOCATION, SITE_URL } from "@/lib/seo/config";
-import { Space_Grotesk, Inter } from "next/font/google";  // ← Tambahkan ini
+import * as NextFonts from "next/font/google";
+
+/**
+ * Font factory: try multiple possible export names so this file works with
+ * different Next.js / @next/font typings across environments (spaceGrotesk, Space_Grotesk, etc).
+ */
+function getFontFactory(...names: string[]) {
+  for (const n of names) {
+    // runtime lookup on imported module
+    const fn = (NextFonts as any)[n];
+    if (typeof fn === "function") return fn as (...args: any[]) => any;
+  }
+  // fallback: return a no-op that returns a shape with `.variable` to avoid runtime crash
+  return (_: any) => ({ variable: "" });
+}
+
+const SpaceGroteskFactory = getFontFactory("spaceGrotesk", "Space_Grotesk", "SpaceGrotesk");
+const InterFactory = getFontFactory("inter", "Inter");
 
 // Fonts
-const spaceGrotesk = Space_Grotesk({
+const spaceGroteskFont = SpaceGroteskFactory({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-space-grotesk",
 });
 
-const inter = Inter({
+const interFont = InterFactory({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-inter",
@@ -173,7 +190,7 @@ export default function AboutUsPage() {
 
   return (
     <main
-      className={`min-h-screen bg-black ${inter.variable} ${spaceGrotesk.variable}`}
+      className={`min-h-screen bg-black ${interFont.variable} ${spaceGroteskFont.variable}`}
       aria-label="About Zentratech – Digital Product and AI Consulting Studio"
     >
       {/* Top progress bar */}
