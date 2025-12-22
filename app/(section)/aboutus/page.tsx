@@ -71,7 +71,7 @@ function JsonLd() {
     isPartOf: {
       "@id": `${SITE_URL}#website`,
     },
-    name: "About Zentratechs — Digital Product & AI Consulting Studio",
+    name: "About Zentratech — Digital Product & AI Consulting Studio",
     description:
       "Learn about Zentratech, a Semarang, Indonesia-based studio helping teams launch high-performance digital products and AI solutions. Keywords: Zentratech, IT consultant, jasa pembuatan AI, jasa pembuatan web, digital product, AI engineering.",
     breadcrumb: {
